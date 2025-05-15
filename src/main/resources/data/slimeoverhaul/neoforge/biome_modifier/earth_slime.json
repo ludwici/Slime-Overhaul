@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#slimeoverhaul:entity_gen/is_earth_slime_biome",
+  "spawners" : {
+    "type": "slimeoverhaul:earth_slime",
+    "weight": 14,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}

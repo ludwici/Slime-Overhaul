@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "id": "slimeoverhaul:fire_slime_block"
+    },
+    "title": {
+      "translate": "advancements.slimeoverhaul.shining_slime.title"
+    },
+    "description": {
+      "translate": "advancements.slimeoverhaul.shining_slime.description"
+    },
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "slimeoverhaul:slimeoverhaul/earth_power",
+  "criteria": {
+    "make_a_slime_glow": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "#slimeoverhaul:slime_blocks"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "minecraft:glow_ink_sac"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "slimeoverhaul:earth_slime_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "slimeoverhaul:earth_slime_ball"
+  }
+}

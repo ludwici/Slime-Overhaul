@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:wind_charge"
+    },
+    "title": {
+      "translate": "advancements.slimeoverhaul.levitation_air_slime.title"
+    },
+    "description": {
+      "translate": "advancements.slimeoverhaul.levitation_air_slime.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "slimeoverhaul:slimeoverhaul/catch_slime",
+  "criteria": {
+    "kill_air_slime": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "slimeoverhaul:air_slime",
+          "effects": {
+            "minecraft:levitation": {}
+          }
+        }
+      }
+    }
+  }
+}

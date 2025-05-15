@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#slimeoverhaul:entity_gen/is_flame_slime_biome",
+  "spawners" : {
+    "type": "slimeoverhaul:flame_slime",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

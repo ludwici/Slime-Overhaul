@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "0": {
+      "tag": "slimeoverhaul:slime_ball_items"
+    },
+    "~": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "~~ ",
+    "~0 ",
+    "  ~"
+  ],
+  "result": {
+    "count": 2,
+    "id": "minecraft:lead"
+  }
+}
