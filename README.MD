@@ -1,6 +1,7 @@
-![](https://i.imgur.com/y5cW5yu.png)
+![](https://media.forgecdn.net/attachments/1190/403/so_logo_wide-png.png)
 
-This mod added some new slimes in your world!
+This mod added some new slimes in your world!  
+Feel free to leave your feedback in the comments
 
 ![versions](https://cf.way2muchnoise.eu/versions/1265614.svg)
 
@@ -37,7 +38,7 @@ This mod added some new slimes in your world!
 - They are most often found in Nether, but with a small chance of being found in the lava lakes of the Overworld
 - Damaged by water
 - Immune to fire
-- Can attack fire slimes
+- Can attack water slimes
 - Different sized slimes may react differently to a click with bucket in hand
 
 ## Potions with new effects  
@@ -58,17 +59,17 @@ The effect of this potion pushes the entity out of the lava
 <img src="https://i.imgur.com/9f0hckQ.png" width="200">
 
 ## Additional potions  
-Middle Fire Resistance:
-
-Middle Water Breathing:
+You can brew a Potion of Fire Resistance (5 min duration) from Potion of Fire Resistance (3 min duration) and Fire Slime Block  
+You can brew a Potion of Water Breathing (5 min duration) from Potion of Water Breathing (3 min duration) and Water Slime Block
 
 ## Glowing Slime
 You can use Glow Ink Sac on new slime blocks to make the blocks glow:  
 <img src="https://i.imgur.com/ntoRqlp.png" width="500">
 <img src="https://i.imgur.com/ndVPXc3.png" width="500">  
-(Use RMB with axe in main hand to scrape the ink off the block)
 
-## Earth power
+(Click RMB with axe in main hand to scrape the ink off the block)
+
+## Earth Power
 You can improve your shield with earth slime ball on anvil  
 <img src="https://i.imgur.com/v7tJHVN.png" width="500">
 
@@ -88,7 +89,7 @@ Q: Fabric port?
 A: There are no plans for this at the moment
 
 Q: More content?  
-A: Read my free post on patreon about my content plan
+A: Read my [free post](https://www.patreon.com/posts/slime-overhaul-1-129083951) on patreon about my content plan
 
 ---
 
