@@ -5,12 +5,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.monster.Slime;
@@ -19,6 +22,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
+
+import static com.ludwici.slimeoverhaul.Content.THUNDER_SLIME;
 
 public class AirSlime extends BaseSlime {
     public boolean doubleJumped = false;
@@ -63,10 +68,42 @@ public class AirSlime extends BaseSlime {
     }
 
     @Override
+    public void thunderHit(ServerLevel level, LightningBolt lightning) {
+        if (level.getDifficulty() != Difficulty.PEACEFUL) {
+            ThunderSlime slime = THUNDER_SLIME.get().create(level);
+            if (slime != null) {
+                slime.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                slime.finalizeSpawn(level, level.getCurrentDifficultyAt(slime.blockPosition()), MobSpawnType.CONVERSION, null);
+                slime.setSize(getSize(), true);
+                slime.setNoAi(this.isNoAi());
+
+                if (this.hasCustomName()) {
+                    slime.setCustomName(getCustomName());
+                    slime.setCustomNameVisible(isCustomNameVisible());
+                }
+
+                slime.setPersistenceRequired();
+                net.neoforged.neoforge.event.EventHooks.onLivingConvert(this, slime);
+                level.addFreshEntity(slime);
+                this.discard();
+            } else {
+                super.thunderHit(level, lightning);
+            }
+        } else {
+            super.thunderHit(level, lightning);
+        }
+    }
+
+    @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (source.getDirectEntity() instanceof WindCharge) {
+        if (source.is(DamageTypes.LIGHTNING_BOLT)) {
             return true;
         }
+
+        if (source.is(DamageTypes.WIND_CHARGE)) {
+            return true;
+        }
+
         return super.isInvulnerableTo(source);
     }
 
