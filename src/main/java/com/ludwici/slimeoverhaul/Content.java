@@ -20,7 +20,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
@@ -46,32 +45,32 @@ import java.util.function.ToIntFunction;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
 public class Content {
-    public static final CrumbSupplier<EntityType<AirSlime>>   AIR_SLIME   = EntityHelper.register("air_slime",   getSlimeFactory(AirSlime::new));
-    public static final CrumbSupplier<EntityType<WaterSlime>> WATER_SLIME = EntityHelper.register("water_slime", getSlimeFactory(WaterSlime::new).fireImmune());
-    public static final CrumbSupplier<EntityType<EarthSlime>> EARTH_SLIME = EntityHelper.register("earth_slime", getSlimeFactory(EarthSlime::new));
-    public static final CrumbSupplier<EntityType<FlameSlime>> FLAME_SLIME = EntityHelper.register("flame_slime", getSlimeFactory(FlameSlime::new).fireImmune());
-    public static final CrumbSupplier<EntityType<ThunderSlime>> THUNDER_SLIME = EntityHelper.register("thunder_slime",   getSlimeFactory(ThunderSlime::new));
+    public static final CrumbSupplier<EntityType<AirSlime>>     AIR_SLIME     = EntityHelper.register("air_slime",     getSlimeFactory(AirSlime::new));
+    public static final CrumbSupplier<EntityType<WaterSlime>>   WATER_SLIME   = EntityHelper.register("water_slime",   getSlimeFactory(WaterSlime::new).fireImmune());
+    public static final CrumbSupplier<EntityType<EarthSlime>>   EARTH_SLIME   = EntityHelper.register("earth_slime",   getSlimeFactory(EarthSlime::new));
+    public static final CrumbSupplier<EntityType<FlameSlime>>   FLAME_SLIME   = EntityHelper.register("flame_slime",   getSlimeFactory(FlameSlime::new).fireImmune());
+    public static final CrumbSupplier<EntityType<ThunderSlime>> THUNDER_SLIME = EntityHelper.register("thunder_slime", getSlimeFactory(ThunderSlime::new).fireImmune());
 
-    public static final CrumbSupplier<Item> AIR_SLIME_EGG   = ItemHelper.registerSpawnEgg(AIR_SLIME,   0x93ffff, 0x32adb7);
-    public static final CrumbSupplier<Item> WATER_SLIME_EGG = ItemHelper.registerSpawnEgg(WATER_SLIME, 0x20a7d4, 0x004799);
-    public static final CrumbSupplier<Item> EARTH_SLIME_EGG = ItemHelper.registerSpawnEgg(EARTH_SLIME, 0x6e362b, 0x24100b);
-    public static final CrumbSupplier<Item> FLAME_SLIME_EGG = ItemHelper.registerSpawnEgg(FLAME_SLIME, 0xdb5f2e, 0xb83209);
-    public static final CrumbSupplier<Item> THUNDER_SLIME_EGG = ItemHelper.registerSpawnEgg(THUNDER_SLIME,   0x93ffff, 0x32adb7);
+    public static final CrumbSupplier<Item> AIR_SLIME_EGG     = ItemHelper.registerSpawnEgg(AIR_SLIME,     0x93ffff, 0x32adb7);
+    public static final CrumbSupplier<Item> WATER_SLIME_EGG   = ItemHelper.registerSpawnEgg(WATER_SLIME,   0x20a7d4, 0x004799);
+    public static final CrumbSupplier<Item> EARTH_SLIME_EGG   = ItemHelper.registerSpawnEgg(EARTH_SLIME,   0x6e362b, 0x24100b);
+    public static final CrumbSupplier<Item> FLAME_SLIME_EGG   = ItemHelper.registerSpawnEgg(FLAME_SLIME,   0xdb5f2e, 0xb83209);
+    public static final CrumbSupplier<Item> THUNDER_SLIME_EGG = ItemHelper.registerSpawnEgg(THUNDER_SLIME, 0x93ffff, 0x32adb7);
 
     public static final CrumbSupplier<Item> WATER_SLIME_BUCKET = ItemHelper.register("water_slime_bucket", () -> new MobBucketItem(WATER_SLIME.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_AXOLOTL, (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
     public static final CrumbSupplier<Item> FIRE_SLIME_BUCKET  = ItemHelper.register("fire_slime_bucket",  () -> new MobBucketItem(FLAME_SLIME.get(), Fluids.LAVA, SoundEvents.BUCKET_EMPTY_AXOLOTL, (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
 
-    public static final CrumbSupplier<Item> AIR_SLIME_BALL   = ItemHelper.register("air_slime_ball",   () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> WATER_SLIME_BALL = ItemHelper.register("water_slime_ball", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> EARTH_SLIME_BALL = ItemHelper.register("earth_slime_ball", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> FIRE_SLIME_BALL  = ItemHelper.register("fire_slime_ball",  () -> new Item(new Item.Properties().fireResistant()));
-    public static final CrumbSupplier<Item> THUNDER_SLIME_BALL   = ItemHelper.register("thunder_slime_ball",   () -> new Item(new Item.Properties()));
+    public static final CrumbSupplier<Item> AIR_SLIME_BALL     = ItemHelper.register("air_slime_ball",     () -> new Item(new Item.Properties()));
+    public static final CrumbSupplier<Item> WATER_SLIME_BALL   = ItemHelper.register("water_slime_ball",   () -> new Item(new Item.Properties()));
+    public static final CrumbSupplier<Item> EARTH_SLIME_BALL   = ItemHelper.register("earth_slime_ball",   () -> new Item(new Item.Properties()));
+    public static final CrumbSupplier<Item> FIRE_SLIME_BALL    = ItemHelper.register("fire_slime_ball",    () -> new Item(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> THUNDER_SLIME_BALL = ItemHelper.register("thunder_slime_ball", () -> new Item(new Item.Properties()));
 
-    public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
-    public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block");
-    public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block");
-    public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK  = registerFireResistanceBlock("fire_slime_block", () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
-    public static final CrumbSupplier<Block> THUNDER_SLIME_BLOCK   = registerSlimeBlock("thunder_slime_block");
+    public static final CrumbSupplier<Block> AIR_SLIME_BLOCK     = registerSlimeBlock("air_slime_block");
+    public static final CrumbSupplier<Block> WATER_SLIME_BLOCK   = registerSlimeBlock("water_slime_block");
+    public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK   = registerSlimeBlock("earth_slime_block");
+    public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK    = registerFireResistanceBlock("fire_slime_block", () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
+    public static final CrumbSupplier<Block> THUNDER_SLIME_BLOCK = registerSlimeBlock("thunder_slime_block");
 
     public static final TagKey<EntityType<?>> SLIMES = TagHelper.entityType("slimes");
     public static final TagKey<EntityType<?>> ELEMENTAL_SLIMES = TagHelper.entityType("elemental_slimes");
