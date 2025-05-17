@@ -97,6 +97,10 @@ public class Content {
     public static final CrumbSupplier<Potion> WATER_ANTI_DEPTH_POTION = PotionHelper.register("water_anti_depth_potion", () -> new Potion(new MobEffectInstance(WATER_ANTI_DEPTH_EFFECT.getHolder(), 1200, 0)));
     public static final CrumbSupplier<Potion> KNOCKBACK_POTION = PotionHelper.register("knockback_potion", () -> new Potion(new MobEffectInstance(KNOCK_BACK_EFFECT.getHolder(), 1200, 0)));
     public static final CrumbSupplier<Potion> LAVA_ANTI_DEPTH_POTION = PotionHelper.register("lava_anti_depth_potion", () -> new Potion(new MobEffectInstance(LAVA_ANTI_DEPTH_EFFECT.getHolder(), 1200, 0)));
+    public static final CrumbSupplier<Potion> MIDDLE_JUMP_POTION = PotionHelper.register("middle_double_jump_potion", () -> new Potion("double_jump_potion", new MobEffectInstance(DOUBLE_JUMP_EFFECT.getHolder(), 3600)));
+    public static final CrumbSupplier<Potion> MIDDLE_WATER_ANTI_DEPTH_POTION = PotionHelper.register("middle_water_anti_depth_potion", () -> new Potion("water_anti_depth_potion", new MobEffectInstance(WATER_ANTI_DEPTH_EFFECT.getHolder(), 3600)));
+    public static final CrumbSupplier<Potion> MIDDLE_KNOCKBACK_POTION = PotionHelper.register("middle_knockback_potion", () -> new Potion("knockback_potion", new MobEffectInstance(KNOCK_BACK_EFFECT.getHolder(), 3600)));
+    public static final CrumbSupplier<Potion> MIDDLE_LAVA_ANTI_DEPTH_POTION = PotionHelper.register("middle_lava_anti_depth_potion", () -> new Potion("lava_anti_depth_potion", new MobEffectInstance(LAVA_ANTI_DEPTH_EFFECT.getHolder(), 3600)));
 
     public static final CrumbSupplier<Potion> MIDDLE_FIRE_RESISTANCE = PotionHelper.register("middle_fire_resistance", () -> new Potion("fire_resistance", new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 6000)));
     public static final CrumbSupplier<Potion> MIDDLE_WATER_BREATHING = PotionHelper.register("middle_water_breathing", () -> new Potion("water_breathing", new MobEffectInstance(MobEffects.WATER_BREATHING, 6000)));
