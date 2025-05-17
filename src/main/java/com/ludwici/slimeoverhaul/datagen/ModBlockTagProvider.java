@@ -23,6 +23,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(WATER_SLIME_BLOCK.get())
                 .add(EARTH_SLIME_BLOCK.get())
                 .add(FIRE_SLIME_BLOCK.get())
+                .add(THUNDER_SLIME_BLOCK.get())
         ;
     }
 }

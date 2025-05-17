@@ -66,12 +66,14 @@ public class SlimeOverhaulMod {
             event.registerEntityRenderer(WATER_SLIME.get(), BaseSlimeRenderer::new);
             event.registerEntityRenderer(EARTH_SLIME.get(), BaseSlimeRenderer::new);
             event.registerEntityRenderer(FLAME_SLIME.get(), BaseSlimeRenderer::new);
+            event.registerEntityRenderer(THUNDER_SLIME.get(), BaseSlimeRenderer::new);
         });
         EventHelper.addAttributeEvent(event -> {
             event.put(AIR_SLIME.get(), BaseSlime.createMobAttributes().build());
             event.put(WATER_SLIME.get(), BaseSlime.createMobAttributes().build());
             event.put(EARTH_SLIME.get(), EarthSlime.createMobAttributes().build());
             event.put(FLAME_SLIME.get(), BaseSlime.createMobAttributes().build());
+            event.put(THUNDER_SLIME.get(), BaseSlime.createMobAttributes().build());
         });
 
         Content.init();

@@ -39,11 +39,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         slimeBlockRecipe(WATER_SLIME_BLOCK, WATER_SLIME_BALL, arg);
         slimeBlockRecipe(EARTH_SLIME_BLOCK, EARTH_SLIME_BALL, arg);
         slimeBlockRecipe(FIRE_SLIME_BLOCK, FIRE_SLIME_BALL, arg);
+        slimeBlockRecipe(THUNDER_SLIME_BLOCK, THUNDER_SLIME_BALL, arg);
 
         slimeBallRecipe(AIR_SLIME_BALL, AIR_SLIME_BLOCK, arg);
         slimeBallRecipe(WATER_SLIME_BALL, WATER_SLIME_BLOCK, arg);
         slimeBallRecipe(EARTH_SLIME_BALL, EARTH_SLIME_BLOCK, arg);
         slimeBallRecipe(FIRE_SLIME_BALL, FIRE_SLIME_BLOCK, arg);
+        slimeBallRecipe(THUNDER_SLIME_BALL, THUNDER_SLIME_BLOCK, arg);
 
         bannerPatternRecipe(PATTERN_AIR_SLIME_SIGN, AIR_SLIME_BLOCK, arg);
         bannerPatternRecipe(PATTERN_WATER_SLIME_SIGN, WATER_SLIME_BLOCK, arg);

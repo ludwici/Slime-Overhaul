@@ -21,11 +21,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         spawnEggItem(WATER_SLIME_EGG.get());
         spawnEggItem(EARTH_SLIME_EGG.get());
         spawnEggItem(FLAME_SLIME_EGG.get());
+        spawnEggItem(THUNDER_SLIME_EGG.get());
 
         basicItem(AIR_SLIME_BALL.get());
         basicItem(WATER_SLIME_BALL.get());
         basicItem(EARTH_SLIME_BALL.get());
         basicItem(FIRE_SLIME_BALL.get());
+        basicItem(THUNDER_SLIME_BALL.get());
 
         basicItem(WATER_SLIME_BUCKET.get());
         basicItem(FIRE_SLIME_BUCKET.get());

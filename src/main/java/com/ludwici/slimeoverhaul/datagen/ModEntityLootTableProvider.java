@@ -42,6 +42,7 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
         slimeLoot(WATER_SLIME, WATER_SLIME_BALL);
         slimeLoot(EARTH_SLIME, EARTH_SLIME_BALL);
         slimeLoot(FLAME_SLIME, FIRE_SLIME_BALL);
+        slimeLoot(THUNDER_SLIME, THUNDER_SLIME_BALL);
     }
 
     private <T extends Entity> void slimeLoot(CrumbSupplier<EntityType<T>> entity, CrumbSupplier<Item> loot) {

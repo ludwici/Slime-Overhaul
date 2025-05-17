@@ -3,11 +3,13 @@
   "entity.slimeoverhaul.water_slime": "Водный слизень",
   "entity.slimeoverhaul.earth_slime": "Земляной слизень",
   "entity.slimeoverhaul.flame_slime": "Огненный слизень",
+  "entity.slimeoverhaul.thunder_slime": "Грозовой слизень",
 
   "item.slimeoverhaul.air_slime_spawn_egg": "Яйцо призыва воздушного слизня",
   "item.slimeoverhaul.water_slime_spawn_egg": "Яйцо призыва водного слизня",
   "item.slimeoverhaul.earth_slime_spawn_egg": "Яйцо призыва земляного слизня",
   "item.slimeoverhaul.flame_slime_spawn_egg": "Яйцо призыва огненного слизня",
+  "item.slimeoverhaul.thunder_slime_spawn_egg": "Яйцо призыва грозового слизня",
 
   "item.slimeoverhaul.water_slime_bucket": "Водный слизень в ведре",
   "item.slimeoverhaul.fire_slime_bucket": "Огненный слизень в ведре",
@@ -16,6 +18,7 @@
   "item.slimeoverhaul.water_slime_ball": "Сгусток водной слизи",
   "item.slimeoverhaul.earth_slime_ball": "Сгусток земляной слизи",
   "item.slimeoverhaul.fire_slime_ball": "Сгусток огненной слизи",
+  "item.slimeoverhaul.thunder_slime_ball": "Сгусток грозовой слизи",
 
   "item.slimeoverhaul.banner_pattern_slime": "Узор флага",
   "item.slimeoverhaul.banner_pattern_slime.desc": "Слизень",
@@ -136,6 +139,7 @@
   "block.slimeoverhaul.water_slime_block": "Блок водной слизи",
   "block.slimeoverhaul.earth_slime_block": "Блок земляной слизи",
   "block.slimeoverhaul.fire_slime_block": "Блок огненной слизи",
+  "block.slimeoverhaul.thunder_slime_block": "Блок грозовой слизи",
 
   "effect.slimeoverhaul.double_jump": "Двойной прыжок",
   "effect.slimeoverhaul.water_anti_depth": "Водная антиглубина",

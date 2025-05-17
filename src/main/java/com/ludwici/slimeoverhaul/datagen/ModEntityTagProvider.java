@@ -28,11 +28,13 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
         tag(SLIMES).add(WATER_SLIME.get());
         tag(SLIMES).add(EARTH_SLIME.get());
         tag(SLIMES).add(FLAME_SLIME.get());
+        tag(SLIMES).add(THUNDER_SLIME.get());
 
         tag(ELEMENTAL_SLIMES).add(AIR_SLIME.get());
         tag(ELEMENTAL_SLIMES).add(WATER_SLIME.get());
         tag(ELEMENTAL_SLIMES).add(EARTH_SLIME.get());
         tag(ELEMENTAL_SLIMES).add(FLAME_SLIME.get());
+        tag(ELEMENTAL_SLIMES).add(THUNDER_SLIME.get());
 
         tag(EntityTypeTags.AQUATIC).add(WATER_SLIME.get()).replace(false);
         tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER).add(WATER_SLIME.get()).replace(false);

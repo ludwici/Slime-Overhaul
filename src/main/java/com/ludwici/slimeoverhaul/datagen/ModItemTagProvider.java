@@ -27,6 +27,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(WATER_SLIME_BALL.get())
                 .add(EARTH_SLIME_BALL.get())
                 .add(FIRE_SLIME_BALL.get())
+                .add(THUNDER_SLIME_BALL.get())
         ;
     }
 }

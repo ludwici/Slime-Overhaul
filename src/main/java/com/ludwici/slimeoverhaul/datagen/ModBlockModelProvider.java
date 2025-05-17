@@ -24,6 +24,7 @@ public class ModBlockModelProvider extends BlockStateProvider {
         slimeBlockWithItem(WATER_SLIME_BLOCK.get());
         slimeBlockWithItem(EARTH_SLIME_BLOCK.get());
         slimeBlockWithItem(FIRE_SLIME_BLOCK.get());
+        slimeBlockWithItem(THUNDER_SLIME_BLOCK.get());
     }
 
     private void slimeBlockWithItem(Block block) {
