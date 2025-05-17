@@ -113,13 +113,19 @@ public class Content {
 
     public static void registerPotions(RegisterBrewingRecipesEvent event) {
         var builder = event.getBuilder();
-        builder.addMix(Potions.AWKWARD, AIR_SLIME_BLOCK.get().asItem(), DOUBLE_JUMP_POTION.getHolder());
-        builder.addMix(Potions.AWKWARD, WATER_SLIME_BLOCK.get().asItem(), WATER_ANTI_DEPTH_POTION.getHolder());
-        builder.addMix(Potions.AWKWARD, EARTH_SLIME_BLOCK.get().asItem(), KNOCKBACK_POTION.getHolder());
-        builder.addMix(Potions.AWKWARD, FIRE_SLIME_BLOCK.get().asItem(), LAVA_ANTI_DEPTH_POTION.getHolder());
 
-        builder.addMix(Potions.FIRE_RESISTANCE, FIRE_SLIME_BLOCK.get().asItem(), MIDDLE_FIRE_RESISTANCE.getHolder());
-        builder.addMix(Potions.WATER_BREATHING, WATER_SLIME_BLOCK.get().asItem(), MIDDLE_WATER_BREATHING.getHolder());
+        PotionHelper.addMix(builder, Potions.AWKWARD, AIR_SLIME_BLOCK, DOUBLE_JUMP_POTION);
+        PotionHelper.addMix(builder, Potions.AWKWARD, WATER_SLIME_BLOCK, WATER_ANTI_DEPTH_POTION);
+        PotionHelper.addMix(builder, Potions.AWKWARD, EARTH_SLIME_BLOCK, KNOCKBACK_POTION);
+        PotionHelper.addMix(builder, Potions.AWKWARD, FIRE_SLIME_BLOCK, LAVA_ANTI_DEPTH_POTION);
+
+        PotionHelper.addMix(builder, Potions.FIRE_RESISTANCE, FIRE_SLIME_BLOCK, MIDDLE_FIRE_RESISTANCE);
+        PotionHelper.addMix(builder, Potions.WATER_BREATHING, FIRE_SLIME_BLOCK, MIDDLE_WATER_BREATHING);
+
+        PotionHelper.addMix(builder, DOUBLE_JUMP_POTION, THUNDER_SLIME_BLOCK, MIDDLE_JUMP_POTION);
+        PotionHelper.addMix(builder, WATER_ANTI_DEPTH_POTION, THUNDER_SLIME_BLOCK, MIDDLE_WATER_ANTI_DEPTH_POTION);
+        PotionHelper.addMix(builder, KNOCKBACK_POTION, THUNDER_SLIME_BLOCK, MIDDLE_KNOCKBACK_POTION);
+        PotionHelper.addMix(builder, LAVA_ANTI_DEPTH_POTION, THUNDER_SLIME_BLOCK, MIDDLE_LAVA_ANTI_DEPTH_POTION);
     }
 
     public static void registerAnvilEvent(AnvilUpdateEvent event) {
