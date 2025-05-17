@@ -10,6 +10,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.Level;
@@ -43,12 +44,17 @@ public class EarthSlime extends BaseSlime {
     public void setSize(int i, boolean bl) {
         super.setSize(i, bl);
         int j = Mth.clamp(i, 1, 127);
-        double health = j * j;
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(health + health / 2);
+        double health = j * j * 2 + j * 2;
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(health);
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue((double)(0.2F + 0.1F * (float)j) * 0.7F);
         if (bl) {
             this.setHealth(this.getMaxHealth());
         }
+    }
+
+    public static AttributeSupplier.Builder createMobAttributes() {
+        return BaseSlime.createMobAttributes()
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.8);
     }
 
     public static boolean checkSpawnRules(EntityType<EarthSlime> type, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {

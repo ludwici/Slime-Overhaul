@@ -3,6 +3,7 @@ package com.ludwici.slimeoverhaul;
 import com.ludwici.crumbslib.api.*;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
+import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -67,7 +68,7 @@ public class SlimeOverhaulMod {
         EventHelper.addAttributeEvent(event -> {
             event.put(AIR_SLIME.get(), BaseSlime.createMobAttributes().build());
             event.put(WATER_SLIME.get(), BaseSlime.createMobAttributes().build());
-            event.put(EARTH_SLIME.get(), BaseSlime.createMobAttributes().build());
+            event.put(EARTH_SLIME.get(), EarthSlime.createMobAttributes().build());
             event.put(FLAME_SLIME.get(), BaseSlime.createMobAttributes().build());
         });
 
