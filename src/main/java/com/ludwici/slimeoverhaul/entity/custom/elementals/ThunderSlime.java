@@ -4,26 +4,32 @@ import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
 public class ThunderSlime extends BaseSlime {
+    BlockPos anchorPoint = BlockPos.ZERO;
+
     public ThunderSlime(EntityType<? extends Slime> entityType, Level level) {
         super(entityType, level);
     }
@@ -43,7 +49,38 @@ public class ThunderSlime extends BaseSlime {
         this.goalSelector.addGoal(5, getFloatGoal());
         this.goalSelector.addGoal(7, getAttackGoal());
         this.goalSelector.addGoal(7, getDirectionGoal());
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, livingEntity -> Math.abs(((LivingEntity)livingEntity).getY() - this.getY()) <= (double)4.0F));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, livingEntity -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0F));
+    }
+
+    public static AttributeSupplier.Builder createMobAttributes() {
+        return BaseSlime.createMobAttributes()
+                .add(Attributes.FOLLOW_RANGE, 100);
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        this.anchorPoint = this.blockPosition().above(5);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("AX")) {
+            anchorPoint = new BlockPos(
+                    compound.getInt("AX"),
+                    compound.getInt("AY"),
+                    compound.getInt("AZ")
+            );
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("AX", anchorPoint.getX());
+        compound.putInt("AY", anchorPoint.getY());
+        compound.putInt("AZ", anchorPoint.getZ());
     }
 
     @Override
@@ -189,7 +226,8 @@ public class ThunderSlime extends BaseSlime {
     }
 
     protected static class SlimeFloatGoal extends Goal {
-        private final ThunderSlime slime;
+        protected final ThunderSlime slime;
+        protected float distance;
 
         public SlimeFloatGoal(ThunderSlime slime) {
             this.slime = slime;
@@ -218,10 +256,37 @@ public class ThunderSlime extends BaseSlime {
         @Override
         public void start() {
             RandomSource randomsource = slime.getRandom();
+            distance = 5.0f + randomsource.nextFloat() * 10.0f;
             double d0 = slime.getX() + (double)((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
             double d1 = slime.getY() + (double)((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
             double d2 = slime.getZ() + (double)((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
             slime.getMoveControl().setWantedPosition(d0, d1, d2, 1.0);
+            selectNext();
+        }
+
+        @Override
+        public void tick() {
+            if (slime.random.nextInt(adjustedTickDelay(250)) == 0) {
+                distance++;
+                if (distance > 15.0f) {
+                    distance = 5.0f;
+                }
+            }
+            if (!slime.anchorPoint.closerThan(slime.blockPosition(), distance)) {
+                slime.getMoveControl().setWantedPosition(
+                        slime.anchorPoint.getX(),
+                        slime.anchorPoint.getY(),
+                        slime.anchorPoint.getZ(),
+                        1.0
+                );
+            }
+            System.out.println(slime.blockPosition() + "|" + slime.anchorPoint + "|" + distance);
+        }
+
+        protected void selectNext() {
+            if (BlockPos.ZERO.equals(slime.anchorPoint)) {
+                slime.anchorPoint = slime.blockPosition();
+            }
         }
     }
 }
