@@ -4,6 +4,7 @@ import com.ludwici.crumbslib.api.*;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
+import com.ludwici.slimeoverhaul.entity.custom.elementals.ThunderSlime;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -73,7 +74,7 @@ public class SlimeOverhaulMod {
             event.put(WATER_SLIME.get(), BaseSlime.createMobAttributes().build());
             event.put(EARTH_SLIME.get(), EarthSlime.createMobAttributes().build());
             event.put(FLAME_SLIME.get(), BaseSlime.createMobAttributes().build());
-            event.put(THUNDER_SLIME.get(), BaseSlime.createMobAttributes().build());
+            event.put(THUNDER_SLIME.get(), ThunderSlime.createMobAttributes().build());
         });
 
         Content.init();
