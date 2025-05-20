@@ -249,7 +249,7 @@ public class BaseSlime extends Slime {
             if (livingEntity == null) {
                 return false;
             } else {
-                return !this.slime.canAttack(livingEntity) ? false : this.slime.getMoveControl() instanceof SlimeMoveControl;
+                return this.slime.canAttack(livingEntity) && this.slime.getMoveControl() instanceof SlimeMoveControl;
             }
         }
 

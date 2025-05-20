@@ -163,7 +163,6 @@ public class WaterSlime extends BaseSlime implements Bucketable {
     }
 
     class MoveToFireGoal extends Goal {
-
         WaterSlime slime;
         private int nextRandomizeTime;
 
@@ -176,8 +175,7 @@ public class WaterSlime extends BaseSlime implements Bucketable {
             if (isTiny()) {
                 return false;
             }
-            BlockPos near = findFireBlock(this.slime.blockPosition(), 10);
-            this.slime.fireBlockPos = near;
+            this.slime.fireBlockPos = findFireBlock(this.slime.blockPosition(), 10);
             return this.slime.fireBlockPos != null;
         }
 

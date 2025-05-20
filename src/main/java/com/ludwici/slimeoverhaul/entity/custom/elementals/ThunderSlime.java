@@ -194,7 +194,6 @@ public class ThunderSlime extends BaseSlime {
         public SlimeFloatGoal(ThunderSlime slime) {
             this.slime = slime;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-
         }
 
         @Override

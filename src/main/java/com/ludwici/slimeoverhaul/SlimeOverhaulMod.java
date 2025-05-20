@@ -157,16 +157,16 @@ public class SlimeOverhaulMod {
                 DamageContainer container = event.getDamageContainer();
 
                 DamageSource damageSource = container.getSource();
-                if (damageSource.getDirectEntity() instanceof Projectile projectile) {
+//                if (damageSource.getDirectEntity() instanceof Projectile projectile) {
+//
+//                } else {
+                if (damageSource.isDirect()) {
+                    var target = damageSource.getDirectEntity();
 
-                } else {
-                    if (damageSource.isDirect()) {
-                        var target = damageSource.getDirectEntity();
-
-                        DamageSource newDamage = new DamageSource(damageSource.typeHolder(), player, player);
-                        target.hurt(newDamage, container.getOriginalDamage());
-                    }
+                    DamageSource newDamage = new DamageSource(damageSource.typeHolder(), player, player);
+                    target.hurt(newDamage, container.getOriginalDamage());
                 }
+//                }
 
                 if (bounce > 0) {
                     tag.putInt("bounce", bounce);
