@@ -27,6 +27,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
@@ -44,7 +45,7 @@ import static com.ludwici.slimeoverhaul.Content.*;
 @Mod(SlimeOverhaulMod.MODID)
 public class SlimeOverhaulMod {
     public static final String MODID = "slimeoverhaul";
-    private static Minecraft minecraft = Minecraft.getInstance();
+    private static Minecraft minecraft;
 
     public SlimeOverhaulMod(IEventBus modEventBus, ModContainer modContainer) {
         ModHelper.init(modEventBus, NeoForge.EVENT_BUS, MODID);
@@ -73,6 +74,11 @@ public class SlimeOverhaulMod {
         });
 
         Content.init();
+
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::handleKeyBindings);
+        }
+
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::handleKeyBindings);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onKnock);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
@@ -186,6 +192,10 @@ public class SlimeOverhaulMod {
     private static boolean canDoubleJump = true;
 
     private static void handleKeyBindings(InputEvent.Key event) {
+        if (minecraft == null) {
+            minecraft = Minecraft.getInstance();
+        }
+
         if (minecraft.player == null) {
             return;
         }
