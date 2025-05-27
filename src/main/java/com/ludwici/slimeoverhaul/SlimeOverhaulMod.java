@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -79,7 +80,6 @@ public class SlimeOverhaulMod {
             NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::handleKeyBindings);
         }
 
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::handleKeyBindings);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onKnock);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTooltip);
@@ -220,10 +220,6 @@ public class SlimeOverhaulMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-//            EntityRenderers.register(AIR_SLIME.get(), BaseSlimeRenderer::new);
-//            EntityRenderers.register(WATER_SLIME.get(), BaseSlimeRenderer::new);
-//            EntityRenderers.register(EARTH_SLIME.get(), BaseSlimeRenderer::new);
-//            EntityRenderers.register(FLAME_SLIME.get(), BaseSlimeRenderer::new);
         }
     }
 }

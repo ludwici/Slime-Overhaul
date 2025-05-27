@@ -56,14 +56,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("###")
                 .pattern("###")
                 .define('#', from.get())
-                .unlockedBy("has_" + BuiltInRegistries.ITEM.getKey(from.get()).getPath(), has(from.get()))
+                .unlockedBy(getHasName(from.get()), has(from.get()))
                 .save(arg);
     }
 
     private void slimeBallRecipe(CrumbSupplier<Item> result, CrumbSupplier<Block> from, RecipeOutput arg) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result.get(), 9)
                 .requires(from.get())
-                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(from.get()).getPath(), has(from.get()))
+                .unlockedBy(getHasName(from.get()), has(from.get()))
                 .save(arg);
     }
 
