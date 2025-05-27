@@ -131,32 +131,27 @@ public class SlimeOverhaulMod {
     }
 
     private static void onShieldBlock(LivingShieldBlockEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            ItemStack shield = player.getOffhandItem();
+        LivingEntity entity = event.getEntity();
 
-            if (shield.is(Tags.Items.TOOLS_SHIELD)) {
-                checkShieldBounce(shield, event, player);
-                return;
-            }
+        ItemStack shield = entity.getItemInHand(entity.getUsedItemHand());
 
-            shield = player.getMainHandItem();
-
-            if (shield.is(Tags.Items.TOOLS_SHIELD)) {
-                checkShieldBounce(shield, event, player);
-            }
+        if (shield.is(Tags.Items.TOOLS_SHIELD)) {
+            checkShieldBounce(shield, event, entity);
         }
     }
 
-    private static void checkShieldBounce(ItemStack shield, LivingShieldBlockEvent event, Player player) {
+    private static void checkShieldBounce(ItemStack shield, LivingShieldBlockEvent event, LivingEntity entity) {
         CustomData data = shield.get(DataComponents.CUSTOM_DATA);
         if (data != null) {
             CompoundTag tag = data.copyTag();
             if (tag.contains("bounce")) {
-                int bounce = tag.getInt("bounce");
-                if (!player.isCreative()) {
-                    bounce--;
-                }
+                Player player = (Player) entity;
 
+                int bounce = tag.getInt("bounce");
+                if (player != null && player.isCreative()) {
+                    return;
+                }
+                bounce--;
                 DamageContainer container = event.getDamageContainer();
 
                 DamageSource damageSource = container.getSource();
@@ -175,7 +170,9 @@ public class SlimeOverhaulMod {
                     tag.putInt("bounce", bounce);
                 } else {
                     tag.remove("bounce");
-                    player.sendSystemMessage(Component.translatable("slimeoverhaul.lost_earth_power"));
+                    if (player != null) {
+                        player.sendSystemMessage(Component.translatable("slimeoverhaul.lost_earth_power"));
+                    }
                 }
 
                 shield.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
