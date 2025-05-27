@@ -5,9 +5,12 @@ import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 
 import java.util.List;
 
@@ -25,7 +28,12 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         IVanillaRecipeFactory vanillaRecipeFactory = registration.getVanillaRecipeFactory();
 
-        IJeiAnvilRecipe recipe = vanillaRecipeFactory.createAnvilRecipe(new ItemStack(Items.SHIELD), List.of(new ItemStack(EARTH_SLIME_BALL.getHolder())), List.of(new ItemStack(Items.SHIELD)), ResourceLocation.fromNamespaceAndPath(MODID, ""));
+        ItemStack result = new ItemStack(Items.SHIELD);
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("bounce", 32);
+        result.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+
+        IJeiAnvilRecipe recipe = vanillaRecipeFactory.createAnvilRecipe(new ItemStack(Items.SHIELD), List.of(new ItemStack(EARTH_SLIME_BALL.getHolder())), List.of(result), ResourceLocation.fromNamespaceAndPath(MODID, ""));
         registration.addRecipes(RecipeTypes.ANVIL, List.of(recipe));
     }
 }
