@@ -10,6 +10,7 @@ import net.minecraft.world.item.BannerPatternItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
 import java.util.concurrent.CompletableFuture;
@@ -30,8 +31,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("~0 ")
                 .pattern("  ~")
                 .define('~', Items.STRING)
-                .define('0', SLIME_BALL_ITEMS)
-                .unlockedBy("has_slime_balls", has(SLIME_BALL_ITEMS))
+                .define('0', Tags.Items.SLIME_BALLS)
+                .unlockedBy("has_slime_balls", has(Tags.Items.SLIME_BALLS))
                 .save(arg, ResourceLocation.fromNamespaceAndPath(MODID, "lead_from_slime_balls"));
 
         slimeBlockRecipe(AIR_SLIME_BLOCK, AIR_SLIME_BALL, arg);
@@ -73,6 +74,5 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(Items.PAPER)
                 .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(from.get()).getPath(), has(from.get()))
                 .save(arg);
-        ;
     }
 }

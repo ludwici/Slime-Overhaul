@@ -71,7 +71,6 @@ public class Content {
     public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block");
     public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK  = registerFireResistanceBlock("fire_slime_block", () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
 
-    public static final TagKey<Item> SLIME_BALL_ITEMS = TagHelper.item("slime_ball_items");
     public static final TagKey<EntityType<?>> SLIMES = TagHelper.entityType("slimes");
     public static final TagKey<EntityType<?>> ELEMENTAL_SLIMES = TagHelper.entityType("elemental_slimes");
     public static final TagKey<Block> SLIME_BLOCK_ITEMS = TagHelper.block("slime_blocks");
