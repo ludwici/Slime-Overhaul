@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "item": "slimeoverhaul:water_slime_bucket"
+    },
+    "title": {
+      "translate": "advancements.slimeoverhaul.catch_slime.title"
+    },
+    "description": {
+      "translate": "advancements.slimeoverhaul.catch_slime.description"
+    },
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "slimeoverhaul:slimeoverhaul/root",
+  "criteria": {
+    "water_slime_bucket": {
+      "conditions": {
+        "items": {
+          "items": "minecraft:water_slime_bucket"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "fire_slime_bucket": {
+      "conditions": {
+        "items": {
+          "items": "minecraft:flame_slime_bucket"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "requirements": [
+    [
+      "water_slime_bucket",
+      "fire_slime_bucket"
+    ]
+  ]
+}

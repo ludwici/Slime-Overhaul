@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_air_slime_ball": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "slimeoverhaul:air_slime_ball"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "slimeoverhaul:air_slime_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_air_slime_ball",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "slimeoverhaul:air_slime_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

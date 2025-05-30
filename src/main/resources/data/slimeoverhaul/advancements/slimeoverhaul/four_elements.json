@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:potion"
+    },
+    "title": {
+      "translate": "advancements.slimeoverhaul.four_elements.title"
+    },
+    "description": {
+      "translate": "advancements.slimeoverhaul.four_elements.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "slimeoverhaul:slimeoverhaul/root",
+  "criteria": {
+    "four_elements": {
+      "conditions": {
+        "effects": {
+          "slimeoverhaul:double_jump": {},
+          "slimeoverhaul:water_anti_depth": {},
+          "slimeoverhaul:knockback": {},
+          "slimeoverhaul:lava_anti_depth": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.ludwici.slimeoverhaul.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "slimeoverhaul.refmap.json",
+  "mixins": [
+    "BaseFireBlockMixin",
+    "ItemEntityMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "slimeoverhaul:earth_slime_ball"
+    },
+    "title": {
+      "translate": "advancements.slimeoverhaul.earth_power.title"
+    },
+    "description": {
+      "translate": "advancements.slimeoverhaul.earth_power.description"
+    },
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "slimeoverhaul:slimeoverhaul/root",
+  "criteria": {
+    "bounce_shield": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

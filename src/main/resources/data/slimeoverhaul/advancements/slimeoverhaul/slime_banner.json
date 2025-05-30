@@ -1,0 +1,44 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:green_banner",
+      "components": {
+        "minecraft:banner_patterns": [
+          {
+            "color": "black",
+            "pattern": "slimeoverhaul:slime"
+          }
+        ]
+      }
+    },
+    "title": {
+      "translate": "advancements.slimeoverhaul.slime_banner.title"
+    },
+    "description": {
+      "translate": "advancements.slimeoverhaul.slime_banner.description"
+    },
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "slimeoverhaul:slimeoverhaul/root",
+  "criteria": {
+    "banner_pattern_slime": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "slimeoverhaul:banner_pattern_slime"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "banner_pattern_slime"
+    ]
+  ]
+}

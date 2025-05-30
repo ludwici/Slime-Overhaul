@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "slimeoverhaul:flame_slime_ball"
+    },
+    "title": {
+      "translate": "advancements.slimeoverhaul.root.title"
+    },
+    "description": {
+      "translate": "advancements.slimeoverhaul.root.description"
+    },
+    "background": "slimeoverhaul:textures/block/water_slime_block.png",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}
