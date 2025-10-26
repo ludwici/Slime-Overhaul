@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#slimeoverhaul:slime_ball_items"
+            "items": "#c:slime_balls"
           }
         ]
       },

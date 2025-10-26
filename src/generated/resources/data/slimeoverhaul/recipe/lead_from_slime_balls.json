@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "0": {
-      "tag": "slimeoverhaul:slime_ball_items"
+      "tag": "c:slime_balls"
     },
     "~": {
       "item": "minecraft:string"
