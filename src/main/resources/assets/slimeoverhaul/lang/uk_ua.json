@@ -1,4 +1,11 @@
 {
+  "slimeoverhaul.configuration.allowAirSlimes": "Спавн повітряного слимака",
+  "slimeoverhaul.configuration.allowWaterSlimes": "Спавн водяного слимака",
+  "slimeoverhaul.configuration.allowEarthSlimes": "Спавн земляного слимака",
+  "slimeoverhaul.configuration.allowFlameSlimes": "Спавн вогняного слимака",
+  "slimeoverhaul.configuration.waterSlimeFindFireTick": "Пошук вогню",
+  "slimeoverhaul.configuration.waterSlimeFindFireTick.tooltip": "Визначає, як часто водяні слизи будуть шукати вогняні блоки, щоб загасити їх. Часті виклики можуть призвести до втрати продуктивності; чим вище значення, тим рідше відбувається пошук і тим вища продуктивність.",
+
   "entity.slimeoverhaul.air_slime": "Повітряний слимак",
   "entity.slimeoverhaul.water_slime": "Водяний слимак",
   "entity.slimeoverhaul.earth_slime": "Земляний слимак",
