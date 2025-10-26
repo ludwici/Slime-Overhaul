@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
-@EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MODID)
 public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
