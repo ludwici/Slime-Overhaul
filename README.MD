@@ -4,6 +4,7 @@ This mod added some new slimes in your world!
 Feel free to leave your feedback in the comments
 
 ![versions](https://cf.way2muchnoise.eu/versions/1265614.svg)
+![versions](https://cf.way2muchnoise.eu/full_1265614_downloads.svg)
 
 ![neoforge](https://github.com/thomasglasser/thomasglasser/blob/main/files/badges/cozy/supported/neoforge_64h.png?raw=true)
 [![patreon-singular](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/patreon-singular_64h.png)](https://www.patreon.com/ludwici) [![kofi-singular](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/kofi-singular-alt_64h.png)](https://ko-fi.com/ludwici)
