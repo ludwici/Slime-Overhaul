@@ -1,5 +1,8 @@
 {
   "values": [
-    "#c:is_overworld"
+    "#c:is_plains",
+    "#c:is_forest",
+    "#c:is_badlands",
+    "#c:is_savanna"
   ]
 }

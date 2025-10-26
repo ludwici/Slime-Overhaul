@@ -71,6 +71,11 @@ public class EarthSlime extends BaseSlime {
         if (biome.is(Tags.Biomes.IS_COLD)) {
             return false;
         }
-        return biome.is(Tags.Biomes.IS_PLAINS) || biome.is(Tags.Biomes.IS_FOREST) || biome.is(Biomes.WOODED_BADLANDS) || biome.is(Biomes.SAVANNA);
+
+        if (biome.is(Tags.Biomes.IS_BADLANDS)) {
+            return biome.is(Biomes.WOODED_BADLANDS);
+        }
+
+        return true;
     }
 }

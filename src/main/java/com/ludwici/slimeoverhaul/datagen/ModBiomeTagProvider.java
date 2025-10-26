@@ -28,7 +28,10 @@ public class ModBiomeTagProvider extends BiomeTagsProvider {
         ;
 
         tag(EARTH_SLIME_BIOME_TAG)
-                .addTag(Tags.Biomes.IS_OVERWORLD)
+                .addTag(Tags.Biomes.IS_PLAINS)
+                .addTag(Tags.Biomes.IS_FOREST)
+                .addTag(Tags.Biomes.IS_BADLANDS)
+                .addTag(Tags.Biomes.IS_SAVANNA)
         ;
 
         tag(FLAME_SLIME_BIOME_TAG)
