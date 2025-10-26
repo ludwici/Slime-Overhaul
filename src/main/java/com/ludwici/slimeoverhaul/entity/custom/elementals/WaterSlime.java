@@ -1,5 +1,6 @@
 package com.ludwici.slimeoverhaul.entity.custom.elementals;
 
+import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.variants.WaterSlimeVariant;
 import net.minecraft.Util;
@@ -260,6 +261,10 @@ public class WaterSlime extends BaseSlime implements Bucketable {
     }
 
     public static boolean checkSpawnRules(EntityType<WaterSlime> type, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        if (Config.SPAWN_WATER_SLIMES.isFalse()) {
+            return false;
+        }
+
         if (level.getDifficulty() == Difficulty.PEACEFUL) {
             return false;
         }

@@ -1,6 +1,7 @@
 package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
+import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
@@ -27,9 +28,12 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
@@ -50,6 +54,10 @@ public class SlimeOverhaulMod {
 
     public SlimeOverhaulMod(IEventBus modEventBus, ModContainer modContainer) {
         ModHelper.init(modEventBus, NeoForge.EVENT_BUS, MODID);
+
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+
         EntityHelper.initBus();
         ItemHelper.initBus();
         BlockHelper.initBus();
@@ -216,7 +224,7 @@ public class SlimeOverhaulMod {
         }
     }
 
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {

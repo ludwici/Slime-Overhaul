@@ -1,6 +1,7 @@
 package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
+import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.effect.AntiDepthEffect;
 import com.ludwici.slimeoverhaul.effect.BaseMobEffect;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.AirSlime;

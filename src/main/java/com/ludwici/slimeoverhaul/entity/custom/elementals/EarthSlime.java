@@ -1,5 +1,6 @@
 package com.ludwici.slimeoverhaul.entity.custom.elementals;
 
+import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -58,6 +59,10 @@ public class EarthSlime extends BaseSlime {
     }
 
     public static boolean checkSpawnRules(EntityType<EarthSlime> type, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        if (Config.SPAWN_EARTH_SLIMES.isFalse()) {
+            return false;
+        }
+
         if (level.getDifficulty() == Difficulty.PEACEFUL) {
             return false;
         }
@@ -66,9 +71,6 @@ public class EarthSlime extends BaseSlime {
         if (biome.is(Tags.Biomes.IS_COLD)) {
             return false;
         }
-        if (biome.is(Tags.Biomes.IS_PLAINS) || biome.is(Tags.Biomes.IS_FOREST) || biome.is(Biomes.WOODED_BADLANDS) || biome.is(Biomes.SAVANNA)){
-            return true;
-        }
-        return false;
+        return biome.is(Tags.Biomes.IS_PLAINS) || biome.is(Tags.Biomes.IS_FOREST) || biome.is(Biomes.WOODED_BADLANDS) || biome.is(Biomes.SAVANNA);
     }
 }

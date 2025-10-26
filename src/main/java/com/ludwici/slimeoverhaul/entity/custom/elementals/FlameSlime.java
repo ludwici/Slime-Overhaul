@@ -1,5 +1,6 @@
 package com.ludwici.slimeoverhaul.entity.custom.elementals;
 
+import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -160,6 +161,10 @@ public class FlameSlime extends BaseSlime implements Bucketable {
     }
 
     public static boolean checkSpawnRules(EntityType<FlameSlime> type, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        if (Config.SPAWN_FLAME_SLIMES.isFalse()) {
+            return false;
+        }
+
         if (level.getDifficulty() == Difficulty.PEACEFUL) {
             return false;
         }
