@@ -84,8 +84,8 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
 dependencies {
-//    implementation "com.ludwici.crumbslib:CrumbsLib:${minecraft_version}-${crumbslib_version}"
-    implementation "curse.maven:crumbslib-1265628:6536314"
+    implementation "com.ludwici.crumbslib:CrumbsLib:${minecraft_version}-${crumbslib_version}"
+//    implementation "curse.maven:crumbslib-1265628:6536314"
 
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")

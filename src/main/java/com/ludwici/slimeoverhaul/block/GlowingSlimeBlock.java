@@ -1,4 +1,4 @@
-package com.ludwici.slimeoverhaul;
+package com.ludwici.slimeoverhaul.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.ItemTags;
