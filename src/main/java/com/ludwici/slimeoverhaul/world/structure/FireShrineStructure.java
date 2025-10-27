@@ -3,6 +3,7 @@ package com.ludwici.slimeoverhaul.world.structure;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.VillagePools;
@@ -30,59 +31,28 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.neoforged.fml.config.IConfigSpec;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.ludwici.slimeoverhaul.Content.*;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
-public class FireShrineStructure extends Structure {
+public class FireShrineStructure extends SinglePieceStructure {
     private static final ResourceLocation FLOOR = ResourceLocation.fromNamespaceAndPath(MODID, "fire_shrine_floor");
 
     private static final List<Block> DEEPSLATE = List.of(Blocks.DEEPSLATE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS);
     private static final List<Block> DEEPSLATE_TILES = List.of(Blocks.DEEPSLATE_TILES, Blocks.CRACKED_DEEPSLATE_TILES);
     private static final List<Block> BLACKSTONE = List.of(Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS);
 
-    private static final List<List<Block>> BLOCK_SELECTOR = List.of(DEEPSLATE, DEEPSLATE_TILES, BLACKSTONE);
+//    private static final List<List<Block>> BLOCK_SELECTOR = List.of(DEEPSLATE, DEEPSLATE_TILES, BLACKSTONE);
 
-    public static final MapCodec<FireShrineStructure> CODEC = RecordCodecBuilder.<FireShrineStructure>mapCodec(instance ->
-        instance.group(settingsCodec(instance)).apply(instance, FireShrineStructure::new)
-    );
+    private static final FireShrinePiece.BlockSelector BLOCK_SELECTOR = new FireShrinePiece.BlockSelector();
 
-    protected FireShrineStructure(StructureSettings settings) {
-        super(settings);
-    }
+    public static final MapCodec<FireShrineStructure> CODEC = simpleCodec(FireShrineStructure::new);
 
-    @Override
-    protected Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
-//        ChunkPos chunkPos = context.chunkPos();
-        WorldgenRandom worldgenRandom = context.random();
-        Rotation rotation = Rotation.getRandom(worldgenRandom);
-        BlockPos blockPos = getLowestYIn5by5BoxOffset7Blocks(context, rotation);
-//        if (worldgenRandom.nextDouble() >= new )
-//        System.out.println("findGenerationPoint: " + blockPos);
-        return Optional.of(new GenerationStub(blockPos, builder -> builder.addPiece(createPieces(blockPos))));
-//        return onTopOfChunkCenter(context, Heightmap.Types.WORLD_SURFACE_WG, generator -> generatePieces(generator, context));
-    }
-
-    private void generatePieces(StructurePiecesBuilder builder, Structure.GenerationContext context) {
-        ChunkPos chunkPos = context.chunkPos();
-        WorldgenRandom worldgenRandom = context.random();
-        BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), 90, chunkPos.getMinBlockZ());
-        Rotation rotation = Rotation.getRandom(worldgenRandom);
-        addPieces(context.structureTemplateManager(), blockPos, rotation, builder, worldgenRandom);
-    }
-
-    private void addPieces(StructureTemplateManager manager, BlockPos startPos, Rotation rotation, StructurePieceAccessor pieces, RandomSource random) {
-//        pieces.addPiece(new FireShrinePiece(manager, FLOOR, startPos, rotation, 0));
-        pieces.addPiece(new FireShrineNewPiece(FIRE_SHRINE_PIECE.get(), 0, new BoundingBox(startPos.getX(), startPos.getY(), startPos.getZ(), startPos.getX(), startPos.getY(), startPos.getZ())));
-    }
-
-    private FireShrineNewPiece createPieces(BlockPos startPos) {
-        return new FireShrineNewPiece(FIRE_SHRINE_PIECE.get(), 0, new BoundingBox(startPos.getX(), startPos.getY(), startPos.getZ(), startPos.getX()+8, startPos.getY()+4, startPos.getZ()+8));
+    protected FireShrineStructure(Structure.StructureSettings settings) {
+        super(FireShrinePiece::new, 12, 12, settings);
     }
 
     @Override
@@ -90,78 +60,78 @@ public class FireShrineStructure extends Structure {
         return FIRE_SHRINE.get();
     }
 
-    public static class FireShrineNewPiece extends StructurePiece {
+    public static class FireShrinePiece extends ScatteredFeaturePiece {
 
-        protected FireShrineNewPiece(StructurePieceType type, int genDepth, BoundingBox boundingBox) {
-            super(type, genDepth, boundingBox);
+        public FireShrinePiece(RandomSource random, int x, int z) {
+            super(FIRE_SHRINE_PIECE.get(), x, 64, z, 12, 10, 12, getRandomHorizontalDirection(random));
         }
 
-        protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag tag) {
-
+        public FireShrinePiece(StructurePieceSerializationContext structurePieceSerializationContext, CompoundTag compoundTag) {
+            super(FIRE_SHRINE_PIECE.get(), compoundTag);
         }
+
+        BlockPos[] netherrackPositions = {
+                new BlockPos(5, -1, 3),
+                new BlockPos(6, -1, 3),
+                new BlockPos(5, -1, 10),
+                new BlockPos(6, -1, 10),
+                new BlockPos(2, -1, 6),
+                new BlockPos(2, -1, 7),
+                new BlockPos(9, -1, 6),
+                new BlockPos(9, -1, 7)
+        };
 
         @Override
-        public void postProcess(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator, RandomSource random, BoundingBox box, ChunkPos chunkPos, BlockPos pos) {
-            int radius = 4 * 4;
-            BlockPos center = box.getCenter();
-//            BlockPos.betweenClosedStream(-radius, 0, -radius, radius, 1, radius)
-            BlockPos.betweenClosedStream(center.offset(0, 0, 0), center.offset(3, 0, 3)).forEach(position -> {
-//            BlockPos.betweenClosedStream(-radius, 0, -radius, radius, 1, radius).map(BlockPos::immutable).forEach(position -> {
-//                if (level.getBlockState(position).isAir()) {
-                    level.setBlock(position, Blocks.GOLD_BLOCK.defaultBlockState(), 2);
-//                }
-            });
-            System.out.println(pos + "|" + center);
-//            generateBox();
-        }
-    }
+        public void postProcess(WorldGenLevel worldGenLevel, StructureManager structureManager, ChunkGenerator chunkGenerator, RandomSource randomSource, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos blockPos) {
+            if (!updateAverageGroundHeight(worldGenLevel, boundingBox, 0)) {
+                return;
+            }
 
-    public static class FireShrinePiece extends TemplateStructurePiece {
-        public FireShrinePiece(StructurePieceSerializationContext context, CompoundTag tag) {
-            super(FIRE_SHRINE_PIECE.get(), tag, context.structureTemplateManager(), factory -> makeSettings(Rotation.CLOCKWISE_90, factory));
-        }
+//            generateBox(worldGenLevel, boundingBox, 0, -1, 0, width, -1, width-1, false, randomSource, BLOCK_SELECTOR);
+//            placeBlock(worldGenLevel, Blocks.LAPIS_BLOCK.defaultBlockState(), 0, -1, 0, boundingBox);
 
-        public FireShrinePiece(StructureTemplateManager manager, ResourceLocation location, BlockPos startPos, Rotation rotation, int down) {
-            super(FIRE_SHRINE_PIECE.get(), 0, manager, location, location.toString(), makeSettings(rotation, location), startPos);
-        }
+            for (BlockPos pos : netherrackPositions) {
+                placeBlock(worldGenLevel, Blocks.NETHERRACK.defaultBlockState(), pos.getX(), pos.getY(), pos.getZ(), boundingBox);
+            }
 
-        private static StructurePlaceSettings makeSettings(Rotation rotation, ResourceLocation location) {
-            return new StructurePlaceSettings()
-                    .setRotation(rotation)
-                    .setMirror(Mirror.NONE);
-        }
+            generateBox(worldGenLevel, boundingBox, 4, 0, 3, 4, 1, 3, false, randomSource, BLOCK_SELECTOR);
+            generateBox(worldGenLevel, boundingBox, 7, 0, 3, 7, 1, 3, false, randomSource, BLOCK_SELECTOR);
+            generateBox(worldGenLevel, boundingBox, 5, 2, 3, 6, 2, 3, false, randomSource, BLOCK_SELECTOR);
 
-//        private static BlockPos makePosition(ResourceLocation location, BlockPos pos, int down) {
-//            return pos.offset()
-//        }
+            generateBox(worldGenLevel, boundingBox, 4, 0, 10, 4, 1, 10, false, randomSource, BLOCK_SELECTOR);
+            generateBox(worldGenLevel, boundingBox, 7, 0, 10, 7, 1, 10, false, randomSource, BLOCK_SELECTOR);
+            generateBox(worldGenLevel, boundingBox, 5, 2, 10, 6, 2, 10, false, randomSource, BLOCK_SELECTOR);
 
+            generateBox(worldGenLevel, boundingBox, 2, 0, 5, 2, 1, 5, false, randomSource, BLOCK_SELECTOR);
+            generateBox(worldGenLevel, boundingBox, 2, 0, 8, 2, 1, 8, false, randomSource, BLOCK_SELECTOR);
+            generateBox(worldGenLevel, boundingBox, 2, 2, 6, 2, 2, 7, false, randomSource, BLOCK_SELECTOR);
 
-        @Override
-        protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag tag) {
-            super.addAdditionalSaveData(context, tag);
-            tag.putString("Rot", placeSettings.getRotation().name());
+            generateBox(worldGenLevel, boundingBox, 9, 0, 5, 9, 1, 5, false, randomSource, BLOCK_SELECTOR);
+            generateBox(worldGenLevel, boundingBox, 9, 0, 8, 9, 1, 8, false, randomSource, BLOCK_SELECTOR);
+            generateBox(worldGenLevel, boundingBox, 9, 2, 6, 9, 2, 7, false, randomSource, BLOCK_SELECTOR);
+
+            int fireCount = 1 + randomSource.nextInt(4);
+
+            List<BlockPos> shuffledPositions = new ArrayList<>(Arrays.asList(netherrackPositions));
+            Collections.shuffle(shuffledPositions, new Random(randomSource.nextLong()));
+
+            for (int i = 0; i < fireCount; i++) {
+                BlockPos pos = shuffledPositions.get(i);
+                placeBlock(worldGenLevel, Blocks.FIRE.defaultBlockState(), pos.getX(), pos.getY() + 1, pos.getZ(), boundingBox);
+            }
         }
 
-        @Override
-        protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box) {
+        static class BlockSelector extends StructurePiece.BlockSelector {
 
+            @Override
+            public void next(RandomSource randomSource, int i, int i1, int i2, boolean b) {
+                if (randomSource.nextFloat() < 0.4F) {
+                    this.next = Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState();
+                } else {
+                    this.next = Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS.defaultBlockState();
+                }
+            }
         }
 
-        @Override
-        public void postProcess(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator, RandomSource random, BoundingBox box, ChunkPos chunkPos, BlockPos pos) {
-            ResourceLocation resourceLocation = ResourceLocation.parse(templateName);
-            StructurePlaceSettings structurePlaceSettings = makeSettings(this.placeSettings.getRotation(), resourceLocation);
-//            BlockPos blockPos = templatePosition.offset(StructureTemplate.calculateRelativePosition(structurePlaceSettings,));
-            int i = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, templatePosition.getX(), templatePosition.getZ());
-            this.templatePosition = this.templatePosition.offset(0, i - 90 - 1, 0);
-            super.postProcess(level, structureManager, generator, random, box, chunkPos, pos);
-//            if (resourceLocation.equals(FLOOR)) {
-//                BlockPos blockPos = templatePosition.offset(StructureTemplate.calculateRelativePosition(structurePlaceSettings, new BlockPos(3, 0, 5)));
-//                BlockState blockState = level.getBlockState(blockPos.below());
-//                if (blockState.isAir()) {
-//                    level.setBlock(blockPos, FIRE_SLIME_BLOCK.get().defaultBlockState(), 3);
-//                }
-//            }
-        }
     }
 }
