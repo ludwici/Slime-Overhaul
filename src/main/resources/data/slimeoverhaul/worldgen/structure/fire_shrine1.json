@@ -1,0 +1,6 @@
+{
+  "type": "slimeoverhaul:fire_shrine1",
+  "biomes": "#slimeoverhaul:has_structure/fire_shrine",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

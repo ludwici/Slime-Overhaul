@@ -64,6 +64,7 @@ public class SlimeOverhaulMod {
         PotionHelper.initBus();
         MobEffectHelper.initBus();
         CreativeTabHelper.initBus();
+        StructureHelper.initBus();
 
         modEventBus.addListener(Content::spawns);
 

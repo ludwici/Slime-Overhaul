@@ -4,10 +4,8 @@ import com.ludwici.crumbslib.api.*;
 import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.effect.AntiDepthEffect;
 import com.ludwici.slimeoverhaul.effect.BaseMobEffect;
-import com.ludwici.slimeoverhaul.entity.custom.elementals.AirSlime;
-import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
-import com.ludwici.slimeoverhaul.entity.custom.elementals.FlameSlime;
-import com.ludwici.slimeoverhaul.entity.custom.elementals.WaterSlime;
+import com.ludwici.slimeoverhaul.entity.custom.elementals.*;
+import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -36,6 +34,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.common.Tags;
@@ -105,6 +105,9 @@ public class Content {
     public static final CrumbSupplier<BannerPatternItem> PATTERN_WATER_SLIME_SIGN = ItemHelper.registerBanner("water_slime_sign", WATER_SLIME_SIGN_BANNER_PATTERN);
     public static final CrumbSupplier<BannerPatternItem> PATTERN_EARTH_SLIME_SIGN = ItemHelper.registerBanner("earth_slime_sign", EARTH_SLIME_SIGN_BANNER_PATTERN);
     public static final CrumbSupplier<BannerPatternItem> PATTERN_FIRE_SLIME_SIGN = ItemHelper.registerBanner("fire_slime_sign", FIRE_SLIME_SIGN_BANNER_PATTERN);
+
+    public static final CrumbSupplier<StructureType<FireShrineStructure>> FIRE_SHRINE = StructureHelper.registerStructure("fire_shrine1", () -> () -> FireShrineStructure.CODEC);
+    public static final CrumbSupplier<StructurePieceType> FIRE_SHRINE_PIECE = StructureHelper.registerPiece("fire_shrine1", () -> FireShrineStructure.FireShrinePiece::new);
 
     public static void registerPotions(RegisterBrewingRecipesEvent event) {
         var builder = event.getBuilder();
