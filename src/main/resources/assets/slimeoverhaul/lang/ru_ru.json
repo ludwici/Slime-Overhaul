@@ -24,6 +24,8 @@
   "item.slimeoverhaul.earth_slime_ball": "Сгусток земляной слизи",
   "item.slimeoverhaul.fire_slime_ball": "Сгусток огненной слизи",
 
+  "item.slimeoverhaul.cleansing_brush": "Очищающая кисть",
+
   "item.slimeoverhaul.banner_pattern_slime": "Узор флага",
   "item.slimeoverhaul.banner_pattern_slime.desc": "Слизень",
   "item.slimeoverhaul.banner_pattern_slime.desc.black": "Чёрная Слизь",
@@ -143,6 +145,8 @@
   "block.slimeoverhaul.water_slime_block": "Блок водной слизи",
   "block.slimeoverhaul.earth_slime_block": "Блок земляной слизи",
   "block.slimeoverhaul.fire_slime_block": "Блок огненной слизи",
+
+  "block.slimeoverhaul.ancient_fire_slimy_block": "Огненный слизистый блок",
 
   "effect.slimeoverhaul.double_jump": "Двойной прыжок",
   "effect.slimeoverhaul.water_anti_depth": "Водная антиглубина",

@@ -49,6 +49,17 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         bannerPatternRecipe(PATTERN_WATER_SLIME_SIGN, WATER_SLIME_BLOCK, arg);
         bannerPatternRecipe(PATTERN_EARTH_SLIME_SIGN, EARTH_SLIME_BLOCK, arg);
         bannerPatternRecipe(PATTERN_FIRE_SLIME_SIGN, FIRE_SLIME_BLOCK, arg);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, CLEANSING_BRUSH.get(), 1)
+                .pattern("   ")
+                .pattern("XYZ")
+                .pattern("   ")
+                .define('X', Items.LAPIS_LAZULI)
+                .define('Y', Items.BRUSH)
+                .define('Z', Items.AMETHYST_SHARD)
+                .unlockedBy(getHasName(Items.BRUSH), has(Items.BRUSH))
+                .save(arg);
+        ;
     }
 
     private void slimeBlockRecipe(CrumbSupplier<Block> result, CrumbSupplier<Item> from, RecipeOutput arg) {

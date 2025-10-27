@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "slimeoverhaul:ancient_fire_slimy_block"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "slimeoverhaul:blocks/ancient_fire_slimy_block"
+}

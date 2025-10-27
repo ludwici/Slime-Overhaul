@@ -1,10 +1,13 @@
 package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
-import com.ludwici.slimeoverhaul.config.Config;
+import com.ludwici.slimeoverhaul.block.GlowingSlimeBlock;
+import com.ludwici.slimeoverhaul.block.entities.AncientSlimyBlockEntity;
+import com.ludwici.slimeoverhaul.block.slimy.AncientFireSlimyBlock;
 import com.ludwici.slimeoverhaul.effect.AntiDepthEffect;
 import com.ludwici.slimeoverhaul.effect.BaseMobEffect;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.*;
+import com.ludwici.slimeoverhaul.item.CleansingBrushItem;
 import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -30,6 +33,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BannerPattern;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -67,10 +71,16 @@ public class Content {
     public static final CrumbSupplier<Item> EARTH_SLIME_BALL = ItemHelper.register("earth_slime_ball", () -> new Item(new Item.Properties()));
     public static final CrumbSupplier<Item> FIRE_SLIME_BALL  = ItemHelper.register("fire_slime_ball",  () -> new Item(new Item.Properties().fireResistant()));
 
+    public static final CrumbSupplier<Item> CLEANSING_BRUSH = ItemHelper.register("cleansing_brush", () -> new CleansingBrushItem(new Item.Properties().durability(64)));
+
     public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
     public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block");
     public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block");
     public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK  = registerFireResistanceBlock("fire_slime_block", () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
+
+    public static final CrumbSupplier<Block> ANCIENT_FIRE_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_fire_slimy_block", () -> new AncientFireSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
+
+    public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_FIRE_SLIMY_BLOCK);
 
     public static final TagKey<EntityType<?>> SLIMES = TagHelper.entityType("slimes");
     public static final TagKey<EntityType<?>> ELEMENTAL_SLIMES = TagHelper.entityType("elemental_slimes");
@@ -201,6 +211,9 @@ public class Content {
                 output.accept(WATER_SLIME_EGG.get());
                 output.accept(EARTH_SLIME_EGG.get());
                 output.accept(FLAME_SLIME_EGG.get());
+
+                output.accept(CLEANSING_BRUSH.get());
+                output.accept(ANCIENT_FIRE_SLIMY_BLOCK.get());
             }))
     );
 

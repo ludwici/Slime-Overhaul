@@ -28,5 +28,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(EARTH_SLIME_BALL.get())
                 .add(FIRE_SLIME_BALL.get())
         ;
+
+        tag(Tags.Items.TOOLS).add(CLEANSING_BRUSH.get());
+        tag(Tags.Items.TOOLS_BRUSH).add(CLEANSING_BRUSH.get());
     }
 }

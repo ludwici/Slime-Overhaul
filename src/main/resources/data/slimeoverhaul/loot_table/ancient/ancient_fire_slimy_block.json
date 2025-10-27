@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "name": "minecraft:axes",
+          "expand": true,
+          "functions": []
+        }
+      ]
+    }
+  ],
+  "functions": []
+}

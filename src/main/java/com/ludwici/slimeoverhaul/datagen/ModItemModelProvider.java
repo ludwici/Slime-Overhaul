@@ -22,13 +22,15 @@ public class ModItemModelProvider extends ItemModelProvider {
         spawnEggItem(EARTH_SLIME_EGG.get());
         spawnEggItem(FLAME_SLIME_EGG.get());
 
-        basicItem(AIR_SLIME_BALL.get());
-        basicItem(WATER_SLIME_BALL.get());
-        basicItem(EARTH_SLIME_BALL.get());
-        basicItem(FIRE_SLIME_BALL.get());
+        basicItem(AIR_SLIME_BALL);
+        basicItem(WATER_SLIME_BALL);
+        basicItem(EARTH_SLIME_BALL);
+        basicItem(FIRE_SLIME_BALL);
 
-        basicItem(WATER_SLIME_BUCKET.get());
-        basicItem(FIRE_SLIME_BUCKET.get());
+        basicItem(WATER_SLIME_BUCKET);
+        basicItem(FIRE_SLIME_BUCKET);
+
+        basicItem(CLEANSING_BRUSH);
 
         bannerPatternItem(PATTERN_SLIME);
         bannerPatternItem(PATTERN_AIR_SLIME_SIGN);
@@ -39,6 +41,10 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private <T extends Item> void bannerPatternItem(CrumbSupplier<T> item) {
         withExistingParent(getName(item), mcLoc("item/creeper_banner_pattern"));
+    }
+
+    public <I extends Item> void basicItem(CrumbSupplier<I> item) {
+        basicItem(item.get());
     }
 
     private <T extends Item> String getName(CrumbSupplier<T> item) {
