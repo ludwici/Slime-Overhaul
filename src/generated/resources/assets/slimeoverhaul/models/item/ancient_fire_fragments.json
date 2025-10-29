@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "slimeoverhaul:item/cleansing_brush"
+    "layer0": "slimeoverhaul:item/ancient_fire_fragments"
   }
 }

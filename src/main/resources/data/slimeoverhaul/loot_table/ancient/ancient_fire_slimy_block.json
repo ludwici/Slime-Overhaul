@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:tag",
-          "name": "minecraft:axes",
+          "name": "slimeoverhaul:ancient_fire_fragments",
           "expand": true,
           "functions": []
         }

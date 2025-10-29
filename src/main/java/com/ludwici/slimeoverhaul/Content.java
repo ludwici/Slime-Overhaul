@@ -73,6 +73,8 @@ public class Content {
 
     public static final CrumbSupplier<Item> CLEANSING_BRUSH = ItemHelper.register("cleansing_brush", () -> new CleansingBrushItem(new Item.Properties().durability(64)));
 
+    public static final CrumbSupplier<Item> ANCIENT_FIRE_FRAGMENTS = ItemHelper.register("ancient_fire_fragments", () -> new Item(new Item.Properties().fireResistant()));
+
     public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
     public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block");
     public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block");
@@ -89,6 +91,7 @@ public class Content {
     public static final TagKey<Biome> WATER_SLIME_BIOME_TAG = TagHelper.biome("entity_gen/is_water_slime_biome");
     public static final TagKey<Biome> EARTH_SLIME_BIOME_TAG = TagHelper.biome("entity_gen/is_earth_slime_biome");
     public static final TagKey<Biome> FLAME_SLIME_BIOME_TAG = TagHelper.biome("entity_gen/is_flame_slime_biome");
+    public static final TagKey<Item> ANCIENT_FIRE_FRAGMENTS_TAG = TagHelper.item("ancient_fire_fragments");
 
     public static final TagKey<BannerPattern> SLIME_BANNER_PATTERN = TagHelper.bannerPattern( "pattern_item/slime");
     public static final TagKey<BannerPattern> AIR_SLIME_SIGN_BANNER_PATTERN = TagHelper.bannerPattern("pattern_item/air_slime_sign");
@@ -214,6 +217,7 @@ public class Content {
 
                 output.accept(CLEANSING_BRUSH.get());
                 output.accept(ANCIENT_FIRE_SLIMY_BLOCK.get());
+                output.accept(ANCIENT_FIRE_FRAGMENTS.get());
             }))
     );
 
