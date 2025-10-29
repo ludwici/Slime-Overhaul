@@ -8,7 +8,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 
 public class AntiDepthEffect extends MobEffect {
-    private Fluid fluid;
+    private final Fluid fluid;
 
     public AntiDepthEffect(MobEffectCategory mobEffectCategory, Fluid fluidType, int color) {
         super(mobEffectCategory, color);

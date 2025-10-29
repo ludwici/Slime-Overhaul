@@ -100,9 +100,9 @@ public class CleansingBrushItem extends BrushItem {
                     vec3.x - (double)(direction == Direction.WEST ? 1.0E-6F : 0.0F),
                     vec3.y,
                     vec3.z - (double)(direction == Direction.NORTH ? 1.0E-6F : 0.0F),
-                    brushitem$dustparticlesdelta.xd() * (double)i * 3.0 * level.getRandom().nextDouble(),
+                    brushitem$dustparticlesdelta.xd() * (double)i * d0 * level.getRandom().nextDouble(),
                     0.0,
-                    brushitem$dustparticlesdelta.zd() * (double)i * 3.0 * level.getRandom().nextDouble()
+                    brushitem$dustparticlesdelta.zd() * (double)i * d0 * level.getRandom().nextDouble()
             );
         }
     }
@@ -115,11 +115,11 @@ public class CleansingBrushItem extends BrushItem {
             double d0 = 0.0;
 
             return switch (direction) {
-                case DOWN, UP -> new CleansingBrushItem.DustParticlesDelta(pos.z(), 0.0, -pos.x());
-                case NORTH -> new CleansingBrushItem.DustParticlesDelta(1.0, 0.0, -0.1);
-                case SOUTH -> new CleansingBrushItem.DustParticlesDelta(-1.0, 0.0, 0.1);
-                case WEST -> new CleansingBrushItem.DustParticlesDelta(-0.1, 0.0, -1.0);
-                case EAST -> new CleansingBrushItem.DustParticlesDelta(0.1, 0.0, 1.0);
+                case DOWN, UP -> new CleansingBrushItem.DustParticlesDelta(pos.z(), d0, -pos.x());
+                case NORTH -> new CleansingBrushItem.DustParticlesDelta(ALONG_SIDE_DELTA, d0, -OUT_FROM_SIDE_DELTA);
+                case SOUTH -> new CleansingBrushItem.DustParticlesDelta(-ALONG_SIDE_DELTA, d0, OUT_FROM_SIDE_DELTA);
+                case WEST -> new CleansingBrushItem.DustParticlesDelta(-OUT_FROM_SIDE_DELTA, d0, -ALONG_SIDE_DELTA);
+                case EAST -> new CleansingBrushItem.DustParticlesDelta(OUT_FROM_SIDE_DELTA, d0, ALONG_SIDE_DELTA);
             };
         }
     }

@@ -6,6 +6,7 @@ import com.ludwici.slimeoverhaul.block.entities.AncientSlimyBlockEntity;
 import com.ludwici.slimeoverhaul.block.slimy.AncientFireSlimyBlock;
 import com.ludwici.slimeoverhaul.effect.AntiDepthEffect;
 import com.ludwici.slimeoverhaul.effect.BaseMobEffect;
+import com.ludwici.slimeoverhaul.effect.HandBurnEffect;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.*;
 import com.ludwici.slimeoverhaul.item.CleansingBrushItem;
 import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
@@ -99,7 +100,7 @@ public class Content {
     public static final TagKey<BannerPattern> EARTH_SLIME_SIGN_BANNER_PATTERN = TagHelper.bannerPattern("pattern_item/earth_slime_sign");
     public static final TagKey<BannerPattern> FIRE_SLIME_SIGN_BANNER_PATTERN = TagHelper.bannerPattern("pattern_item/fire_slime_sign");
 
-    public static final CrumbSupplier<MobEffect> DOUBLE_JUMP_EFFECT = MobEffectHelper.register("double_jump", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 9699327));
+    public static final CrumbSupplier<MobEffect> DOUBLE_JUMP_EFFECT = MobEffectHelper.register("double_jump", MobEffectCategory.BENEFICIAL, 9699327);
     public static final CrumbSupplier<MobEffect> WATER_ANTI_DEPTH_EFFECT = MobEffectHelper.register("water_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, Fluids.WATER, 2140116));
     public static final CrumbSupplier<MobEffect> KNOCK_BACK_EFFECT = MobEffectHelper.register("knockback", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 7222827)
             .addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE, ResourceLocation.fromNamespaceAndPath(MODID, "knockback"), 1.0f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
