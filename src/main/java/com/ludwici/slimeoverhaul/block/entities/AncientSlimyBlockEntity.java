@@ -1,6 +1,7 @@
 package com.ludwici.slimeoverhaul.block.entities;
 
 import com.ludwici.slimeoverhaul.block.slimy.AncientSlimyBlock;
+import com.ludwici.slimeoverhaul.effect.HandBurnEffect;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -11,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 
 import static com.ludwici.slimeoverhaul.Content.ANCIENT_SLIMY_BLOCK_ENTITY;
+import static com.ludwici.slimeoverhaul.Content.HAND_BURN_EFFECT;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
 public class AncientSlimyBlockEntity extends BlockEntity {
@@ -40,7 +43,6 @@ public class AncientSlimyBlockEntity extends BlockEntity {
     }
 
     public boolean brush(long startTick, Player player) {
-
         this.brushCountResetsAtTick = startTick + BRUSH_RESET_TICKS;
         if (startTick >= this.coolDownEndsAtTick && this.level instanceof ServerLevel) {
             this.coolDownEndsAtTick = startTick + BRUSH_COOLDOWN_TICKS;
@@ -67,6 +69,7 @@ public class AncientSlimyBlockEntity extends BlockEntity {
     private void brushingCompleted(Player player) {
         if (this.level != null && this.level.getServer() != null) {
             dropContent(player);
+            chooseEffect(player);
             BlockState blockstate = this.getBlockState();
             this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockstate));
             Block block;
@@ -77,6 +80,39 @@ public class AncientSlimyBlockEntity extends BlockEntity {
             }
 
             this.level.setBlock(this.worldPosition, block.defaultBlockState(), 3);
+        }
+    }
+
+    private void chooseEffect(Player player) {
+        int behaviour = level.random.nextIntBetweenInclusive(1, 3);
+        if (behaviour == 1) {
+            var effect = player.getEffect(HAND_BURN_EFFECT.getHolder());
+            int duration = 1200;
+            if (effect != null) {
+                int amplifier = effect.getAmplifier();
+                duration = HandBurnEffect.getDuration(amplifier);
+
+                player.addEffect(new MobEffectInstance(HAND_BURN_EFFECT.getHolder(), duration, Math.min(amplifier + 1, 2)));
+            } else {
+                player.addEffect(new MobEffectInstance(HAND_BURN_EFFECT.getHolder(), duration, 0));
+            }
+        } else if (behaviour == 2) {
+            BlockPos playerPos = player.blockPosition();
+            if (level.getBlockState(playerPos).isAir()) {
+                level.setBlock(playerPos, Blocks.FIRE.defaultBlockState(), 3);
+            }
+        } else if (behaviour == 3) {
+            int posX = level.random.nextIntBetweenInclusive(-2, 3);
+            int posZ = level.random.nextIntBetweenInclusive(-2, 3);
+
+            BlockPos groundPos = worldPosition.offset(posX, 0, posZ);
+            while (level.getBlockState(groundPos).isAir() && groundPos.getY() > level.getMinBuildHeight()) {
+                groundPos = groundPos.below();
+            }
+
+            if (level.getBlockState(groundPos.above()).isAir()) {
+                level.setBlock(groundPos.above(), Blocks.FIRE.defaultBlockState(), 3);
+            }
         }
     }
 

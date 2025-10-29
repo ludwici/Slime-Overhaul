@@ -68,8 +68,8 @@ public class AncientSlimyBlock extends BaseEntityBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.getBlockEntity(pos) instanceof AncientSlimyBlockEntity brushableblockentity) {
-            brushableblockentity.checkReset();
+        if (level.getBlockEntity(pos) instanceof AncientSlimyBlockEntity ancientSlimyBlockEntity) {
+            ancientSlimyBlockEntity.checkReset();
         }
     }
 
