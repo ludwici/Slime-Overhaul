@@ -8,9 +8,11 @@ import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -230,6 +232,12 @@ public class SlimeOverhaulMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            ItemProperties.register(
+                    CLEANSING_BRUSH.get(),
+                    ResourceLocation.withDefaultNamespace("brushing"),
+                    ((stack, level, entity, seed) -> entity != null && entity.getUseItem() == stack
+                    ? (float) (entity.getUseItemRemainingTicks() % 10) / 10.0F : 0.0F)
+            );
         }
     }
 }
