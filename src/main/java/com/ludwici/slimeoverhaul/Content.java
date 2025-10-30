@@ -3,7 +3,7 @@ package com.ludwici.slimeoverhaul;
 import com.ludwici.crumbslib.api.*;
 import com.ludwici.slimeoverhaul.block.GlowingSlimeBlock;
 import com.ludwici.slimeoverhaul.block.entities.AncientSlimyBlockEntity;
-import com.ludwici.slimeoverhaul.block.slimy.AncientFireSlimyBlock;
+import com.ludwici.slimeoverhaul.block.slimy.*;
 import com.ludwici.slimeoverhaul.effect.AntiDepthEffect;
 import com.ludwici.slimeoverhaul.effect.BaseMobEffect;
 import com.ludwici.slimeoverhaul.effect.HandBurnEffect;
@@ -74,6 +74,9 @@ public class Content {
 
     public static final CrumbSupplier<Item> CLEANSING_BRUSH = ItemHelper.register("cleansing_brush", () -> new CleansingBrushItem(new Item.Properties().durability(64)));
 
+    public static final CrumbSupplier<Item> ANCIENT_AIR_FRAGMENTS = ItemHelper.register("ancient_air_fragments", () -> new Item(new Item.Properties()));
+    public static final CrumbSupplier<Item> ANCIENT_WATER_FRAGMENTS = ItemHelper.register("ancient_water_fragments", () -> new Item(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> ANCIENT_EARTH_FRAGMENTS = ItemHelper.register("ancient_earth_fragments", () -> new Item(new Item.Properties()));
     public static final CrumbSupplier<Item> ANCIENT_FIRE_FRAGMENTS = ItemHelper.register("ancient_fire_fragments", () -> new Item(new Item.Properties().fireResistant()));
 
     public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
@@ -81,9 +84,12 @@ public class Content {
     public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block");
     public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK  = registerFireResistanceBlock("fire_slime_block", () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
 
+    public static final CrumbSupplier<Block> ANCIENT_AIR_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_air_slimy_block", () -> new AncientAirSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
+    public static final CrumbSupplier<Block> ANCIENT_WATER_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_water_slimy_block", () -> new AncientWaterSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
+    public static final CrumbSupplier<Block> ANCIENT_EARTH_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_earth_slimy_block", () -> new AncientEarthSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
     public static final CrumbSupplier<Block> ANCIENT_FIRE_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_fire_slimy_block", () -> new AncientFireSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
 
-    public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_FIRE_SLIMY_BLOCK);
+    public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
     public static final TagKey<EntityType<?>> SLIMES = TagHelper.entityType("slimes");
     public static final TagKey<EntityType<?>> ELEMENTAL_SLIMES = TagHelper.entityType("elemental_slimes");
@@ -92,6 +98,9 @@ public class Content {
     public static final TagKey<Biome> WATER_SLIME_BIOME_TAG = TagHelper.biome("entity_gen/is_water_slime_biome");
     public static final TagKey<Biome> EARTH_SLIME_BIOME_TAG = TagHelper.biome("entity_gen/is_earth_slime_biome");
     public static final TagKey<Biome> FLAME_SLIME_BIOME_TAG = TagHelper.biome("entity_gen/is_flame_slime_biome");
+    public static final TagKey<Item> ANCIENT_AIR_FRAGMENTS_TAG = TagHelper.item("ancient_air_fragments");
+    public static final TagKey<Item> ANCIENT_WATER_FRAGMENTS_TAG = TagHelper.item("ancient_water_fragments");
+    public static final TagKey<Item> ANCIENT_EARTH_FRAGMENTS_TAG = TagHelper.item("ancient_earth_fragments");
     public static final TagKey<Item> ANCIENT_FIRE_FRAGMENTS_TAG = TagHelper.item("ancient_fire_fragments");
 
     public static final TagKey<BannerPattern> SLIME_BANNER_PATTERN = TagHelper.bannerPattern( "pattern_item/slime");
@@ -218,7 +227,14 @@ public class Content {
                 output.accept(FLAME_SLIME_EGG.get());
 
                 output.accept(CLEANSING_BRUSH.get());
+                output.accept(ANCIENT_AIR_SLIMY_BLOCK.get());
+                output.accept(ANCIENT_WATER_SLIMY_BLOCK.get());
+                output.accept(ANCIENT_EARTH_SLIMY_BLOCK.get());
                 output.accept(ANCIENT_FIRE_SLIMY_BLOCK.get());
+
+                output.accept(ANCIENT_AIR_FRAGMENTS.get());
+                output.accept(ANCIENT_WATER_FRAGMENTS.get());
+                output.accept(ANCIENT_EARTH_FRAGMENTS.get());
                 output.accept(ANCIENT_FIRE_FRAGMENTS.get());
             }))
     );

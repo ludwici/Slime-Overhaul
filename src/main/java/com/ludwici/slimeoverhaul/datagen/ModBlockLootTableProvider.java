@@ -23,6 +23,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(EARTH_SLIME_BLOCK.get());
         dropSelf(FIRE_SLIME_BLOCK.get());
 
+        dropSelf(ANCIENT_AIR_SLIMY_BLOCK.get());
+        dropSelf(ANCIENT_WATER_SLIMY_BLOCK.get());
+        dropSelf(ANCIENT_EARTH_SLIMY_BLOCK.get());
         dropSelf(ANCIENT_FIRE_SLIMY_BLOCK.get());
     }
 

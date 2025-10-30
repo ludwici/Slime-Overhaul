@@ -32,6 +32,12 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(Tags.Items.TOOLS).add(CLEANSING_BRUSH.get());
         tag(Tags.Items.TOOLS_BRUSH).add(CLEANSING_BRUSH.get());
 
+        tag(ANCIENT_AIR_FRAGMENTS_TAG)
+                .add(ANCIENT_AIR_FRAGMENTS.get());
+        tag(ANCIENT_WATER_FRAGMENTS_TAG)
+                .add(ANCIENT_WATER_FRAGMENTS.get());
+        tag(ANCIENT_EARTH_FRAGMENTS_TAG)
+                .add(ANCIENT_EARTH_FRAGMENTS.get());
         tag(ANCIENT_FIRE_FRAGMENTS_TAG)
                 .add(ANCIENT_FIRE_FRAGMENTS.get());
     }

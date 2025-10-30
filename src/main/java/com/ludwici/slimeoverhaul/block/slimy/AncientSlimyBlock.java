@@ -9,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -40,12 +41,15 @@ public class AncientSlimyBlock extends BaseEntityBlock {
     private SoundEvent brushSound;
     private SoundEvent brushCompletedSound;
 
-    protected AncientSlimyBlock(Block turnsInto, SoundEvent brushSound, SoundEvent brushCompletedSound, BlockBehaviour.Properties properties) {
+    public AncientSlimyBlock(Block turnsInto, SoundEvent brushSound, SoundEvent brushCompletedSound, BlockBehaviour.Properties properties) {
         super(properties);
         this.turnsInto = turnsInto;
         this.brushSound = brushSound;
         this.brushCompletedSound = brushCompletedSound;
         this.registerDefaultState(this.stateDefinition.any().setValue(DUSTED, 0));
+    }
+
+    public void applyEffect(Player player, AncientSlimyBlockEntity blockEntity) {
     }
 
     @Override

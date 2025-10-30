@@ -6,7 +6,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -31,6 +30,9 @@ public class ModBlockModelProvider extends BlockStateProvider {
         slimeBlockWithItem(EARTH_SLIME_BLOCK.get());
         slimeBlockWithItem(FIRE_SLIME_BLOCK.get());
 
+        ancientSlimyBlock(ANCIENT_AIR_SLIMY_BLOCK);
+        ancientSlimyBlock(ANCIENT_WATER_SLIMY_BLOCK);
+        ancientSlimyBlock(ANCIENT_EARTH_SLIMY_BLOCK);
         ancientSlimyBlock(ANCIENT_FIRE_SLIMY_BLOCK);
     }
 

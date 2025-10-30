@@ -1,5 +1,6 @@
 package com.ludwici.slimeoverhaul.block.entities;
 
+import com.ludwici.crumbslib.api.ModHelper;
 import com.ludwici.slimeoverhaul.block.slimy.AncientSlimyBlock;
 import com.ludwici.slimeoverhaul.effect.HandBurnEffect;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -26,6 +28,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 
+import static com.ludwici.crumbslib.api.BlockEntityHelper.BLOCK_ENTITY_TYPES;
 import static com.ludwici.slimeoverhaul.Content.ANCIENT_SLIMY_BLOCK_ENTITY;
 import static com.ludwici.slimeoverhaul.Content.HAND_BURN_EFFECT;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
@@ -68,51 +71,18 @@ public class AncientSlimyBlockEntity extends BlockEntity {
 
     private void brushingCompleted(Player player) {
         if (this.level != null && this.level.getServer() != null) {
-            dropContent(player);
-            chooseEffect(player);
             BlockState blockstate = this.getBlockState();
             this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockstate));
             Block block;
-            if (this.getBlockState().getBlock() instanceof AncientSlimyBlock brushableblock) {
-                block = brushableblock.getTurnsInto();
+            if (this.getBlockState().getBlock() instanceof AncientSlimyBlock ancientSlimyBlock) {
+                dropContent(player);
+                ancientSlimyBlock.applyEffect(player, this);
+                block = ancientSlimyBlock.getTurnsInto();
             } else {
                 block = Blocks.AIR;
             }
 
             this.level.setBlock(this.worldPosition, block.defaultBlockState(), 3);
-        }
-    }
-
-    private void chooseEffect(Player player) {
-        int behaviour = level.random.nextIntBetweenInclusive(1, 3);
-        if (behaviour == 1) {
-            var effect = player.getEffect(HAND_BURN_EFFECT.getHolder());
-            int duration = 1200;
-            if (effect != null) {
-                int amplifier = effect.getAmplifier();
-                duration = HandBurnEffect.getDuration(amplifier);
-
-                player.addEffect(new MobEffectInstance(HAND_BURN_EFFECT.getHolder(), duration, Math.min(amplifier + 1, 2)));
-            } else {
-                player.addEffect(new MobEffectInstance(HAND_BURN_EFFECT.getHolder(), duration, 0));
-            }
-        } else if (behaviour == 2) {
-            BlockPos playerPos = player.blockPosition();
-            if (level.getBlockState(playerPos).isAir()) {
-                level.setBlock(playerPos, Blocks.FIRE.defaultBlockState(), 3);
-            }
-        } else if (behaviour == 3) {
-            int posX = level.random.nextIntBetweenInclusive(-2, 3);
-            int posZ = level.random.nextIntBetweenInclusive(-2, 3);
-
-            BlockPos groundPos = worldPosition.offset(posX, 0, posZ);
-            while (level.getBlockState(groundPos).isAir() && groundPos.getY() > level.getMinBuildHeight()) {
-                groundPos = groundPos.below();
-            }
-
-            if (level.getBlockState(groundPos.above()).isAir()) {
-                level.setBlock(groundPos.above(), Blocks.FIRE.defaultBlockState(), 3);
-            }
         }
     }
 

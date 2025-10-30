@@ -30,6 +30,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(WATER_SLIME_BUCKET);
         basicItem(FIRE_SLIME_BUCKET);
 
+        basicItem(ANCIENT_AIR_FRAGMENTS);
+        basicItem(ANCIENT_WATER_FRAGMENTS);
+        basicItem(ANCIENT_EARTH_FRAGMENTS);
         basicItem(ANCIENT_FIRE_FRAGMENTS);
 
         bannerPatternItem(PATTERN_SLIME);

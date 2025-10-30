@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "name": "slimeoverhaul:ancient_water_fragments",
+          "expand": true,
+          "functions": []
+        }
+      ]
+    }
+  ],
+  "functions": []
+}

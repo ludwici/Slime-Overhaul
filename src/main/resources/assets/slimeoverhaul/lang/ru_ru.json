@@ -26,6 +26,9 @@
 
   "item.slimeoverhaul.cleansing_brush": "Очищающая кисть",
 
+  "item.slimeoverhaul.ancient_air_fragments": "Древние воздушные осколки",
+  "item.slimeoverhaul.ancient_water_fragments": "Древние водные осколки",
+  "item.slimeoverhaul.ancient_earth_fragments": "Древние земляные осколки",
   "item.slimeoverhaul.ancient_fire_fragments": "Древние огненные осколки",
 
   "item.slimeoverhaul.banner_pattern_slime": "Узор флага",
@@ -148,6 +151,9 @@
   "block.slimeoverhaul.earth_slime_block": "Блок земляной слизи",
   "block.slimeoverhaul.fire_slime_block": "Блок огненной слизи",
 
+  "block.slimeoverhaul.ancient_air_slimy_block": "Воздушный слизистый блок",
+  "block.slimeoverhaul.ancient_water_slimy_block": "Водный слизистый блок",
+  "block.slimeoverhaul.ancient_earth_slimy_block": "Земляной слизистый блок",
   "block.slimeoverhaul.ancient_fire_slimy_block": "Огненный слизистый блок",
 
   "effect.slimeoverhaul.double_jump": "Двойной прыжок",
