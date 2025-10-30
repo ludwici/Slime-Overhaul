@@ -101,7 +101,7 @@ public class FireShrineStructure extends SinglePieceStructure {
                 int randomHeight = randomSource.nextIntBetweenInclusive(1, 3);
 
                 for (int j = 0; j < randomHeight; j++) {
-                    placeBlock(worldGenLevel, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), randomX, j, randomZ, boundingBox);
+                    placeBlock(worldGenLevel, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState(), randomX, j, randomZ, boundingBox);
                 }
 
                 placeBlock(worldGenLevel, ANCIENT_FIRE_SLIMY_BLOCK.get().defaultBlockState(), randomX, -1, randomZ, boundingBox);
