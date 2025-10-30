@@ -1,0 +1,65 @@
+{
+  "parent": "slimeoverhaul:slimeoverhaul/shining_slime",
+  "display": {
+    "icon": {
+      "id": "slimeoverhaul:cleansing_brush"
+    },
+    "title": {
+      "translate": "advancements.slimeoverhaul.ancients.title"
+    },
+    "description": {
+      "translate": "advancements.slimeoverhaul.ancients.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_fragments": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#slimeoverhaul:ancient_all_fragments"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ancient_air_block": {
+      "conditions": {
+        "loot_table": "slimeoverhaul:ancient/ancient_air_slimy_block"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    },
+    "ancient_water_block": {
+      "conditions": {
+        "loot_table": "slimeoverhaul:ancient/ancient_water_slimy_block"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    },
+    "ancient_earth_block": {
+      "conditions": {
+        "loot_table": "slimeoverhaul:ancient/ancient_earth_slimy_block"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    },
+    "ancient_fire_block": {
+      "conditions": {
+        "loot_table": "slimeoverhaul:ancient/ancient_fire_slimy_block"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    }
+  },
+  "requirements": [
+    [
+      "ancient_air_block",
+      "ancient_water_block",
+      "ancient_earth_block",
+      "ancient_fire_block"
+    ],
+    [
+      "has_fragments"
+    ]
+  ]
+}

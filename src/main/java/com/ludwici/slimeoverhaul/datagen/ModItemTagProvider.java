@@ -40,5 +40,12 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ANCIENT_EARTH_FRAGMENTS.get());
         tag(ANCIENT_FIRE_FRAGMENTS_TAG)
                 .add(ANCIENT_FIRE_FRAGMENTS.get());
+
+        tag(ANCIENT_ALL_FRAGMENTS_TAG)
+                .addTag(ANCIENT_AIR_FRAGMENTS_TAG)
+                .addTag(ANCIENT_WATER_FRAGMENTS_TAG)
+                .addTag(ANCIENT_EARTH_FRAGMENTS_TAG)
+                .addTag(ANCIENT_FIRE_FRAGMENTS_TAG)
+        ;
     }
 }

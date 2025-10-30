@@ -176,6 +176,8 @@
   "advancements.slimeoverhaul.earth_power.description": "Улучшите щит",
   "advancements.slimeoverhaul.slime_banner.title": "Изображение слизня",
   "advancements.slimeoverhaul.slime_banner.description": "Теперь точно не забуду как он выглядит",
+  "advancements.slimeoverhaul.ancients.title": "Фрагменты",
+  "advancements.slimeoverhaul.ancients.description": "Обнаружить древний фрагмент",
 
   "slimeoverhaul.earth_power": "Сила земли: %s",
   "slimeoverhaul.lost_earth_power": "Сила земли больше не усиливает ваш щит"

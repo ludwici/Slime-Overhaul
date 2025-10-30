@@ -102,6 +102,7 @@ public class Content {
     public static final TagKey<Item> ANCIENT_WATER_FRAGMENTS_TAG = TagHelper.item("ancient_water_fragments");
     public static final TagKey<Item> ANCIENT_EARTH_FRAGMENTS_TAG = TagHelper.item("ancient_earth_fragments");
     public static final TagKey<Item> ANCIENT_FIRE_FRAGMENTS_TAG = TagHelper.item("ancient_fire_fragments");
+    public static final TagKey<Item> ANCIENT_ALL_FRAGMENTS_TAG = TagHelper.item("ancient_all_fragments");
 
     public static final TagKey<BannerPattern> SLIME_BANNER_PATTERN = TagHelper.bannerPattern( "pattern_item/slime");
     public static final TagKey<BannerPattern> AIR_SLIME_SIGN_BANNER_PATTERN = TagHelper.bannerPattern("pattern_item/air_slime_sign");
