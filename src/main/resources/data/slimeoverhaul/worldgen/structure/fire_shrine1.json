@@ -1,7 +1,0 @@
-{
-  "type": "slimeoverhaul:fire_shrine1",
-  "biomes": "#slimeoverhaul:structure_gen/fire_shrine",
-  "spawn_overrides": {},
-  "step": "surface_structures",
-  "terrain_adaptation": "beard_thin"
-}
