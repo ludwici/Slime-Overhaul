@@ -212,21 +212,6 @@ public class Content {
                 output.accept(EARTH_SLIME_BLOCK.get());
                 output.accept(FIRE_SLIME_BLOCK.get());
 
-                output.accept(WATER_SLIME_BUCKET.get());
-                output.accept(FIRE_SLIME_BUCKET.get());
-
-                output.accept(PATTERN_SLIME.get());
-                output.accept(PATTERN_AIR_SLIME_SIGN.get());
-                output.accept(PATTERN_WATER_SLIME_SIGN.get());
-                output.accept(PATTERN_EARTH_SLIME_SIGN.get());
-                output.accept(PATTERN_FIRE_SLIME_SIGN.get());
-
-                output.accept(AIR_SLIME_EGG.get());
-                output.accept(WATER_SLIME_EGG.get());
-                output.accept(EARTH_SLIME_EGG.get());
-                output.accept(FLAME_SLIME_EGG.get());
-
-                output.accept(CLEANSING_BRUSH.get());
                 output.accept(ANCIENT_AIR_SLIMY_BLOCK.get());
                 output.accept(ANCIENT_WATER_SLIMY_BLOCK.get());
                 output.accept(ANCIENT_EARTH_SLIMY_BLOCK.get());
@@ -236,6 +221,21 @@ public class Content {
                 output.accept(ANCIENT_WATER_FRAGMENTS.get());
                 output.accept(ANCIENT_EARTH_FRAGMENTS.get());
                 output.accept(ANCIENT_FIRE_FRAGMENTS.get());
+
+                output.accept(WATER_SLIME_BUCKET.get());
+                output.accept(FIRE_SLIME_BUCKET.get());
+                output.accept(CLEANSING_BRUSH.get());
+
+                output.accept(AIR_SLIME_EGG.get());
+                output.accept(WATER_SLIME_EGG.get());
+                output.accept(EARTH_SLIME_EGG.get());
+                output.accept(FLAME_SLIME_EGG.get());
+
+                output.accept(PATTERN_SLIME.get());
+                output.accept(PATTERN_AIR_SLIME_SIGN.get());
+                output.accept(PATTERN_WATER_SLIME_SIGN.get());
+                output.accept(PATTERN_EARTH_SLIME_SIGN.get());
+                output.accept(PATTERN_FIRE_SLIME_SIGN.get());
             }))
     );
 
