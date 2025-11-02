@@ -105,7 +105,7 @@ public class SlimeOverhaulMod {
 
     private static void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();
-        if (item.is(Tags.Items.TOOLS_SHIELDS)) {
+        if (isShieldItem(item)) {
             List<Component> tooltipComponents = event.getToolTip();
             CompoundTag tag = item.getTag();
             if (tag != null && tag.contains("bounce")) {
@@ -119,14 +119,14 @@ public class SlimeOverhaulMod {
         LivingEntity entity = event.getEntity();
         ItemStack itemStack = entity.getItemInHand(entity.getUsedItemHand());
 
-        if (itemStack.is(Tags.Items.TOOLS_SHIELDS)) {
+        if (isShieldItem(itemStack)) {
             checkShieldBounce(itemStack, event, entity);
         }
     }
 
     private static void onInv(AnvilRepairEvent event) {
         ItemStack item = event.getOutput();
-        if (item.is(Tags.Items.TOOLS_SHIELDS)) {
+        if (isShieldItem(item)) {
             CompoundTag tag = item.getTag();
             if (tag != null && tag.contains("bounce")) {
                 var player = event.getEntity();

@@ -9,7 +9,6 @@ import com.ludwici.slimeoverhaul.entity.custom.elementals.FlameSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.WaterSlime;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
@@ -43,8 +42,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
-
-import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
 public class Content {
     public static void init() {
@@ -150,11 +147,15 @@ public class Content {
         });
     }
 
+    public static boolean isShieldItem(ItemStack itemStack) {
+        return itemStack.is(Tags.Items.TOOLS_SHIELDS) || itemStack.getItem() instanceof ShieldItem;
+    }
+
     public static void registerAnvilEvent(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
 
-        if (left.is(Tags.Items.TOOLS_SHIELDS) && right.is(EARTH_SLIME_BALL.get())) {
+        if (isShieldItem(left) && right.is(EARTH_SLIME_BALL.get())) {
             ItemStack result = left.copy();
 
             CompoundTag tag = result.getOrCreateTag();

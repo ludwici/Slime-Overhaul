@@ -1,15 +1,17 @@
 package com.ludwici.slimeoverhaul.compat.jei;
 
+import com.ludwici.slimeoverhaul.Content;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.ludwici.slimeoverhaul.Content.EARTH_SLIME_BALL;
@@ -26,11 +28,17 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         IVanillaRecipeFactory vanillaRecipeFactory = registration.getVanillaRecipeFactory();
 
-        ItemStack result = new ItemStack(Items.SHIELD);
-        CompoundTag tag = result.getOrCreateTag();
-        tag.putInt("bounce", 32);
+        List<ItemStack> shields = BuiltInRegistries.ITEM.stream().map(ItemStack::new).filter(Content::isShieldItem).toList();
 
-        IJeiAnvilRecipe recipe = vanillaRecipeFactory.createAnvilRecipe(new ItemStack(Items.SHIELD), List.of(new ItemStack(EARTH_SLIME_BALL.getHolder())), List.of(result), ResourceLocation.fromNamespaceAndPath(MODID, ""));
+        List<ItemStack> results = new ArrayList<>();
+        shields.forEach(s -> {
+            ItemStack r = new ItemStack(s.getItem());
+            CompoundTag tag = r.getOrCreateTag();
+            tag.putInt("bounce", 32);
+            results.add(r);
+        });
+
+        IJeiAnvilRecipe recipe = vanillaRecipeFactory.createAnvilRecipe(shields, List.of(new ItemStack(EARTH_SLIME_BALL.getHolder())), results, ResourceLocation.fromNamespaceAndPath(MODID, ""));
         registration.addRecipes(RecipeTypes.ANVIL, List.of(recipe));
     }
 }
