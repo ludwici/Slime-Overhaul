@@ -1,11 +1,22 @@
 package com.ludwici.slimeoverhaul.datagen;
 
 import com.ludwici.crumbslib.api.BlockHelper;
+import com.ludwici.crumbslib.api.CrumbSupplier;
+import com.ludwici.slimeoverhaul.block.SlimeCoatBlock;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.Set;
 
@@ -27,6 +38,37 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ANCIENT_WATER_SLIMY_BLOCK.get());
         dropSelf(ANCIENT_EARTH_SLIMY_BLOCK.get());
         dropSelf(ANCIENT_FIRE_SLIMY_BLOCK.get());
+
+        slimeCoat(AIR_SLIME_COAT);
+        slimeCoat(WATER_SLIME_COAT);
+        slimeCoat(EARTH_SLIME_COAT);
+        slimeCoat(FIRE_SLIME_COAT);
+    }
+
+    public void slimeCoat(Block block, Item item) {
+        this.add(block, lt -> LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .add(AlternativesEntry.alternatives(
+                                AlternativesEntry.alternatives(
+                                        SlimeCoatBlock.FACE_COUNT.getPossibleValues(),
+                                        value -> LootItem.lootTableItem(item)
+                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlimeCoatBlock.FACE_COUNT, value))
+                                                )
+                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(value)))
+
+                                )
+                        ))
+                )
+        );
+    }
+
+    public void slimeCoat(Block block) {
+        slimeCoat(block, block.asItem());
+    }
+
+    public <T extends Block> void slimeCoat(CrumbSupplier<T> block) {
+        slimeCoat(block.get());
     }
 
     @Override

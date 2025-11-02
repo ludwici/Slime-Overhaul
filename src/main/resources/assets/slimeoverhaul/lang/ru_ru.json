@@ -156,6 +156,11 @@
   "block.slimeoverhaul.ancient_earth_slimy_block": "Земляной слизистый блок",
   "block.slimeoverhaul.ancient_fire_slimy_block": "Огненный слизистый блок",
 
+  "block.slimeoverhaul.air_slime_coat": "Воздушное слизистое покрытие",
+  "block.slimeoverhaul.water_slime_coat": "Водное слизистое покрытие",
+  "block.slimeoverhaul.earth_slime_coat": "Земляное слизистое покрытие",
+  "block.slimeoverhaul.fire_slime_coat": "Огненное слизистое покрытие",
+
   "effect.slimeoverhaul.double_jump": "Двойной прыжок",
   "effect.slimeoverhaul.water_anti_depth": "Водная антиглубина",
   "effect.slimeoverhaul.knockback": "Твёрдость",

@@ -89,6 +89,11 @@ public class Content {
     public static final CrumbSupplier<Block> ANCIENT_EARTH_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_earth_slimy_block", () -> new AncientEarthSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
     public static final CrumbSupplier<Block> ANCIENT_FIRE_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_fire_slimy_block", () -> new AncientFireSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
 
+    public static final CrumbSupplier<Block> AIR_SLIME_COAT = BlockHelper.registerWithItem("air_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
+    public static final CrumbSupplier<Block> WATER_SLIME_COAT = BlockHelper.registerWithItem("water_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
+    public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
+    public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
+
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
     public static final TagKey<EntityType<?>> SLIMES = TagHelper.entityType("slimes");
@@ -217,6 +222,11 @@ public class Content {
                 output.accept(ANCIENT_WATER_SLIMY_BLOCK.get());
                 output.accept(ANCIENT_EARTH_SLIMY_BLOCK.get());
                 output.accept(ANCIENT_FIRE_SLIMY_BLOCK.get());
+
+                output.accept(AIR_SLIME_COAT.get());
+                output.accept(WATER_SLIME_COAT.get());
+                output.accept(EARTH_SLIME_COAT.get());
+                output.accept(FIRE_SLIME_COAT.get());
 
                 output.accept(ANCIENT_AIR_FRAGMENTS.get());
                 output.accept(ANCIENT_WATER_FRAGMENTS.get());

@@ -10,7 +10,6 @@
     "description": {
       "translate": "advancements.slimeoverhaul.ancients.description"
     },
-    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

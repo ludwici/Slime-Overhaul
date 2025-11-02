@@ -1,0 +1,162 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:alternatives",
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "block": "slimeoverhaul:earth_slime_coat",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "face_count": "0"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 0.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "slimeoverhaul:earth_slime_coat"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "block": "slimeoverhaul:earth_slime_coat",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "face_count": "1"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 1.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "slimeoverhaul:earth_slime_coat"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "block": "slimeoverhaul:earth_slime_coat",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "face_count": "2"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 2.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "slimeoverhaul:earth_slime_coat"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "block": "slimeoverhaul:earth_slime_coat",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "face_count": "3"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 3.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "slimeoverhaul:earth_slime_coat"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "block": "slimeoverhaul:earth_slime_coat",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "face_count": "4"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 4.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "slimeoverhaul:earth_slime_coat"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "block": "slimeoverhaul:earth_slime_coat",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "face_count": "5"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 5.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "slimeoverhaul:earth_slime_coat"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "block": "slimeoverhaul:earth_slime_coat",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "face_count": "6"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 6.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "slimeoverhaul:earth_slime_coat"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "slimeoverhaul:blocks/earth_slime_coat"
+}

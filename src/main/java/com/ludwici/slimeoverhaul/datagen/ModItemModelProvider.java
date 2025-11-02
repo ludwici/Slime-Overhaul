@@ -1,9 +1,14 @@
 package com.ludwici.slimeoverhaul.datagen;
 
 import com.ludwici.crumbslib.api.CrumbSupplier;
+import com.ludwici.slimeoverhaul.Content;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.*;
@@ -35,6 +40,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ANCIENT_EARTH_FRAGMENTS);
         basicItem(ANCIENT_FIRE_FRAGMENTS);
 
+        fromBlock(AIR_SLIME_COAT.get());
+        fromBlock(WATER_SLIME_COAT.get());
+        fromBlock(EARTH_SLIME_COAT.get());
+        fromBlock(FIRE_SLIME_COAT.get());
+
         bannerPatternItem(PATTERN_SLIME);
         bannerPatternItem(PATTERN_AIR_SLIME_SIGN);
         bannerPatternItem(PATTERN_WATER_SLIME_SIGN);
@@ -48,6 +58,18 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     public <I extends Item> void basicItem(CrumbSupplier<I> item) {
         basicItem(item.get());
+    }
+
+    public void fromBlock(Block block) {
+        ResourceLocation res = BuiltInRegistries.ITEM.getKey(block.asItem());
+        getBuilder(block.asItem().toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath(res.getNamespace(), "block/" + res.getPath()));
+
+    }
+
+    public void fromBlock(CrumbSupplier<Block> block) {
+        fromBlock(block.get());
     }
 
     private <T extends Item> String getName(CrumbSupplier<T> item) {
