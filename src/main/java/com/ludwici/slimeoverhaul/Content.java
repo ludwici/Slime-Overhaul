@@ -2,6 +2,7 @@ package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
 import com.ludwici.slimeoverhaul.block.GlowingSlimeBlock;
+import com.ludwici.slimeoverhaul.block.SlimeCoatBlock;
 import com.ludwici.slimeoverhaul.block.entities.AncientSlimyBlockEntity;
 import com.ludwici.slimeoverhaul.block.slimy.*;
 import com.ludwici.slimeoverhaul.effect.AntiDepthEffect;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
