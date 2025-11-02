@@ -1,13 +1,10 @@
 package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
-import com.ludwici.slimeoverhaul.block.GlowingSlimeBlock;
-import com.ludwici.slimeoverhaul.block.SlimeCoatBlock;
-import com.ludwici.slimeoverhaul.block.entities.AncientSlimyBlockEntity;
+import com.ludwici.slimeoverhaul.block.*;
+import com.ludwici.slimeoverhaul.block.entities.*;
 import com.ludwici.slimeoverhaul.block.slimy.*;
-import com.ludwici.slimeoverhaul.effect.AntiDepthEffect;
-import com.ludwici.slimeoverhaul.effect.BaseMobEffect;
-import com.ludwici.slimeoverhaul.effect.HandBurnEffect;
+import com.ludwici.slimeoverhaul.effect.*;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.*;
 import com.ludwici.slimeoverhaul.item.CleansingBrushItem;
 import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
@@ -95,6 +92,8 @@ public class Content {
     public static final CrumbSupplier<Block> WATER_SLIME_COAT = BlockHelper.registerWithItem("water_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
     public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
     public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_BLOCK = BlockHelper.registerWithItem("fire_crystallized_block", () -> new CrystallizedSlimeBlock(BlockBehaviour.Properties.of().noOcclusion().lightLevel(state -> 3)));
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
@@ -241,6 +240,8 @@ public class Content {
                 output.accept(ANCIENT_WATER_FRAGMENTS.get());
                 output.accept(ANCIENT_EARTH_FRAGMENTS.get());
                 output.accept(ANCIENT_FIRE_FRAGMENTS.get());
+
+                output.accept(FIRE_CRYSTALLIZED_BLOCK.get());
 
                 output.accept(WATER_SLIME_BUCKET.get());
                 output.accept(FIRE_SLIME_BUCKET.get());

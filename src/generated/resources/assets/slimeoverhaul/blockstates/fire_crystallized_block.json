@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "facing=east,stage=1": {
+      "model": "slimeoverhaul:block/fire_crystallized_block1",
+      "y": 90
+    },
+    "facing=east,stage=2": {
+      "model": "slimeoverhaul:block/fire_crystallized_block2",
+      "y": 90
+    },
+    "facing=east,stage=3": {
+      "model": "slimeoverhaul:block/fire_crystallized_block3",
+      "y": 90
+    },
+    "facing=north,stage=1": {
+      "model": "slimeoverhaul:block/fire_crystallized_block1"
+    },
+    "facing=north,stage=2": {
+      "model": "slimeoverhaul:block/fire_crystallized_block2"
+    },
+    "facing=north,stage=3": {
+      "model": "slimeoverhaul:block/fire_crystallized_block3"
+    },
+    "facing=south,stage=1": {
+      "model": "slimeoverhaul:block/fire_crystallized_block1",
+      "y": 180
+    },
+    "facing=south,stage=2": {
+      "model": "slimeoverhaul:block/fire_crystallized_block2",
+      "y": 180
+    },
+    "facing=south,stage=3": {
+      "model": "slimeoverhaul:block/fire_crystallized_block3",
+      "y": 180
+    },
+    "facing=west,stage=1": {
+      "model": "slimeoverhaul:block/fire_crystallized_block1",
+      "y": 270
+    },
+    "facing=west,stage=2": {
+      "model": "slimeoverhaul:block/fire_crystallized_block2",
+      "y": 270
+    },
+    "facing=west,stage=3": {
+      "model": "slimeoverhaul:block/fire_crystallized_block3",
+      "y": 270
+    }
+  }
+}

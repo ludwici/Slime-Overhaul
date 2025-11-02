@@ -1,7 +1,9 @@
 package com.ludwici.slimeoverhaul.datagen;
 
 import com.ludwici.crumbslib.api.CrumbSupplier;
+import com.ludwici.slimeoverhaul.block.CrystallizedSlimeBlock;
 import com.ludwici.slimeoverhaul.block.slimy.AncientSlimyBlock;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -40,6 +42,41 @@ public class ModBlockModelProvider extends BlockStateProvider {
         createSlimeCoat(WATER_SLIME_COAT);
         createSlimeCoat(EARTH_SLIME_COAT);
         createSlimeCoat(FIRE_SLIME_COAT);
+
+        crystallizedSlime(FIRE_CRYSTALLIZED_BLOCK);
+    }
+
+    private void crystallizedSlime(Block block) {
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+            int stage = state.getValue(CrystallizedSlimeBlock.STAGE);
+            int yRot = getRotationForDirection(facing);
+            ModelFile model = new ConfiguredModel(
+                    models().withExistingParent(
+                                    name(block) + stage,
+                                    ResourceLocation.fromNamespaceAndPath(MODID, "crystallized_slime" + stage)
+                            )
+                            .texture("0", ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(block)))
+            ).model;
+            ConfiguredModel.Builder<?> builder = ConfiguredModel.builder().modelFile(model);
+
+            builder.rotationY(yRot);
+
+            return builder.build();
+        });
+    }
+
+    private int getRotationForDirection(Direction direction) {
+        return switch (direction) {
+            case EAST -> 90;
+            case SOUTH -> 180;
+            case WEST -> 270;
+            default -> 0;
+        };
+    }
+
+    private void crystallizedSlime(CrumbSupplier<Block> block) {
+        crystallizedSlime(block.get());
     }
 
     private void ancientSlimyBlock(CrumbSupplier<Block> block) {
@@ -83,9 +120,9 @@ public class ModBlockModelProvider extends BlockStateProvider {
     public ModelFile createSlimeCoat(Block variant) {
         ModelFile model = new ConfiguredModel(
                 models().withExistingParent(
-                        name(variant),
-                        ResourceLocation.fromNamespaceAndPath(MODID, "slime_coat_base")
-                )
+                                name(variant),
+                                ResourceLocation.fromNamespaceAndPath(MODID, "slime_coat_base")
+                        )
                         .texture("texture", ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(variant)))
                         .texture("particle", ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(variant)))
                         .renderType("translucent")

@@ -43,6 +43,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         slimeCoat(WATER_SLIME_COAT);
         slimeCoat(EARTH_SLIME_COAT);
         slimeCoat(FIRE_SLIME_COAT);
+
+        dropSelf(FIRE_CRYSTALLIZED_BLOCK.get());
     }
 
     public void slimeCoat(Block block, Item item) {
