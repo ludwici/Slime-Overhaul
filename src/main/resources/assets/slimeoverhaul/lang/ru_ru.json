@@ -1,4 +1,11 @@
 {
+  "slimeoverhaul.configuration.allowAirSlimes": "Спавн воздушных слизней",
+  "slimeoverhaul.configuration.allowWaterSlimes": "Спавн водных слизней",
+  "slimeoverhaul.configuration.allowEarthSlimes": "Спавн земляных слизней",
+  "slimeoverhaul.configuration.allowFlameSlimes": "Спавн огненных слизней",
+  "slimeoverhaul.configuration.waterSlimeFindFireTick": "Поиск огня",
+  "slimeoverhaul.configuration.waterSlimeFindFireTick.tooltip": "Определяет то, как часто водные слаймы будут искать блоки огня, чтобы их потушить. Частый вызов может привести к потере производительности, чем выше значение, тем реже будет поиск и тем больше производительность.",
+
   "entity.slimeoverhaul.air_slime": "Воздушный слизень",
   "entity.slimeoverhaul.water_slime": "Водный слизень",
   "entity.slimeoverhaul.earth_slime": "Земляной слизень",

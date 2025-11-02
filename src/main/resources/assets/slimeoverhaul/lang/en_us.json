@@ -1,4 +1,11 @@
 {
+  "slimeoverhaul.configuration.allowAirSlimes": "Air Slime spawn",
+  "slimeoverhaul.configuration.allowWaterSlimes": "Water Slime spawn",
+  "slimeoverhaul.configuration.allowEarthSlimes": "Earth Slime spawn",
+  "slimeoverhaul.configuration.allowFlameSlimes": "Fire Slime spawn",
+  "slimeoverhaul.configuration.waterSlimeFindFireTick": "Fire search",
+  "slimeoverhaul.configuration.waterSlimeFindFireTick.tooltip": "Determines how often water slimes will search for fire blocks to extinguish them. Frequent calls can lead to performance loss; the higher the value, the less frequent the search and the higher the performance.",
+
   "entity.slimeoverhaul.air_slime": "Air Slime",
   "entity.slimeoverhaul.water_slime": "Water Slime",
   "entity.slimeoverhaul.earth_slime": "Earth Slime",

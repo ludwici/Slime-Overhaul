@@ -1,5 +1,6 @@
 package com.ludwici.slimeoverhaul.entity.custom.elementals;
 
+import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.variants.WaterSlimeVariant;
 import net.minecraft.Util;
@@ -173,8 +174,7 @@ public class WaterSlime extends BaseSlime implements Bucketable {
             if (isTiny()) {
                 return false;
             }
-            BlockPos near = findFireBlock(this.slime.blockPosition(), 10);
-            this.slime.fireBlockPos = near;
+            this.slime.fireBlockPos = findFireBlock(this.slime.blockPosition(), 10);
             return this.slime.fireBlockPos != null;
         }
 
@@ -209,7 +209,7 @@ public class WaterSlime extends BaseSlime implements Bucketable {
 
         public void tick() {
             if (--this.nextRandomizeTime <= 0) {
-                this.nextRandomizeTime = 10;
+                this.nextRandomizeTime = Config.WATER_SLIME_FIND_FIRE.get();
 
                 MoveControl var2 = this.slime.getMoveControl();
                 if (var2 instanceof SlimeMoveControl slimeMoveControl) {
@@ -262,6 +262,10 @@ public class WaterSlime extends BaseSlime implements Bucketable {
     }
 
     public static boolean checkSpawnRules(EntityType<WaterSlime> type, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        if (!Config.SPAWN_WATER_SLIMES.get()) {
+            return false;
+        }
+
         if (level.getDifficulty() == Difficulty.PEACEFUL) {
             return false;
         }

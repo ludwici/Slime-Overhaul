@@ -1,10 +1,14 @@
 package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
+import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.mojang.blaze3d.platform.InputConstants;
+import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import me.shedaniel.clothconfig2.api.ConfigCategory;
+import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -21,9 +25,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
@@ -31,7 +35,10 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -54,6 +61,8 @@ public class SlimeOverhaulMod {
         PotionHelper.initBus();
         MobEffectHelper.initBus();
         CreativeTabHelper.initBus();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
         EventHelper.addEventRenderers(event -> {
             event.registerEntityRenderer(AIR_SLIME.get(), BaseSlimeRenderer::new);
@@ -211,7 +220,70 @@ public class SlimeOverhaulMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            if (ModList.get().isLoaded("cloth_config")) {
+                ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((minecraft1, screen) -> {
+                    ConfigBuilder builder = ConfigBuilder.create().setParentScreen(screen).setTitle(Component.literal("Slime Overhaul"));
 
+                    builder.setGlobalized(false);
+                    builder.setTransparentBackground(true);
+
+                    ConfigCategory general = builder.getOrCreateCategory(Component.literal("Main"));
+
+                    ConfigEntryBuilder entryBuilder = ConfigEntryBuilder.create();
+                    general.addEntry(entryBuilder.startBooleanToggle(
+                            Component.translatable("slimeoverhaul.configuration.allowAirSlimes"),
+                                    Config.SPAWN_AIR_SLIMES.get())
+                                    .setDefaultValue(true)
+                                    .setSaveConsumer(newVal -> {
+                                        Config.SPAWN_AIR_SLIMES.set(newVal);
+                                        Config.SPAWN_AIR_SLIMES.save();
+                                    })
+                            .build());
+
+                    general.addEntry(entryBuilder.startBooleanToggle(
+                                    Component.translatable("slimeoverhaul.configuration.allowWaterSlimes"),
+                                    Config.SPAWN_WATER_SLIMES.get())
+                            .setDefaultValue(true)
+                            .setSaveConsumer(newVal -> {
+                                Config.SPAWN_WATER_SLIMES.set(newVal);
+                                Config.SPAWN_WATER_SLIMES.save();
+                            })
+                            .build());
+
+                    general.addEntry(entryBuilder.startBooleanToggle(
+                                    Component.translatable("slimeoverhaul.configuration.allowEarthSlimes"),
+                                    Config.SPAWN_EARTH_SLIMES.get())
+                            .setDefaultValue(true)
+                            .setSaveConsumer(newVal -> {
+                                Config.SPAWN_EARTH_SLIMES.set(newVal);
+                                Config.SPAWN_EARTH_SLIMES.save();
+                            })
+                            .build());
+
+                    general.addEntry(entryBuilder.startBooleanToggle(
+                                    Component.translatable("slimeoverhaul.configuration.allowFlameSlimes"),
+                                    Config.SPAWN_FLAME_SLIMES.get())
+                            .setDefaultValue(true)
+                            .setSaveConsumer(newVal -> {
+                                Config.SPAWN_FLAME_SLIMES.set(newVal);
+                                Config.SPAWN_FLAME_SLIMES.save();
+                            })
+                            .build());
+
+                    general.addEntry(entryBuilder.startIntField(
+                            Component.translatable("slimeoverhaul.configuration.waterSlimeFindFireTick"),
+                            Config.WATER_SLIME_FIND_FIRE.get())
+                                    .setDefaultValue(20)
+                                    .setTooltip(Component.translatable("slimeoverhaul.configuration.waterSlimeFindFireTick.tooltip"))
+                            .setSaveConsumer(newVal -> {
+                                Config.WATER_SLIME_FIND_FIRE.set(newVal);
+                                Config.WATER_SLIME_FIND_FIRE.save();
+                            })
+                            .build());
+
+                    return builder.build();
+                }));
+            }
         }
     }
 }

@@ -36,6 +36,7 @@ repositories {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
     }
+    maven { url "https://maven.shedaniel.me/" }
 }
 
 base {
@@ -110,6 +111,8 @@ dependencies {
 
     modCompileOnly "dev.emi:emi-forge:${emi_version}:api"
     modLocalRuntime "dev.emi:emi-forge:${emi_version}"
+
+    modApi "me.shedaniel.cloth:cloth-config-forge:${cloth_version}"
 }
 
 mixin {

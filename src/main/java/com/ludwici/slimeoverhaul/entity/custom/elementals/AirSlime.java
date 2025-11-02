@@ -1,5 +1,6 @@
 package com.ludwici.slimeoverhaul.entity.custom.elementals;
 
+import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -55,6 +56,10 @@ public class AirSlime extends BaseSlime {
     }
 
     public static boolean checkSpawnRules(EntityType<AirSlime> type, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        if (!Config.SPAWN_AIR_SLIMES.get()) {
+            return false;
+        }
+
         if (level.getDifficulty() == Difficulty.PEACEFUL) {
             return false;
         }
