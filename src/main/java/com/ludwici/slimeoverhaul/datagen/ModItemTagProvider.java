@@ -47,6 +47,18 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .addTag(ANCIENT_EARTH_FRAGMENTS_TAG)
                 .addTag(ANCIENT_FIRE_FRAGMENTS_TAG)
         ;
+
+        tag(EARTH_ITEMS_TAG)
+                .add(EARTH_SLIME_BALL.get())
+                .add(EARTH_SLIME_BLOCK.get().asItem())
+                .add(EARTH_SLIME_COAT.get().asItem())
+        ;
+
+        tag(FIRE_ITEMS_TAG)
+                .add(FIRE_SLIME_BALL.get())
+                .add(FIRE_SLIME_COAT.get().asItem())
+        ;
+
         tag(SLIME_COAT_ITEMS_TAG)
                 .add(AIR_SLIME_COAT.get().asItem())
                 .add(WATER_SLIME_COAT.get().asItem())

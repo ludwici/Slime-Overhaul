@@ -30,7 +30,7 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Inject(method = "setUnderwaterMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/ItemEntity;setDeltaMovement(DDD)V"), cancellable = true)
     protected void checkEarthSlimeItemsInWater(CallbackInfo ci) {
-        if (getItem().is(EARTH_SLIME_BALL.get()) || getItem().is(EARTH_SLIME_BLOCK.get().asItem())) {
+        if (getItem().is(EARTH_ITEMS_TAG)) {
             Vec3 vec3 = this.getDeltaMovement();
             this.setDeltaMovement(vec3.x * (double)0.99F, vec3.y - (double)(vec3.y < (double)-0.06F ? 5.0E-4F : 0.0F), vec3.z * (double)0.99F);
             ci.cancel();
@@ -40,7 +40,7 @@ public abstract class ItemEntityMixin extends Entity {
     @Inject(method = "tick", at = @At("HEAD"))
     protected void checkFireSlimeBallInWater(CallbackInfo ci) {
         if (!level().isClientSide()) {
-            if (getItem().is(FIRE_SLIME_BALL.get())) {
+            if (getItem().is(FIRE_ITEMS_TAG)) {
                 if (isInWater()) {
                     discard();
                 }
