@@ -112,7 +112,7 @@ public class SlimeOverhaulMod {
 
     private static void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();
-        if (item.is(Tags.Items.TOOLS_SHIELD)) {
+        if (isShieldItem(item)) {
             List<Component> tooltipComponents = event.getToolTip();
             CustomData data = item.get(DataComponents.CUSTOM_DATA);
             if (data != null) {
@@ -125,7 +125,7 @@ public class SlimeOverhaulMod {
 
     private static void onInv(AnvilRepairEvent event) {
         ItemStack item = event.getOutput();
-        if (item.is(Tags.Items.TOOLS_SHIELD)) {
+        if (isShieldItem(item)) {
             CustomData data = item.get(DataComponents.CUSTOM_DATA);
             if (data != null) {
                 CompoundTag tag = data.copyTag();
@@ -147,7 +147,7 @@ public class SlimeOverhaulMod {
 
         ItemStack shield = entity.getItemInHand(entity.getUsedItemHand());
 
-        if (shield.is(Tags.Items.TOOLS_SHIELD)) {
+        if (isShieldItem(shield)) {
             checkShieldBounce(shield, event, entity);
         }
     }

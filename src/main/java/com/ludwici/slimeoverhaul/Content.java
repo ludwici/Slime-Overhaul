@@ -155,11 +155,15 @@ public class Content {
         builder.addMix(Potions.WATER_BREATHING, WATER_SLIME_BLOCK.get().asItem(), MIDDLE_WATER_BREATHING.getHolder());
     }
 
+    public static boolean isShieldItem(ItemStack itemStack) {
+        return itemStack.is(Tags.Items.TOOLS_SHIELD) || itemStack.getItem() instanceof ShieldItem;
+    }
+
     public static void registerAnvilEvent(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
 
-        if (left.is(Tags.Items.TOOLS_SHIELD) && right.is(EARTH_SLIME_BALL.get())) {
+        if (isShieldItem(left) && right.is(EARTH_SLIME_BALL.get())) {
             ItemStack result = left.copy();
             CustomData data = result.get(DataComponents.CUSTOM_DATA);
             CompoundTag tag;
