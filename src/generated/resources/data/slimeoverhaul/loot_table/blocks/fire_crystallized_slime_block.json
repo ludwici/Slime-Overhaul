@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "slimeoverhaul:fire_crystallized_block"
+          "name": "slimeoverhaul:fire_crystallized_slime_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "slimeoverhaul:blocks/fire_crystallized_block"
+  "random_sequence": "slimeoverhaul:blocks/fire_crystallized_slime_block"
 }
