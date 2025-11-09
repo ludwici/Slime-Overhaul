@@ -1,6 +1,7 @@
 package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
+import com.ludwici.crumbslib.api.world.feature.FeatureHelper;
 import com.ludwici.slimeoverhaul.block.*;
 import com.ludwici.slimeoverhaul.block.entities.*;
 import com.ludwici.slimeoverhaul.block.slimy.*;
@@ -10,7 +11,6 @@ import com.ludwici.slimeoverhaul.item.CleansingBrushItem;
 import com.ludwici.slimeoverhaul.world.feature.FireCrystallizedSlimeFeature;
 import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -39,7 +39,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -51,8 +50,6 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
@@ -60,8 +57,7 @@ import java.util.function.ToIntFunction;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
 public class Content {
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, MODID);
-    public static final DeferredHolder<Feature<?>, FireCrystallizedSlimeFeature> FIRE_CRYSTALLIZED_SLIME_FEATURE = FEATURES.register("fire_crystallized_slime_feature", () -> new FireCrystallizedSlimeFeature(NoneFeatureConfiguration.CODEC));
+    public static final CrumbSupplier<FireCrystallizedSlimeFeature> FIRE_CRYSTALLIZED_SLIME_FEATURE = FeatureHelper.register("fire_crystallized_slime_feature", () -> new FireCrystallizedSlimeFeature(NoneFeatureConfiguration.CODEC));
 
     public static final CrumbSupplier<EntityType<AirSlime>>   AIR_SLIME   = EntityHelper.register("air_slime",   getSlimeFactory(AirSlime::new));
     public static final CrumbSupplier<EntityType<WaterSlime>> WATER_SLIME = EntityHelper.register("water_slime", getSlimeFactory(WaterSlime::new).fireImmune());

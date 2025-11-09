@@ -1,6 +1,7 @@
 package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
+import com.ludwici.crumbslib.api.world.feature.FeatureHelper;
 import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
@@ -68,7 +69,7 @@ public class SlimeOverhaulMod {
         CreativeTabHelper.initBus();
         StructureHelper.initBus();
         BlockEntityHelper.initBus();
-        FEATURES.register(modEventBus);
+        FeatureHelper.initBus();
 
         modEventBus.addListener(Content::spawns);
 
