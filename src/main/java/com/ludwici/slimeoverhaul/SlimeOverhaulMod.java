@@ -68,6 +68,7 @@ public class SlimeOverhaulMod {
         CreativeTabHelper.initBus();
         StructureHelper.initBus();
         BlockEntityHelper.initBus();
+        FEATURES.register(modEventBus);
 
         modEventBus.addListener(Content::spawns);
 

@@ -7,8 +7,10 @@ import com.ludwici.slimeoverhaul.block.slimy.*;
 import com.ludwici.slimeoverhaul.effect.*;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.*;
 import com.ludwici.slimeoverhaul.item.CleansingBrushItem;
+import com.ludwici.slimeoverhaul.world.feature.FireCrystallizedSlimeFeature;
 import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -37,6 +39,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.material.Fluids;
@@ -46,6 +51,8 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
@@ -53,6 +60,9 @@ import java.util.function.ToIntFunction;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
 public class Content {
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, MODID);
+    public static final DeferredHolder<Feature<?>, FireCrystallizedSlimeFeature> FIRE_CRYSTALLIZED_SLIME_FEATURE = FEATURES.register("fire_crystallized_slime_feature", () -> new FireCrystallizedSlimeFeature(NoneFeatureConfiguration.CODEC));
+
     public static final CrumbSupplier<EntityType<AirSlime>>   AIR_SLIME   = EntityHelper.register("air_slime",   getSlimeFactory(AirSlime::new));
     public static final CrumbSupplier<EntityType<WaterSlime>> WATER_SLIME = EntityHelper.register("water_slime", getSlimeFactory(WaterSlime::new).fireImmune());
     public static final CrumbSupplier<EntityType<EarthSlime>> EARTH_SLIME = EntityHelper.register("earth_slime", getSlimeFactory(EarthSlime::new));
@@ -93,7 +103,7 @@ public class Content {
     public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
     public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
 
-    public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_BLOCK = BlockHelper.registerWithItem("fire_crystallized_block", () -> new CrystallizedSlimeBlock(BlockBehaviour.Properties.of().noOcclusion().lightLevel(state -> 3)));
+    public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("fire_crystallized_slime_block", () -> new CrystallizedSlimeBlock(BlockBehaviour.Properties.of().noOcclusion().lightLevel(state -> 3)));
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
@@ -241,7 +251,7 @@ public class Content {
                 output.accept(ANCIENT_EARTH_FRAGMENTS.get());
                 output.accept(ANCIENT_FIRE_FRAGMENTS.get());
 
-                output.accept(FIRE_CRYSTALLIZED_BLOCK.get());
+                output.accept(FIRE_CRYSTALLIZED_SLIME_BLOCK.get());
 
                 output.accept(WATER_SLIME_BUCKET.get());
                 output.accept(FIRE_SLIME_BUCKET.get());
