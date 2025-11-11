@@ -1,7 +1,7 @@
 package com.ludwici.slimeoverhaul.datagen;
 
 import com.ludwici.crumbslib.api.CrumbSupplier;
-import com.ludwici.slimeoverhaul.block.CrystallizedSlimeBlock;
+import com.ludwici.slimeoverhaul.block.crystallized.CrystallizedSlimeBlock;
 import com.ludwici.slimeoverhaul.block.slimy.AncientSlimyBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -57,6 +57,7 @@ public class ModBlockModelProvider extends BlockStateProvider {
                                     ResourceLocation.fromNamespaceAndPath(MODID, "crystallized_slime" + stage)
                             )
                             .texture("0", ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(block)))
+                            .texture("particle", ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(block)))
             ).model;
             ConfiguredModel.Builder<?> builder = ConfiguredModel.builder().modelFile(model);
 

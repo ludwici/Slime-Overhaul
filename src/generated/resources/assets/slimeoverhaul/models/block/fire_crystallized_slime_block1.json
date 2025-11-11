@@ -1,6 +1,7 @@
 {
   "parent": "slimeoverhaul:block/crystallized_slime1",
   "textures": {
-    "0": "slimeoverhaul:block/fire_crystallized_slime_block"
+    "0": "slimeoverhaul:block/fire_crystallized_slime_block",
+    "particle": "slimeoverhaul:block/fire_crystallized_slime_block"
   }
 }

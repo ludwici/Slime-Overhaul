@@ -1,6 +1,6 @@
 package com.ludwici.slimeoverhaul.world.feature;
 
-import com.ludwici.slimeoverhaul.block.CrystallizedSlimeBlock;
+import com.ludwici.slimeoverhaul.block.crystallized.CrystallizedSlimeBlock;
 import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
