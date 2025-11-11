@@ -103,7 +103,7 @@ public class Content {
     public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
     public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
 
-    public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("fire_crystallized_slime_block", () -> new CrystallizedSlimeBlock(BlockBehaviour.Properties.of().noOcclusion().lightLevel(state -> 3)));
+    public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("fire_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
@@ -208,6 +208,12 @@ public class Content {
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return state -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
+    }
+
+    private static BlockBehaviour.Properties getCrystallizedSlimeProperties() {
+        return BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(3.0f, 3.0f).lightLevel(state -> {
+            if (state.getValue(CrystallizedSlimeBlock.STAGE) == 3) return 6; return 0;
+        });
     }
 
     private static BlockBehaviour.Properties getSlimeBlockProperties() {
