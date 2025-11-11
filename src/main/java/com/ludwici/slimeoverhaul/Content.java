@@ -123,12 +123,6 @@ public class Content {
     public static final TagKey<Item> FIRE_ITEMS_TAG = TagHelper.item("fire_items");
     public static final TagKey<Item> SLIME_COAT_ITEMS_TAG = TagHelper.item("slime_coat_items");
 
-    public static final TagKey<BannerPattern> SLIME_BANNER_PATTERN = TagHelper.bannerPattern( "pattern_item/slime");
-    public static final TagKey<BannerPattern> AIR_SLIME_SIGN_BANNER_PATTERN = TagHelper.bannerPattern("pattern_item/air_slime_sign");
-    public static final TagKey<BannerPattern> WATER_SLIME_SIGN_BANNER_PATTERN = TagHelper.bannerPattern("pattern_item/water_slime_sign");
-    public static final TagKey<BannerPattern> EARTH_SLIME_SIGN_BANNER_PATTERN = TagHelper.bannerPattern("pattern_item/earth_slime_sign");
-    public static final TagKey<BannerPattern> FIRE_SLIME_SIGN_BANNER_PATTERN = TagHelper.bannerPattern("pattern_item/fire_slime_sign");
-
     public static final CrumbSupplier<MobEffect> DOUBLE_JUMP_EFFECT = MobEffectHelper.register("double_jump", MobEffectCategory.BENEFICIAL, 9699327);
     public static final CrumbSupplier<MobEffect> WATER_ANTI_DEPTH_EFFECT = MobEffectHelper.register("water_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, Fluids.WATER, 2140116));
     public static final CrumbSupplier<MobEffect> KNOCK_BACK_EFFECT = MobEffectHelper.register("knockback", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 7222827)
@@ -144,11 +138,11 @@ public class Content {
     public static final CrumbSupplier<Potion> MIDDLE_FIRE_RESISTANCE = PotionHelper.register("middle_fire_resistance", () -> new Potion("fire_resistance", new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 6000)));
     public static final CrumbSupplier<Potion> MIDDLE_WATER_BREATHING = PotionHelper.register("middle_water_breathing", () -> new Potion("water_breathing", new MobEffectInstance(MobEffects.WATER_BREATHING, 6000)));
 
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_SLIME = ItemHelper.registerBanner("slime", SLIME_BANNER_PATTERN);
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_AIR_SLIME_SIGN = ItemHelper.registerBanner("air_slime_sign", AIR_SLIME_SIGN_BANNER_PATTERN);
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_WATER_SLIME_SIGN = ItemHelper.registerBanner("water_slime_sign", WATER_SLIME_SIGN_BANNER_PATTERN);
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_EARTH_SLIME_SIGN = ItemHelper.registerBanner("earth_slime_sign", EARTH_SLIME_SIGN_BANNER_PATTERN);
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_FIRE_SLIME_SIGN = ItemHelper.registerBanner("fire_slime_sign", FIRE_SLIME_SIGN_BANNER_PATTERN);
+    public static final CrumbSupplier<BannerPatternItem> PATTERN_SLIME = ItemHelper.registerBanner("slime");
+    public static final CrumbSupplier<BannerPatternItem> PATTERN_AIR_SLIME_SIGN = ItemHelper.registerBanner("air_slime_sign");
+    public static final CrumbSupplier<BannerPatternItem> PATTERN_WATER_SLIME_SIGN = ItemHelper.registerBanner("water_slime_sign");
+    public static final CrumbSupplier<BannerPatternItem> PATTERN_EARTH_SLIME_SIGN = ItemHelper.registerBanner("earth_slime_sign");
+    public static final CrumbSupplier<BannerPatternItem> PATTERN_FIRE_SLIME_SIGN = ItemHelper.registerBanner("fire_slime_sign");
 
     public static final CrumbSupplier<StructureType<FireShrineStructure>> FIRE_SHRINE = StructureHelper.registerStructure("fire_shrine", () -> () -> FireShrineStructure.CODEC);
     public static final CrumbSupplier<StructurePieceType> FIRE_SHRINE_PIECE = StructureHelper.registerPiece("fire_shrine", () -> FireShrineStructure.FireShrinePiece::new);
