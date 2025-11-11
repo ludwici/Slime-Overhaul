@@ -1,8 +1,6 @@
 package com.ludwici.slimeoverhaul.block.entities;
 
-import com.ludwici.crumbslib.api.ModHelper;
 import com.ludwici.slimeoverhaul.block.slimy.AncientSlimyBlock;
-import com.ludwici.slimeoverhaul.effect.HandBurnEffect;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -13,13 +11,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -28,9 +24,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 
-import static com.ludwici.crumbslib.api.BlockEntityHelper.BLOCK_ENTITY_TYPES;
 import static com.ludwici.slimeoverhaul.Content.ANCIENT_SLIMY_BLOCK_ENTITY;
-import static com.ludwici.slimeoverhaul.Content.HAND_BURN_EFFECT;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
 public class AncientSlimyBlockEntity extends BlockEntity {
