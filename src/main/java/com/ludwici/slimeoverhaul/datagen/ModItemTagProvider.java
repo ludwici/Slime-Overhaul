@@ -52,11 +52,14 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(EARTH_SLIME_BALL.get())
                 .add(EARTH_SLIME_BLOCK.get().asItem())
                 .add(EARTH_SLIME_COAT.get().asItem())
+                .add(EARTH_CRYSTALLIZED_DUST.get())
         ;
 
         tag(FIRE_ITEMS_TAG)
                 .add(FIRE_SLIME_BALL.get())
+                .add(FIRE_SLIME_BLOCK.get().asItem())
                 .add(FIRE_SLIME_COAT.get().asItem())
+                .add(FIRE_CRYSTALLIZED_DUST.get())
         ;
 
         tag(SLIME_COAT_ITEMS_TAG)

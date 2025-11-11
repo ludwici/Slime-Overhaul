@@ -1,6 +1,8 @@
 {
   "values": [
     "slimeoverhaul:fire_slime_ball",
-    "slimeoverhaul:fire_slime_coat"
+    "slimeoverhaul:fire_slime_block",
+    "slimeoverhaul:fire_slime_coat",
+    "slimeoverhaul:fire_crystallized_dust"
   ]
 }

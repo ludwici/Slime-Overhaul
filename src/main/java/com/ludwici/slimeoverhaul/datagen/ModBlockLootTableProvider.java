@@ -3,6 +3,7 @@ package com.ludwici.slimeoverhaul.datagen;
 import com.ludwici.crumbslib.api.BlockHelper;
 import com.ludwici.crumbslib.api.CrumbSupplier;
 import com.ludwici.slimeoverhaul.block.SlimeCoatBlock;
+import com.ludwici.slimeoverhaul.block.crystallized.CrystallizedSlimeBlock;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.Set;
 
@@ -44,7 +46,28 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         slimeCoat(EARTH_SLIME_COAT);
         slimeCoat(FIRE_SLIME_COAT);
 
-        dropSelf(FIRE_CRYSTALLIZED_SLIME_BLOCK.get());
+        crystallizedSlime(FIRE_CRYSTALLIZED_SLIME_BLOCK, FIRE_CRYSTALLIZED_DUST);
+    }
+
+    public void crystallizedSlime(Block from, Item loot) {
+        this.add(from, lt -> LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .add(AlternativesEntry.alternatives(
+                                AlternativesEntry.alternatives(
+                                        CrystallizedSlimeBlock.STAGE.getPossibleValues(),
+                                        value -> LootItem.lootTableItem(loot).when(
+                                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(from)
+                                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CrystallizedSlimeBlock.STAGE, value))
+                                        )
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1, value)))
+                                )
+                        ))
+                )
+        );
+    }
+
+    public void crystallizedSlime(CrumbSupplier<Block> from, CrumbSupplier<Item> loot) {
+        crystallizedSlime(from.get(), loot.get());
     }
 
     public void slimeCoat(Block block, Item item) {

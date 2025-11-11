@@ -84,6 +84,11 @@ public class Content {
     public static final CrumbSupplier<Item> ANCIENT_EARTH_FRAGMENTS = ItemHelper.register("ancient_earth_fragments", () -> new Item(new Item.Properties()));
     public static final CrumbSupplier<Item> ANCIENT_FIRE_FRAGMENTS = ItemHelper.register("ancient_fire_fragments", () -> new Item(new Item.Properties().fireResistant()));
 
+    public static final CrumbSupplier<Item> AIR_CRYSTALLIZED_DUST = ItemHelper.register("air_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties()));
+    public static final CrumbSupplier<Item> WATER_CRYSTALLIZED_DUST = ItemHelper.register("water_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> EARTH_CRYSTALLIZED_DUST = ItemHelper.register("earth_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties()));
+    public static final CrumbSupplier<Item> FIRE_CRYSTALLIZED_DUST = ItemHelper.register("fire_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
+
     public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
     public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block");
     public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block");
@@ -236,6 +241,11 @@ public class Content {
                 output.accept(ANCIENT_WATER_SLIMY_BLOCK.get());
                 output.accept(ANCIENT_EARTH_SLIMY_BLOCK.get());
                 output.accept(ANCIENT_FIRE_SLIMY_BLOCK.get());
+
+                output.accept(AIR_CRYSTALLIZED_DUST.get());
+                output.accept(WATER_CRYSTALLIZED_DUST.get());
+                output.accept(EARTH_CRYSTALLIZED_DUST.get());
+                output.accept(FIRE_CRYSTALLIZED_DUST.get());
 
                 output.accept(AIR_SLIME_COAT.get());
                 output.accept(WATER_SLIME_COAT.get());

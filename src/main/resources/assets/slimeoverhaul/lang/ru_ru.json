@@ -31,6 +31,16 @@
   "item.slimeoverhaul.ancient_earth_fragments": "Древние земляные осколки",
   "item.slimeoverhaul.ancient_fire_fragments": "Древние огненные осколки",
 
+  "item.slimeoverhaul.air_crystallized_dust": "Воздушная кристаллизованная пыль",
+  "item.slimeoverhaul.water_crystallized_dust": "Водная кристаллизованная пыль",
+  "item.slimeoverhaul.earth_crystallized_dust": "Земляная кристаллизованная пыль",
+  "item.slimeoverhaul.fire_crystallized_dust": "Огненная кристаллизованная пыль",
+
+  "item.slimeoverhaul.air_crystallized_dust.lore": "§b§oВся тяжесть небесного свода\nОтголоски древних ветров,\nЧто ищут повсюду свободы\nЧерез тонкую грань огромных миров.§r",
+  "item.slimeoverhaul.water_crystallized_dust.lore": "§3Сила всех штормов и приливов была заточена в склизкую оболочку. Она сдерживает всю неистовость первозданного океана, который обволакивает весь мир.§r",
+  "item.slimeoverhaul.earth_crystallized_dust.lore": "§7Кристалл, покрытый грязью, но в этой грязи всё естество первозданной жизни - отголосок дыхания самой природы, память всего живого.§r",
+  "item.slimeoverhaul.fire_crystallized_dust.lore": "§cСгусток воли огня. Пламя само по себе неукротимо, и сердце его неугастно. Оно так и норовит вырваться, чтобы поглотить всё сущее.§r",
+
   "item.slimeoverhaul.banner_pattern_slime": "Узор флага",
   "item.slimeoverhaul.banner_pattern_slime.desc": "Слизень",
   "item.slimeoverhaul.banner_pattern_slime.desc.black": "Чёрная Слизь",
