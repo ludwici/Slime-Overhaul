@@ -43,6 +43,9 @@ public class ModBlockModelProvider extends BlockStateProvider {
         createSlimeCoat(EARTH_SLIME_COAT);
         createSlimeCoat(FIRE_SLIME_COAT);
 
+        crystallizedSlime(AIR_CRYSTALLIZED_SLIME_BLOCK);
+        crystallizedSlime(WATER_CRYSTALLIZED_SLIME_BLOCK);
+        crystallizedSlime(EARTH_CRYSTALLIZED_SLIME_BLOCK);
         crystallizedSlime(FIRE_CRYSTALLIZED_SLIME_BLOCK);
     }
 

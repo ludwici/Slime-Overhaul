@@ -28,10 +28,16 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         ;
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(AIR_CRYSTALLIZED_SLIME_BLOCK.get())
+                .add(WATER_CRYSTALLIZED_SLIME_BLOCK.get())
+                .add(EARTH_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(FIRE_CRYSTALLIZED_SLIME_BLOCK.get())
         ;
 
         tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(AIR_CRYSTALLIZED_SLIME_BLOCK.get())
+                .add(WATER_CRYSTALLIZED_SLIME_BLOCK.get())
+                .add(EARTH_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(FIRE_CRYSTALLIZED_SLIME_BLOCK.get())
         ;
     }

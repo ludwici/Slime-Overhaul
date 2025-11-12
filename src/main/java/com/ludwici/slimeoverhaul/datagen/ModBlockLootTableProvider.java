@@ -46,6 +46,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         slimeCoat(EARTH_SLIME_COAT);
         slimeCoat(FIRE_SLIME_COAT);
 
+        crystallizedSlime(AIR_CRYSTALLIZED_SLIME_BLOCK, AIR_CRYSTALLIZED_DUST);
+        crystallizedSlime(WATER_CRYSTALLIZED_SLIME_BLOCK, WATER_CRYSTALLIZED_DUST);
+        crystallizedSlime(EARTH_CRYSTALLIZED_SLIME_BLOCK, EARTH_CRYSTALLIZED_DUST);
         crystallizedSlime(FIRE_CRYSTALLIZED_SLIME_BLOCK, FIRE_CRYSTALLIZED_DUST);
     }
 

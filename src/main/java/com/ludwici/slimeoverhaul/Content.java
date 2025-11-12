@@ -103,6 +103,9 @@ public class Content {
     public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
     public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
 
+    public static final CrumbSupplier<Block> AIR_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("air_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
+    public static final CrumbSupplier<Block> WATER_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("water_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
+    public static final CrumbSupplier<Block> EARTH_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("earth_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
     public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("fire_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
@@ -256,6 +259,9 @@ public class Content {
                 output.accept(ANCIENT_EARTH_FRAGMENTS.get());
                 output.accept(ANCIENT_FIRE_FRAGMENTS.get());
 
+                output.accept(AIR_CRYSTALLIZED_SLIME_BLOCK.get());
+                output.accept(WATER_CRYSTALLIZED_SLIME_BLOCK.get());
+                output.accept(EARTH_CRYSTALLIZED_SLIME_BLOCK.get());
                 output.accept(FIRE_CRYSTALLIZED_SLIME_BLOCK.get());
 
                 output.accept(WATER_SLIME_BUCKET.get());

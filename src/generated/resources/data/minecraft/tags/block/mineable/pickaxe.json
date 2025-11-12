@@ -1,5 +1,8 @@
 {
   "values": [
+    "slimeoverhaul:air_crystallized_slime_block",
+    "slimeoverhaul:water_crystallized_slime_block",
+    "slimeoverhaul:earth_crystallized_slime_block",
     "slimeoverhaul:fire_crystallized_slime_block"
   ]
 }
