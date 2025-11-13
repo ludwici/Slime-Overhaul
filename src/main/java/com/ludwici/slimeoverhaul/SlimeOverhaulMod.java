@@ -6,6 +6,7 @@ import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
+import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -38,7 +39,6 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
@@ -99,6 +99,8 @@ public class SlimeOverhaulMod {
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTooltip);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onShieldBlock);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
+
+        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onSlimyBlockExecute);
     }
 
     private static void onTrade(VillagerTradesEvent event) {
@@ -227,6 +229,19 @@ public class SlimeOverhaulMod {
 
         if (minecraft.player.onGround()) {
             canDoubleJump = true;
+        }
+    }
+
+    public static void onSlimyBlockExecute(SlimyBlockExecute event) {
+        var blockEntity = event.getBlockEntity();
+        var block = event.getBlock();
+        var player = event.getPlayer();
+        var behaviour = block.blockBehaviourList.get(player.level().random.nextInt(block.blockBehaviourList.size()));
+
+        if (block.canApplyEffect(player, behaviour)) {
+            behaviour.applyEffect(player, blockEntity);
+        } else {
+            event.setCanceled(true);
         }
     }
 

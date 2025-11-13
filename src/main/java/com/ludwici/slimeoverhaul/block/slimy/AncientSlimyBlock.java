@@ -23,6 +23,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class AncientSlimyBlock extends BaseEntityBlock {
     public static final MapCodec<AncientSlimyBlock> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
@@ -40,6 +44,7 @@ public class AncientSlimyBlock extends BaseEntityBlock {
     public static final int TICK_DELAY = 2;
     private SoundEvent brushSound;
     private SoundEvent brushCompletedSound;
+    public List<SlimyBlockBehaviour> blockBehaviourList;
 
     public AncientSlimyBlock(Block turnsInto, SoundEvent brushSound, SoundEvent brushCompletedSound, BlockBehaviour.Properties properties) {
         super(properties);
@@ -47,9 +52,11 @@ public class AncientSlimyBlock extends BaseEntityBlock {
         this.brushSound = brushSound;
         this.brushCompletedSound = brushCompletedSound;
         this.registerDefaultState(this.stateDefinition.any().setValue(DUSTED, 0));
+        blockBehaviourList = new ArrayList<>();
     }
 
-    public void applyEffect(Player player, AncientSlimyBlockEntity blockEntity) {
+    public boolean canApplyEffect(Player player, SlimyBlockBehaviour blockBehaviour) {
+        return true;
     }
 
     @Override

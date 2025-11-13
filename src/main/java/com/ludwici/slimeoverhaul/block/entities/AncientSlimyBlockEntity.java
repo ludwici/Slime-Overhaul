@@ -1,6 +1,7 @@
 package com.ludwici.slimeoverhaul.block.entities;
 
 import com.ludwici.slimeoverhaul.block.slimy.AncientSlimyBlock;
+import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
 
 import static com.ludwici.slimeoverhaul.Content.ANCIENT_SLIMY_BLOCK_ENTITY;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
@@ -70,7 +72,12 @@ public class AncientSlimyBlockEntity extends BlockEntity {
             Block block;
             if (this.getBlockState().getBlock() instanceof AncientSlimyBlock ancientSlimyBlock) {
                 dropContent(player);
-                ancientSlimyBlock.applyEffect(player, this);
+                var event = new SlimyBlockExecute(player, this);
+                NeoForge.EVENT_BUS.post(event);
+                if (event.isCanceled()) {
+                    return;
+                }
+
                 block = ancientSlimyBlock.getTurnsInto();
             } else {
                 block = Blocks.AIR;
