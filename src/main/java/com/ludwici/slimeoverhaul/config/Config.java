@@ -16,5 +16,7 @@ public class Config {
             .translation(MODID + ".configuration.waterSlimeFindFireTick")
             .define("waterSlimeFindFireTick", 20);
 
+    public static final ModConfigSpec.BooleanValue WATER_SLIME_CAN_TRANSFORM_SAND = BUILDER.define("water_slime_can_transform_sand", true);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

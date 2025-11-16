@@ -5,6 +5,7 @@
   "slimeoverhaul.configuration.allowFlameSlimes": "Спавн огненных слизней",
   "slimeoverhaul.configuration.waterSlimeFindFireTick": "Поиск огня",
   "slimeoverhaul.configuration.waterSlimeFindFireTick.tooltip": "Определяет то, как часто водные слаймы будут искать блоки огня, чтобы их потушить. Частый вызов может привести к потере производительности, чем выше значение, тем реже будет поиск и тем больше производительность.",
+  "slimeoverhaul.configuration.water_slime_can_transform_sand": "Водные слизни могут превращать песок в грязь",
 
   "entity.slimeoverhaul.air_slime": "Воздушный слизень",
   "entity.slimeoverhaul.water_slime": "Водный слизень",
@@ -181,6 +182,7 @@
   "effect.slimeoverhaul.knockback": "Твёрдость",
   "effect.slimeoverhaul.lava_anti_depth": "Лавовая антиглубина",
   "effect.slimeoverhaul.hand_burn_effect": "Ожог рук",
+  "effect.slimeoverhaul.slippery_effect": "Скольжение",
 
   "advancements.slimeoverhaul.root.title": "Мир слизней",
   "advancements.slimeoverhaul.root.description": "Откуда столько слизней?",

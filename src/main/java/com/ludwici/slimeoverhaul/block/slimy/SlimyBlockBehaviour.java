@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 import static com.ludwici.slimeoverhaul.Content.HAND_BURN_EFFECT;
+import static com.ludwici.slimeoverhaul.Content.SLIPPERY_EFFECT;
 
 public class SlimyBlockBehaviour {
     public void applyEffect(Player player, AncientSlimyBlockEntity blockEntity) {
@@ -33,6 +34,24 @@ public class SlimyBlockBehaviour {
             } else if (behaviour == 2) {
                 player.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 80));
             }
+        }
+    }
+
+    public static class Water extends SlimyBlockBehaviour {
+        @Override
+        public void applyEffect(Player player, AncientSlimyBlockEntity blockEntity) {
+            Level level = blockEntity.getLevel();
+            int behaviour = level.random.nextIntBetweenInclusive(1, 1);
+            if (behaviour == 1) {
+                player.addEffect(new MobEffectInstance(SLIPPERY_EFFECT.getHolder(), 1200));
+            }
+        }
+    }
+
+    public static class Earth extends SlimyBlockBehaviour {
+        @Override
+        public void applyEffect(Player player, AncientSlimyBlockEntity blockEntity) {
+
         }
     }
 

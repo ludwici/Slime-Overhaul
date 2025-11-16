@@ -6,9 +6,12 @@
   "refmap": "slimeoverhaul.refmap.json",
   "mixins": [
     "BaseFireBlockMixin",
+    "ColoredFallingBlockMixin",
     "ItemEntityMixin",
     "ItemMixin",
-    "PlayerMixin"
+    "LivingEntityMixin",
+    "PlayerMixin",
+    "SpongeBlockMixin"
   ],
   "client": [
   ],
