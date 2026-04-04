@@ -2,15 +2,9 @@ package com.ludwici.slimeoverhaul.world.feature;
 
 import com.ludwici.slimeoverhaul.block.crystallized.CrystallizedSlimeBlock;
 import com.mojang.serialization.Codec;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,7 +27,6 @@ public class FireCrystallizedSlimeFeature extends Feature<NoneFeatureConfigurati
 
         boolean placed = false;
 
-        Player player = Minecraft.getInstance().player;
         for (int i = 0; i < 64; i++) {
             BlockPos pos = origin.offset(random.nextInt(16), random.nextInt(64), random.nextInt(16));
 
@@ -75,12 +68,6 @@ public class FireCrystallizedSlimeFeature extends Feature<NoneFeatureConfigurati
                     int stage = random.nextIntBetweenInclusive(CrystallizedSlimeBlock.MIN_STAGE, CrystallizedSlimeBlock.MAX_STAGE);
                     Direction randDir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
                     level.setBlock(pos, FIRE_CRYSTALLIZED_SLIME_BLOCK.get().defaultBlockState().setValue(CrystallizedSlimeBlock.STAGE, stage).setValue(CrystallizedSlimeBlock.FACING, randDir), 2);
-                    if (player != null) {
-                        MutableComponent message = Component.literal(String.format("[Телепортироваться к %d %d %d]", pos.getX(), pos.getY(), pos.getZ())).withStyle(
-                                style -> style.withColor(ChatFormatting.AQUA).withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/tp %s %d %d %d%n", player.getName().getString(), pos.getX(), pos.getY(), pos.getZ())))
-                        );
-//                        player.sendSystemMessage(message);
-                    }
                     placed = true;
                 }
             }

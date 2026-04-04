@@ -3,21 +3,15 @@ package com.ludwici.slimeoverhaul;
 import com.ludwici.crumbslib.api.*;
 import com.ludwici.crumbslib.api.world.feature.FeatureHelper;
 import com.ludwici.slimeoverhaul.config.Config;
-import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
-import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
@@ -26,18 +20,10 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
@@ -53,13 +39,11 @@ import static com.ludwici.slimeoverhaul.Content.*;
 @Mod(SlimeOverhaulMod.MODID)
 public class SlimeOverhaulMod {
     public static final String MODID = "slimeoverhaul";
-    private static Minecraft minecraft;
 
     public SlimeOverhaulMod(IEventBus modEventBus, ModContainer modContainer) {
         ModHelper.init(modEventBus, NeoForge.EVENT_BUS, MODID);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 
         EntityHelper.initBus();
         ItemHelper.initBus();
@@ -75,12 +59,6 @@ public class SlimeOverhaulMod {
 
         EventHelper.addBrewingRecipeEvent(Content::registerPotions);
         EventHelper.addAnvilUpdateEvent(Content::registerAnvilEvent);
-        EventHelper.addEventRenderers(event -> {
-            event.registerEntityRenderer(AIR_SLIME.get(), BaseSlimeRenderer::new);
-            event.registerEntityRenderer(WATER_SLIME.get(), BaseSlimeRenderer::new);
-            event.registerEntityRenderer(EARTH_SLIME.get(), BaseSlimeRenderer::new);
-            event.registerEntityRenderer(FLAME_SLIME.get(), BaseSlimeRenderer::new);
-        });
         EventHelper.addAttributeEvent(event -> {
             event.put(AIR_SLIME.get(), BaseSlime.createMobAttributes().build());
             event.put(WATER_SLIME.get(), BaseSlime.createMobAttributes().build());
@@ -89,10 +67,6 @@ public class SlimeOverhaulMod {
         });
 
         Content.init();
-
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::handleKeyBindings);
-        }
 
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onKnock);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
@@ -202,36 +176,6 @@ public class SlimeOverhaulMod {
         }
     }
 
-    private static boolean canDoubleJump = true;
-
-    private static void handleKeyBindings(InputEvent.Key event) {
-        if (minecraft == null) {
-            minecraft = Minecraft.getInstance();
-        }
-
-        if (minecraft.player == null) {
-            return;
-        }
-
-        if (event.getAction() == InputConstants.PRESS) {
-            if (event.getKey() == minecraft.options.keyJump.getKey().getValue()) {
-                if (canDoubleJump) {
-                    var player = minecraft.player;
-                    if (!player.isCreative() && !player.isSpectator() && !player.onGround() && !player.onClimbable() && !player.isInWaterOrBubble() && !ElytraItem.isFlyEnabled(player.getItemBySlot(EquipmentSlot.CHEST)) && !player.isPassenger()) {
-                        if (player.hasEffect(DOUBLE_JUMP_EFFECT.getHolder())) {
-                            minecraft.player.jumpFromGround();
-                            canDoubleJump = false;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (minecraft.player.onGround()) {
-            canDoubleJump = true;
-        }
-    }
-
     public static void onSlimyBlockExecute(SlimyBlockExecute event) {
         var blockEntity = event.getBlockEntity();
         var block = event.getBlock();
@@ -242,19 +186,6 @@ public class SlimeOverhaulMod {
             behaviour.applyEffect(player, blockEntity);
         } else {
             event.setCanceled(true);
-        }
-    }
-
-    @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            ItemProperties.register(
-                    CLEANSING_BRUSH.get(),
-                    ResourceLocation.withDefaultNamespace("brushing"),
-                    ((stack, level, entity, seed) -> entity != null && entity.getUseItem() == stack
-                    ? (float) (entity.getUseItemRemainingTicks() % 10) / 10.0F : 0.0F)
-            );
         }
     }
 }
