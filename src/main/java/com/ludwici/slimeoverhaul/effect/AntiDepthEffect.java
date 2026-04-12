@@ -1,5 +1,7 @@
 package com.ludwici.slimeoverhaul.effect;
 
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,15 +10,15 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 
 public class AntiDepthEffect extends MobEffect {
-    private final Fluid fluid;
+    private final TagKey<Fluid> fluid;
 
-    public AntiDepthEffect(MobEffectCategory mobEffectCategory, Fluid fluidType, int color) {
+    public AntiDepthEffect(MobEffectCategory mobEffectCategory, TagKey<Fluid> fluidType, int color) {
         super(mobEffectCategory, color);
         this.fluid = fluidType;
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int i) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int i) {
         if (checkLiquid(livingEntity)) {
             if (livingEntity instanceof Player player) {
                 if (player.isSpectator()) {
@@ -33,7 +35,7 @@ public class AntiDepthEffect extends MobEffect {
     }
 
     protected boolean checkLiquid(LivingEntity livingEntity) {
-        return livingEntity.getEyeInFluidType() == fluid.getFluidType();
+        return livingEntity.isEyeInFluid(fluid);
     }
 
     @Override

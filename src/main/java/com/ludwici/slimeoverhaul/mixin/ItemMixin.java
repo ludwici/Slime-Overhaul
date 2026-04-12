@@ -17,14 +17,14 @@ public class ItemMixin {
 
     @Inject(method = "useOn", at = @At("RETURN"))
     private void burnHands(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
-        if (cir.getReturnValue().indicateItemUse()) {
-            Player player = context.getPlayer();
-            var effect = player.getEffect(HAND_BURN_EFFECT.getHolder());
-
-            if (effect != null) {
-                player.hurt(player.level().damageSources().inFire(), HandBurnEffect.getDamage(effect.getAmplifier()));
-            }
-        }
+//        if (cir.getReturnValue().indicateItemUse()) {
+//            Player player = context.getPlayer();
+//            var effect = player.getEffect(HAND_BURN_EFFECT.getHolder());
+//
+//            if (effect != null) {
+//                player.hurt(player.level().damageSources().inFire(), HandBurnEffect.getDamage(effect.getAmplifier()));
+//            }
+//        }
     }
 
 }

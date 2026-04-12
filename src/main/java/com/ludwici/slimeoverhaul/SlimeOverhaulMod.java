@@ -6,6 +6,7 @@ import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
+import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -13,7 +14,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.npc.VillagerProfession;
+//import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
@@ -28,11 +30,12 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
-import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
+//import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+//import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.ludwici.slimeoverhaul.Content.*;
 
@@ -69,24 +72,24 @@ public class SlimeOverhaulMod {
         Content.init();
 
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onKnock);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
+//        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTooltip);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onShieldBlock);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
+//        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
 
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onSlimyBlockExecute);
     }
 
-    private static void onTrade(VillagerTradesEvent event) {
-        if (event.getType() == VillagerProfession.CARTOGRAPHER) {
-            var trades = event.getTrades();
-            trades.get(2).add((trader, random) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 8),
-                    new ItemStack(PATTERN_SLIME.get(), 1),
-                    12, 3, 0.05f
-            ));
-        }
-    }
+//    private static void onTrade(VillagerTradesEvent event) {
+//        if (event.getType() == VillagerProfession.CARTOGRAPHER) {
+//            var trades = event.getTrades();
+//            trades.get(2).add((trader, random) -> new MerchantOffer(
+//                    new ItemCost(Items.EMERALD, 8),
+//                    new ItemStack(PATTERN_SLIME.get(), 1),
+//                    12, 3, 0.05f
+//            ));
+//        }
+//    }
 
     private static void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();
@@ -95,30 +98,31 @@ public class SlimeOverhaulMod {
             CustomData data = item.get(DataComponents.CUSTOM_DATA);
             if (data != null) {
                 CompoundTag tag = data.copyTag();
-                int bounce = tag.getInt("bounce");
-                tooltipComponents.add(Component.translatable("slimeoverhaul.earth_power", bounce).withStyle(ChatFormatting.GRAY));
+//                int bounce = tag.read("bounce");
+                Optional<Integer> bounce = tag.getInt("bounce");
+                tooltipComponents.add(Component.translatable("slimeoverhaul.earth_power", bounce.get()).withStyle(ChatFormatting.GRAY));
             }
         }
     }
 
-    private static void onInv(AnvilRepairEvent event) {
-        ItemStack item = event.getOutput();
-        if (isShieldItem(item)) {
-            CustomData data = item.get(DataComponents.CUSTOM_DATA);
-            if (data != null) {
-                CompoundTag tag = data.copyTag();
-                if (tag.contains("bounce")) {
-                    var player = event.getEntity();
-                    if (player instanceof ServerPlayer serverPlayer) {
-                        var advancement = AdvancementHelper.getAdvancement(serverPlayer, "slimeoverhaul/earth_power");
-                        if (advancement != null) {
-                            serverPlayer.getAdvancements().award(advancement, "bounce_shield");
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    private static void onInv(AnvilRepairEvent event) {
+//        ItemStack item = event.getOutput();
+//        if (isShieldItem(item)) {
+//            CustomData data = item.get(DataComponents.CUSTOM_DATA);
+//            if (data != null) {
+//                CompoundTag tag = data.copyTag();
+//                if (tag.contains("bounce")) {
+//                    var player = event.getEntity();
+//                    if (player instanceof ServerPlayer serverPlayer) {
+//                        var advancement = AdvancementHelper.getAdvancement(serverPlayer, "slimeoverhaul/earth_power");
+//                        if (advancement != null) {
+//                            serverPlayer.getAdvancements().award(advancement, "bounce_shield");
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private static void onShieldBlock(LivingShieldBlockEvent event) {
         LivingEntity entity = event.getEntity();
@@ -137,7 +141,8 @@ public class SlimeOverhaulMod {
             if (tag.contains("bounce")) {
                 Player player = (Player) entity;
 
-                int bounce = tag.getInt("bounce");
+                Optional<Integer> bounceTag = tag.getInt("bounce");
+                int bounce = bounceTag.get();
                 if (player != null && player.isCreative()) {
                     return;
                 }
@@ -180,7 +185,7 @@ public class SlimeOverhaulMod {
         var blockEntity = event.getBlockEntity();
         var block = event.getBlock();
         var player = event.getPlayer();
-        var behaviour = block.blockBehaviourList.get(player.level().random.nextInt(block.blockBehaviourList.size()));
+        var behaviour = block.blockBehaviourList.get(player.level().getRandom().nextInt(block.blockBehaviourList.size()));
 
         if (block.canApplyEffect(player, behaviour)) {
             behaviour.applyEffect(player, blockEntity);

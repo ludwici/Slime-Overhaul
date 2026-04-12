@@ -27,7 +27,7 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Shadow public abstract boolean fireImmune();
 
-    @Shadow public abstract boolean hurt(DamageSource source, float amount);
+//    @Shadow public abstract boolean hurt(DamageSource source, float amount);
 
     @Unique
     private Vec3 yourmod$previousPosition = null;
@@ -39,7 +39,7 @@ public abstract class ItemEntityMixin extends Entity {
         super(entityType, level);
     }
 
-    @Inject(method = "setUnderwaterMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/ItemEntity;setDeltaMovement(DDD)V"), cancellable = true)
+    @Inject(method = "setUnderwaterMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/ItemEntity;setFluidMovement(D)V"), cancellable = true)
     protected void checkEarthSlimeItemsInWater(CallbackInfo ci) {
         if (getItem().is(EARTH_ITEMS_TAG)) {
             Vec3 vec3 = this.getDeltaMovement();
@@ -114,7 +114,7 @@ public abstract class ItemEntityMixin extends Entity {
             return;
         }
 
-        if (self.level().isClientSide) {
+        if (self.level().isClientSide()) {
             return;
         }
 

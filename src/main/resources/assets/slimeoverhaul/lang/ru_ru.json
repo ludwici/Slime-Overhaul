@@ -157,10 +157,10 @@
   "item.minecraft.lingering_potion.effect.lava_anti_depth_potion": "Туманное зелье лавовой антиглубины",
   "item.minecraft.tipped_arrow.effect.lava_anti_depth_potion": "Стрела лавовой антиглубины",
 
-  "block.slimeoverhaul.air_slime_block": "Блок воздушной слизи",
-  "block.slimeoverhaul.water_slime_block": "Блок водной слизи",
-  "block.slimeoverhaul.earth_slime_block": "Блок земляной слизи",
-  "block.slimeoverhaul.fire_slime_block": "Блок огненной слизи",
+  "item.slimeoverhaul.air_slime_block": "Блок воздушной слизи",
+  "item.slimeoverhaul.water_slime_block": "Блок водной слизи",
+  "item.slimeoverhaul.earth_slime_block": "Блок земляной слизи",
+  "item.slimeoverhaul.fire_slime_block": "Блок огненной слизи",
 
   "block.slimeoverhaul.ancient_air_slimy_block": "Воздушный слизистый блок",
   "block.slimeoverhaul.ancient_water_slimy_block": "Водный слизистый блок",

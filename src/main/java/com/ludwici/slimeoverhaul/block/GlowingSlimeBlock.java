@@ -3,7 +3,8 @@ package com.ludwici.slimeoverhaul.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+//import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -32,7 +33,7 @@ public class GlowingSlimeBlock extends SlimeBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         ItemStack stack = player.getItemInHand(interactionHand);
         if (stack.is(Items.GLOW_INK_SAC)) {
             if (!blockState.getValue(LIT)) {
@@ -41,14 +42,14 @@ public class GlowingSlimeBlock extends SlimeBlock {
                 level.updateNeighborsAt(blockPos, this);
                 level.levelEvent(player, 3003, blockPos, 0);
                 stack.consume(1, player);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         } else if (stack.is(ItemTags.AXES)) {
             if (blockState.getValue(LIT)) {
                 blockState = blockState.setValue(LIT, false);
                 level.setBlock(blockPos, blockState, Block.UPDATE_ALL);
                 level.updateNeighborsAt(blockPos, this);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
         return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult);

@@ -6,7 +6,6 @@ import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -17,8 +16,8 @@ import static com.ludwici.slimeoverhaul.Content.*;
 
 
 public class ModEntityTagProvider extends EntityTypeTagsProvider {
-    public ModEntityTagProvider(PackOutput arg, CompletableFuture<HolderLookup.Provider> completableFuture, @Nullable ExistingFileHelper existingFileHelper) {
-        super(arg, completableFuture, MODID, existingFileHelper);
+    public ModEntityTagProvider(PackOutput arg, CompletableFuture<HolderLookup.Provider> completableFuture) {
+        super(arg, completableFuture, MODID);
     }
 
     @Override

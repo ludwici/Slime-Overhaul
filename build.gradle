@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id 'net.neoforged.moddev' version '2.0.140'
+    id 'net.neoforged.moddev' version '2.0.141'
 }
 
 version = "neoforge-${minecraft_version}-${mod_version}"
@@ -32,15 +32,10 @@ base {
     archivesName = mod_id
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     version = project.neo_version
-
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version
-    }
 
     runs {
         client {
@@ -61,7 +56,7 @@ neoForge {
         }
 
         data {
-            data()
+            clientData()
 
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
@@ -87,12 +82,12 @@ dependencies {
     implementation "com.ludwici.crumbslib:CrumbsLib:${minecraft_version}-${crumbslib_version}"
 //    implementation "curse.maven:crumbslib-1265628:6536314"
 
-    compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
-    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+//    compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+//    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+//    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
-    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+//    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+//    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

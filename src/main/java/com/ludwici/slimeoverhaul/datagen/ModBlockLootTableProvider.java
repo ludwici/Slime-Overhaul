@@ -4,7 +4,7 @@ import com.ludwici.crumbslib.api.BlockHelper;
 import com.ludwici.crumbslib.api.CrumbSupplier;
 import com.ludwici.slimeoverhaul.block.SlimeCoatBlock;
 import com.ludwici.slimeoverhaul.block.crystallized.CrystallizedSlimeBlock;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;

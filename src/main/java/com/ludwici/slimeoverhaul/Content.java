@@ -12,10 +12,13 @@ import com.ludwici.slimeoverhaul.item.*;
 import com.ludwici.slimeoverhaul.world.feature.FireCrystallizedSlimeFeature;
 import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -50,6 +53,7 @@ import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
@@ -63,50 +67,52 @@ public class Content {
     public static final CrumbSupplier<EntityType<EarthSlime>> EARTH_SLIME = EntityHelper.register("earth_slime", getSlimeFactory(EarthSlime::new));
     public static final CrumbSupplier<EntityType<FlameSlime>> FLAME_SLIME = EntityHelper.register("flame_slime", getSlimeFactory(FlameSlime::new).fireImmune());
 
-    public static final CrumbSupplier<Item> AIR_SLIME_EGG   = ItemHelper.registerSpawnEgg(AIR_SLIME,   0x93ffff, 0x32adb7);
-    public static final CrumbSupplier<Item> WATER_SLIME_EGG = ItemHelper.registerSpawnEgg(WATER_SLIME, 0x20a7d4, 0x004799);
-    public static final CrumbSupplier<Item> EARTH_SLIME_EGG = ItemHelper.registerSpawnEgg(EARTH_SLIME, 0x6e362b, 0x24100b);
-    public static final CrumbSupplier<Item> FLAME_SLIME_EGG = ItemHelper.registerSpawnEgg(FLAME_SLIME, 0xdb5f2e, 0xb83209);
+//    public static final CrumbSupplier<Item> AIR_SLIME_EGG   = ItemHelper.registerSpawnEgg(AIR_SLIME,   0x93ffff, 0x32adb7);
+//    public static final CrumbSupplier<Item> WATER_SLIME_EGG = ItemHelper.registerSpawnEgg(WATER_SLIME, 0x20a7d4, 0x004799);
+//    public static final CrumbSupplier<Item> EARTH_SLIME_EGG = ItemHelper.registerSpawnEgg(EARTH_SLIME, 0x6e362b, 0x24100b);
+//    public static final CrumbSupplier<Item> FLAME_SLIME_EGG = ItemHelper.registerSpawnEgg(FLAME_SLIME, 0xdb5f2e, 0xb83209);
 
-    public static final CrumbSupplier<Item> WATER_SLIME_BUCKET = ItemHelper.register("water_slime_bucket", () -> new MobBucketItem(WATER_SLIME.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_AXOLOTL, (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
-    public static final CrumbSupplier<Item> FIRE_SLIME_BUCKET  = ItemHelper.register("fire_slime_bucket",  () -> new MobBucketItem(FLAME_SLIME.get(), Fluids.LAVA, SoundEvents.BUCKET_EMPTY_AXOLOTL, (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    // Set id to all items/blocks
 
-    public static final CrumbSupplier<Item> AIR_SLIME_BALL   = ItemHelper.register("air_slime_ball",   () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> WATER_SLIME_BALL = ItemHelper.register("water_slime_ball", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> EARTH_SLIME_BALL = ItemHelper.register("earth_slime_ball", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> FIRE_SLIME_BALL  = ItemHelper.register("fire_slime_ball",  () -> new Item(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> WATER_SLIME_BUCKET = ItemHelper.registerMobBucketItem("water_slime_bucket", WATER_SLIME, Fluids.WATER, SoundEvents.BUCKET_EMPTY_AXOLOTL);
+    public static final CrumbSupplier<Item> FIRE_SLIME_BUCKET  = ItemHelper.registerMobBucketItem("fire_slime_bucket", FLAME_SLIME, Fluids.LAVA, SoundEvents.BUCKET_EMPTY_AXOLOTL);
 
-    public static final CrumbSupplier<Item> CLEANSING_BRUSH = ItemHelper.register("cleansing_brush", () -> new CleansingBrushItem(new Item.Properties().durability(64)));
+    public static final CrumbSupplier<Item> AIR_SLIME_BALL   = ItemHelper.registerSimpleItem("air_slime_ball");
+    public static final CrumbSupplier<Item> WATER_SLIME_BALL = ItemHelper.registerSimpleItem("water_slime_ball");
+    public static final CrumbSupplier<Item> EARTH_SLIME_BALL = ItemHelper.registerSimpleItem("earth_slime_ball");
+    public static final CrumbSupplier<Item> FIRE_SLIME_BALL  = ItemHelper.registerItem("fire_slime_ball",  (properties) -> new Item(properties.fireResistant()));
 
-    public static final CrumbSupplier<Item> ANCIENT_AIR_FRAGMENTS = ItemHelper.register("ancient_air_fragments", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> ANCIENT_WATER_FRAGMENTS = ItemHelper.register("ancient_water_fragments", () -> new Item(new Item.Properties().fireResistant()));
-    public static final CrumbSupplier<Item> ANCIENT_EARTH_FRAGMENTS = ItemHelper.register("ancient_earth_fragments", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> ANCIENT_FIRE_FRAGMENTS = ItemHelper.register("ancient_fire_fragments", () -> new Item(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> CLEANSING_BRUSH = ItemHelper.registerItem("cleansing_brush", (properties) -> new CleansingBrushItem(properties.durability(64)));
 
-    public static final CrumbSupplier<Item> AIR_CRYSTALLIZED_DUST = ItemHelper.register("air_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties()));
-    public static final CrumbSupplier<Item> WATER_CRYSTALLIZED_DUST = ItemHelper.register("water_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
-    public static final CrumbSupplier<Item> EARTH_CRYSTALLIZED_DUST = ItemHelper.register("earth_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties()));
-    public static final CrumbSupplier<Item> FIRE_CRYSTALLIZED_DUST = ItemHelper.register("fire_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> ANCIENT_AIR_FRAGMENTS = ItemHelper.registerSimpleItem("ancient_air_fragments");
+    public static final CrumbSupplier<Item> ANCIENT_WATER_FRAGMENTS = ItemHelper.registerItem("ancient_water_fragments", (properties) -> new Item(properties.fireResistant()));
+    public static final CrumbSupplier<Item> ANCIENT_EARTH_FRAGMENTS = ItemHelper.registerSimpleItem("ancient_earth_fragments");
+    public static final CrumbSupplier<Item> ANCIENT_FIRE_FRAGMENTS = ItemHelper.registerItem("ancient_fire_fragments", (properties) -> new Item(properties.fireResistant()));
+
+    public static final CrumbSupplier<Item> AIR_CRYSTALLIZED_DUST = ItemHelper.registerItem("air_crystallized_dust", CrystallizedDustItem::new);
+    public static final CrumbSupplier<Item> WATER_CRYSTALLIZED_DUST = ItemHelper.registerItem("water_crystallized_dust", (properties) -> new CrystallizedDustItem(properties.fireResistant()));
+    public static final CrumbSupplier<Item> EARTH_CRYSTALLIZED_DUST = ItemHelper.registerItem("earth_crystallized_dust", CrystallizedDustItem::new);
+    public static final CrumbSupplier<Item> FIRE_CRYSTALLIZED_DUST = ItemHelper.registerItem("fire_crystallized_dust", (properties) -> new CrystallizedDustItem(properties.fireResistant()));
 
     public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
     public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block");
     public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block");
-    public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK  = registerFireResistanceBlock("fire_slime_block", () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
+    public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK  = registerFireResistanceBlock("fire_slime_block", (properties) -> new GlowingSlimeBlock(getSlimeBlockProperties(properties)));
 
-    public static final CrumbSupplier<Block> ANCIENT_AIR_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_air_slimy_block", () -> new AncientAirSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
-    public static final CrumbSupplier<Block> ANCIENT_WATER_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_water_slimy_block", () -> new AncientWaterSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
-    public static final CrumbSupplier<Block> ANCIENT_EARTH_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_earth_slimy_block", () -> new AncientEarthSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
-    public static final CrumbSupplier<Block> ANCIENT_FIRE_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_fire_slimy_block", () -> new AncientFireSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
+    public static final CrumbSupplier<Block> ANCIENT_AIR_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_air_slimy_block", (properties) -> new AncientAirSlimyBlock(properties.strength(-1, 3600000.0F)));
+    public static final CrumbSupplier<Block> ANCIENT_WATER_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_water_slimy_block", (properties) -> new AncientWaterSlimyBlock(properties.strength(-1, 3600000.0F)));
+    public static final CrumbSupplier<Block> ANCIENT_EARTH_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_earth_slimy_block", (properties) -> new AncientEarthSlimyBlock(properties.strength(-1, 3600000.0F)));
+    public static final CrumbSupplier<Block> ANCIENT_FIRE_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_fire_slimy_block", (properties) -> new AncientFireSlimyBlock(properties.strength(-1, 3600000.0F)));
 
-    public static final CrumbSupplier<Block> AIR_SLIME_COAT = BlockHelper.registerWithItem("air_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
-    public static final CrumbSupplier<Block> WATER_SLIME_COAT = BlockHelper.registerWithItem("water_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
-    public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
-    public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
+    public static final CrumbSupplier<Block> AIR_SLIME_COAT = BlockHelper.registerWithItem("air_slime_coat", (properties) -> new SlimeCoatBlock(properties.pushReaction(PushReaction.DESTROY).noOcclusion()));
+    public static final CrumbSupplier<Block> WATER_SLIME_COAT = BlockHelper.registerWithItem("water_slime_coat", (properties) -> new SlimeCoatBlock(properties.pushReaction(PushReaction.DESTROY).noOcclusion()));
+    public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", (properties) -> new SlimeCoatBlock(properties.pushReaction(PushReaction.DESTROY).noOcclusion()));
+    public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", (properties) -> new SlimeCoatBlock(properties.pushReaction(PushReaction.DESTROY).noOcclusion()));
 
-    public static final CrumbSupplier<Block> AIR_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("air_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> WATER_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("water_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> EARTH_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("earth_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("fire_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
+    public static final CrumbSupplier<Block> AIR_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("air_crystallized_slime_block", (properties) -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties(properties)));
+    public static final CrumbSupplier<Block> WATER_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("water_crystallized_slime_block", (properties) -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties(properties)));
+    public static final CrumbSupplier<Block> EARTH_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("earth_crystallized_slime_block", (properties) -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties(properties)));
+    public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("fire_crystallized_slime_block", (properties) -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties(properties)));
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
@@ -127,29 +133,33 @@ public class Content {
     public static final TagKey<Item> SLIME_COAT_ITEMS_TAG = TagHelper.item("slime_coat_items");
 
     public static final CrumbSupplier<MobEffect> DOUBLE_JUMP_EFFECT = MobEffectHelper.register("double_jump", MobEffectCategory.BENEFICIAL, 9699327);
-    public static final CrumbSupplier<MobEffect> WATER_ANTI_DEPTH_EFFECT = MobEffectHelper.register("water_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, Fluids.WATER, 2140116));
+    public static final CrumbSupplier<MobEffect> WATER_ANTI_DEPTH_EFFECT = MobEffectHelper.register("water_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, FluidTags.WATER, 2140116));
     public static final CrumbSupplier<MobEffect> KNOCK_BACK_EFFECT = MobEffectHelper.register("knockback", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 7222827)
-            .addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE, ResourceLocation.fromNamespaceAndPath(MODID, "knockback"), 1.0f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-    public static final CrumbSupplier<MobEffect> LAVA_ANTI_DEPTH_EFFECT = MobEffectHelper.register("lava_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, Fluids.LAVA, 14376750));
+            .addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE, Identifier.fromNamespaceAndPath(MODID, "knockback"), 1.0f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+    public static final CrumbSupplier<MobEffect> LAVA_ANTI_DEPTH_EFFECT = MobEffectHelper.register("lava_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, FluidTags.LAVA, 14376750));
     public static final CrumbSupplier<MobEffect> HAND_BURN_EFFECT = MobEffectHelper.register("hand_burn_effect", () -> new HandBurnEffect(MobEffectCategory.HARMFUL, 14376750));
     public static final CrumbSupplier<MobEffect> SLIPPERY_EFFECT = MobEffectHelper.register("slippery_effect", MobEffectCategory.NEUTRAL, 2140116);
 
-    public static final CrumbSupplier<Potion> DOUBLE_JUMP_POTION = PotionHelper.register("double_jump_potion", () -> new Potion(new MobEffectInstance(DOUBLE_JUMP_EFFECT.getHolder(), 1200, 0)));
-    public static final CrumbSupplier<Potion> WATER_ANTI_DEPTH_POTION = PotionHelper.register("water_anti_depth_potion", () -> new Potion(new MobEffectInstance(WATER_ANTI_DEPTH_EFFECT.getHolder(), 1200, 0)));
-    public static final CrumbSupplier<Potion> KNOCKBACK_POTION = PotionHelper.register("knockback_potion", () -> new Potion(new MobEffectInstance(KNOCK_BACK_EFFECT.getHolder(), 1200, 0)));
-    public static final CrumbSupplier<Potion> LAVA_ANTI_DEPTH_POTION = PotionHelper.register("lava_anti_depth_potion", () -> new Potion(new MobEffectInstance(LAVA_ANTI_DEPTH_EFFECT.getHolder(), 1200, 0)));
+    public static final CrumbSupplier<Potion> DOUBLE_JUMP_POTION = PotionHelper.register("double_jump_potion", () -> new Potion("double_jump_potion", new MobEffectInstance(DOUBLE_JUMP_EFFECT.getHolder(), 1200, 0)));
+    public static final CrumbSupplier<Potion> WATER_ANTI_DEPTH_POTION = PotionHelper.register("water_anti_depth_potion", () -> new Potion("water_anti_depth_potion", new MobEffectInstance(WATER_ANTI_DEPTH_EFFECT.getHolder(), 1200, 0)));
+    public static final CrumbSupplier<Potion> KNOCKBACK_POTION = PotionHelper.register("knockback_potion", () -> new Potion("knockback_potion", new MobEffectInstance(KNOCK_BACK_EFFECT.getHolder(), 1200, 0)));
+    public static final CrumbSupplier<Potion> LAVA_ANTI_DEPTH_POTION = PotionHelper.register("lava_anti_depth_potion", () -> new Potion("lava_anti_depth_potion", new MobEffectInstance(LAVA_ANTI_DEPTH_EFFECT.getHolder(), 1200, 0)));
 
     public static final CrumbSupplier<Potion> MIDDLE_FIRE_RESISTANCE = PotionHelper.register("middle_fire_resistance", () -> new Potion("fire_resistance", new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 6000)));
     public static final CrumbSupplier<Potion> MIDDLE_WATER_BREATHING = PotionHelper.register("middle_water_breathing", () -> new Potion("water_breathing", new MobEffectInstance(MobEffects.WATER_BREATHING, 6000)));
 
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_SLIME = ItemHelper.registerBanner("slime");
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_AIR_SLIME_SIGN = ItemHelper.registerBanner("air_slime_sign");
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_WATER_SLIME_SIGN = ItemHelper.registerBanner("water_slime_sign");
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_EARTH_SLIME_SIGN = ItemHelper.registerBanner("earth_slime_sign");
-    public static final CrumbSupplier<BannerPatternItem> PATTERN_FIRE_SLIME_SIGN = ItemHelper.registerBanner("fire_slime_sign");
+//    public static final CrumbSupplier<BannerPatternItem> PATTERN_SLIME = ItemHelper.registerBanner("slime");
+//    public static final CrumbSupplier<BannerPatternItem> PATTERN_AIR_SLIME_SIGN = ItemHelper.registerBanner("air_slime_sign");
+//    public static final CrumbSupplier<BannerPatternItem> PATTERN_WATER_SLIME_SIGN = ItemHelper.registerBanner("water_slime_sign");
+//    public static final CrumbSupplier<BannerPatternItem> PATTERN_EARTH_SLIME_SIGN = ItemHelper.registerBanner("earth_slime_sign");
+//    public static final CrumbSupplier<BannerPatternItem> PATTERN_FIRE_SLIME_SIGN = ItemHelper.registerBanner("fire_slime_sign");
 
     public static final CrumbSupplier<StructureType<FireShrineStructure>> FIRE_SHRINE = StructureHelper.registerStructure("fire_shrine", () -> () -> FireShrineStructure.CODEC);
     public static final CrumbSupplier<StructurePieceType> FIRE_SHRINE_PIECE = StructureHelper.registerPiece("fire_shrine", () -> FireShrineStructure.FireShrinePiece::new);
+
+//    private static Item.Properties properties(String name) {
+//        return ItemHelper.properties(name);
+//    }
 
     public static void registerPotions(RegisterBrewingRecipesEvent event) {
         var builder = event.getBuilder();
@@ -182,7 +192,7 @@ public class Content {
             tag.putInt("bounce", 32);
             result.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
             event.setOutput(result);
-            event.setCost(3);
+            event.setXpCost(3);
             event.setMaterialCost(1);
         }
     }
@@ -195,27 +205,27 @@ public class Content {
     }
 
     private static CrumbSupplier<Block> registerSlimeBlock(String name) {
-        return BlockHelper.registerWithItem(name, () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
+        return BlockHelper.registerWithItem(name, (properties) -> new GlowingSlimeBlock(getSlimeBlockProperties(properties)));
     }
 
-    private static <T extends Block> CrumbSupplier<Block> registerFireResistanceBlock(String name, Supplier<T> supplier) {
-        var ret = BlockHelper.register(name, supplier);
-        ItemHelper.register(name, () -> new BlockItem(ret.get(), new Item.Properties().fireResistant()));
-        return ret;
+    private static <T extends Block> CrumbSupplier<Block> registerFireResistanceBlock(String name, Function<BlockBehaviour.Properties, ? extends T> func) {
+        var ret = BlockHelper.registerBlock(name, func);
+        ItemHelper.registerItem(name, (properties) -> new BlockItem(ret.get(), properties.fireResistant()));
+        return (CrumbSupplier<Block>) ret;
     }
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return state -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
     }
 
-    private static BlockBehaviour.Properties getCrystallizedSlimeProperties() {
-        return BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(3.0f, 3.0f).lightLevel(state -> {
+    private static BlockBehaviour.Properties getCrystallizedSlimeProperties(BlockBehaviour.Properties properties) {
+        return properties.noOcclusion().requiresCorrectToolForDrops().strength(3.0f, 3.0f).lightLevel(state -> {
             if (state.getValue(CrystallizedSlimeBlock.STAGE) == 3) return 6; return 0;
         });
     }
 
-    private static BlockBehaviour.Properties getSlimeBlockProperties() {
-        return BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().lightLevel(litBlockEmission(8));
+    private static BlockBehaviour.Properties getSlimeBlockProperties(BlockBehaviour.Properties properties) {
+        return properties.mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().lightLevel(litBlockEmission(8));
     }
 
     private static <T extends Entity> EntityType.Builder<T> getSlimeFactory(EntityType.EntityFactory<T> factory) {
@@ -228,7 +238,7 @@ public class Content {
 
     public static final CrumbSupplier<CreativeModeTab> MAIN_TAB = CreativeTabHelper.register("main", (tab) -> tab
             .title(Component.literal("Slime Overhaul"))
-            .icon(() -> FLAME_SLIME_EGG.get().getDefaultInstance())
+            .icon(() -> FIRE_SLIME_BALL.get().getDefaultInstance())
             .displayItems(((itemDisplayParameters, output) -> {
                 output.accept(AIR_SLIME_BALL.get());
                 output.accept(WATER_SLIME_BALL.get());
@@ -240,45 +250,46 @@ public class Content {
                 output.accept(EARTH_SLIME_BLOCK.get());
                 output.accept(FIRE_SLIME_BLOCK.get());
 
-                output.accept(ANCIENT_AIR_SLIMY_BLOCK.get());
-                output.accept(ANCIENT_WATER_SLIMY_BLOCK.get());
-                output.accept(ANCIENT_EARTH_SLIMY_BLOCK.get());
-                output.accept(ANCIENT_FIRE_SLIMY_BLOCK.get());
+//                output.accept(ANCIENT_AIR_SLIMY_BLOCK.get());
+//                output.accept(ANCIENT_WATER_SLIMY_BLOCK.get());
+//                output.accept(ANCIENT_EARTH_SLIMY_BLOCK.get());
+//                output.accept(ANCIENT_FIRE_SLIMY_BLOCK.get());
 
-                output.accept(AIR_CRYSTALLIZED_DUST.get());
-                output.accept(WATER_CRYSTALLIZED_DUST.get());
-                output.accept(EARTH_CRYSTALLIZED_DUST.get());
-                output.accept(FIRE_CRYSTALLIZED_DUST.get());
+//                output.accept(AIR_CRYSTALLIZED_DUST.get());
+//                output.accept(WATER_CRYSTALLIZED_DUST.get());
+//                output.accept(EARTH_CRYSTALLIZED_DUST.get());
+//                output.accept(FIRE_CRYSTALLIZED_DUST.get());
 
-                output.accept(AIR_SLIME_COAT.get());
-                output.accept(WATER_SLIME_COAT.get());
-                output.accept(EARTH_SLIME_COAT.get());
-                output.accept(FIRE_SLIME_COAT.get());
+//                output.accept(AIR_SLIME_COAT.get());
+//                output.accept(WATER_SLIME_COAT.get());
+//                output.accept(EARTH_SLIME_COAT.get());
+//                output.accept(FIRE_SLIME_COAT.get());
 
-                output.accept(ANCIENT_AIR_FRAGMENTS.get());
-                output.accept(ANCIENT_WATER_FRAGMENTS.get());
-                output.accept(ANCIENT_EARTH_FRAGMENTS.get());
-                output.accept(ANCIENT_FIRE_FRAGMENTS.get());
+//                output.accept(ANCIENT_AIR_FRAGMENTS.get());
+//                output.accept(ANCIENT_WATER_FRAGMENTS.get());
+//                output.accept(ANCIENT_EARTH_FRAGMENTS.get());
+//                output.accept(ANCIENT_FIRE_FRAGMENTS.get());
 
-                output.accept(AIR_CRYSTALLIZED_SLIME_BLOCK.get());
-                output.accept(WATER_CRYSTALLIZED_SLIME_BLOCK.get());
-                output.accept(EARTH_CRYSTALLIZED_SLIME_BLOCK.get());
-                output.accept(FIRE_CRYSTALLIZED_SLIME_BLOCK.get());
+//                output.accept(AIR_CRYSTALLIZED_SLIME_BLOCK.get());
+//                output.accept(WATER_CRYSTALLIZED_SLIME_BLOCK.get());
+//                output.accept(EARTH_CRYSTALLIZED_SLIME_BLOCK.get());
+//                output.accept(FIRE_CRYSTALLIZED_SLIME_BLOCK.get());
 
                 output.accept(WATER_SLIME_BUCKET.get());
                 output.accept(FIRE_SLIME_BUCKET.get());
-                output.accept(CLEANSING_BRUSH.get());
+                
+//                output.accept(CLEANSING_BRUSH.get());
 
-                output.accept(AIR_SLIME_EGG.get());
-                output.accept(WATER_SLIME_EGG.get());
-                output.accept(EARTH_SLIME_EGG.get());
-                output.accept(FLAME_SLIME_EGG.get());
-
-                output.accept(PATTERN_SLIME.get());
-                output.accept(PATTERN_AIR_SLIME_SIGN.get());
-                output.accept(PATTERN_WATER_SLIME_SIGN.get());
-                output.accept(PATTERN_EARTH_SLIME_SIGN.get());
-                output.accept(PATTERN_FIRE_SLIME_SIGN.get());
+//                output.accept(AIR_SLIME_EGG.get());
+//                output.accept(WATER_SLIME_EGG.get());
+//                output.accept(EARTH_SLIME_EGG.get());
+//                output.accept(FLAME_SLIME_EGG.get());
+//
+//                output.accept(PATTERN_SLIME.get());
+//                output.accept(PATTERN_AIR_SLIME_SIGN.get());
+//                output.accept(PATTERN_WATER_SLIME_SIGN.get());
+//                output.accept(PATTERN_EARTH_SLIME_SIGN.get());
+//                output.accept(PATTERN_FIRE_SLIME_SIGN.get());
             }))
     );
 

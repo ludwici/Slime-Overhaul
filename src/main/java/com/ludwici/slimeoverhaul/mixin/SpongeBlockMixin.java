@@ -18,12 +18,12 @@ public abstract class SpongeBlockMixin extends Block {
         super(properties);
     }
 
-    @Override
-    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (entity instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasEffect(SLIPPERY_EFFECT.getHolder())) {
-                livingEntity.removeEffect(SLIPPERY_EFFECT.getHolder());
-            }
-        }
-    }
+//    @Override
+//    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+//        if (entity instanceof LivingEntity livingEntity) {
+//            if (livingEntity.hasEffect(SLIPPERY_EFFECT.getHolder())) {
+//                livingEntity.removeEffect(SLIPPERY_EFFECT.getHolder());
+//            }
+//        }
+//    }
 }

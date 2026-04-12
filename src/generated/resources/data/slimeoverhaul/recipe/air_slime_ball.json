@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "slimeoverhaul:air_slime_block"
-    }
+    "slimeoverhaul:air_slime_block"
   ],
   "result": {
     "count": 9,

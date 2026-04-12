@@ -1,3 +1,6 @@
 {
-  "parent": "slimeoverhaul:block/water_slime_block"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "slimeoverhaul:block/water_slime_block"
+  }
 }

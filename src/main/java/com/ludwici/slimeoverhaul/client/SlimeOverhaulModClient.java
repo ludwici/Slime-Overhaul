@@ -2,8 +2,9 @@ package com.ludwici.slimeoverhaul.client;
 
 import com.ludwici.slimeoverhaul.SlimeOverhaulMod;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.client.renderer.item.ItemProperties;
+//import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -27,12 +28,13 @@ public class SlimeOverhaulModClient {
 
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
-        ItemProperties.register(
-                CLEANSING_BRUSH.get(),
-                ResourceLocation.withDefaultNamespace("brushing"),
-                ((stack, level, entity, seed) -> entity != null && entity.getUseItem() == stack
-                        ? (float) (entity.getUseItemRemainingTicks() % 10) / 10.0F : 0.0F)
-        );
+
+//        ItemProperties.register(
+//                CLEANSING_BRUSH.get(),
+//                Identifier.withDefaultNamespace("brushing"),
+//                ((stack, level, entity, seed) -> entity != null && entity.getUseItem() == stack
+//                        ? (float) (entity.getUseItemRemainingTicks() % 10) / 10.0F : 0.0F)
+//        );
     }
 
     @SubscribeEvent

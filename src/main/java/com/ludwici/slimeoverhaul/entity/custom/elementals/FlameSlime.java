@@ -21,9 +21,9 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.monster.Slime;
@@ -37,6 +37,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.Tags;
 
 import static com.ludwici.slimeoverhaul.Content.*;
@@ -61,7 +63,7 @@ public class FlameSlime extends BaseSlime implements Bucketable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(ValueOutput compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putBoolean("FromBucket", this.fromBucket());
     }
@@ -76,9 +78,9 @@ public class FlameSlime extends BaseSlime implements Bucketable {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(ValueInput compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+        this.setFromBucket(compoundTag.getBooleanOr("FromBucket", false));
     }
 
     @Override
@@ -123,7 +125,7 @@ public class FlameSlime extends BaseSlime implements Bucketable {
     @Override
     public void loadFromBucketTag(CompoundTag compoundTag) {
         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-        this.setSize(compoundTag.getInt("Size") + 1, false);
+        this.setSize(compoundTag.getInt("Size").get() + 1, false);
     }
 
     @Override
@@ -146,11 +148,11 @@ public class FlameSlime extends BaseSlime implements Bucketable {
             ItemStack itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
             player.setItemInHand(interactionHand, itemStack3);
             Level level = level();
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemStack2);
             }
             discard();
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, interactionHand);
     }
@@ -160,7 +162,7 @@ public class FlameSlime extends BaseSlime implements Bucketable {
         return level.isUnobstructed(this);
     }
 
-    public static boolean checkSpawnRules(EntityType<FlameSlime> type, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+    public static boolean checkSpawnRules(EntityType<FlameSlime> type, LevelAccessor level, EntitySpawnReason mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
         if (Config.SPAWN_FLAME_SLIMES.isFalse()) {
             return false;
         }

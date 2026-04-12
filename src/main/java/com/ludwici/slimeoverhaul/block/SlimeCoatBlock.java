@@ -1,14 +1,16 @@
 package com.ludwici.slimeoverhaul.block;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -202,16 +204,17 @@ public class SlimeCoatBlock extends Block {
     }
 
     @Override
-    protected BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        int faces = this.countFaces(pState);
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
+        int faces = this.countFaces(state);
         if (faces == 1) {
-            if ((pState.getValue(UP) && pLevel.isEmptyBlock(pCurrentPos.above())) || (pState.getValue(DOWN) && pLevel.isEmptyBlock(pCurrentPos.below()))) {
+            if ((state.getValue(UP) && level.isEmptyBlock(pos.above())) || (state.getValue(DOWN) && level.isEmptyBlock(pos.below()))) {
                 return Blocks.AIR.defaultBlockState();
             }
         }
-        BlockState blockstate = this.getUpdatedState(pState, pLevel, pCurrentPos);
+        BlockState blockstate = this.getUpdatedState(state, level, pos);
         return !this.hasFaces(blockstate) ? Blocks.AIR.defaultBlockState() : blockstate;
     }
+
 
     @Nullable
     @Override

@@ -10,12 +10,40 @@
     },
     {
       "apply": {
+        "model": "slimeoverhaul:block/water_slime_coat"
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
         "model": "slimeoverhaul:block/water_slime_coat",
         "uvlock": true,
         "y": 90
       },
       "when": {
         "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "slimeoverhaul:block/water_slime_coat",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
       }
     },
     {
@@ -32,10 +60,40 @@
       "apply": {
         "model": "slimeoverhaul:block/water_slime_coat",
         "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "slimeoverhaul:block/water_slime_coat",
+        "uvlock": true,
         "y": 270
       },
       "when": {
         "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "slimeoverhaul:block/water_slime_coat",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
       }
     },
     {
@@ -52,10 +110,40 @@
       "apply": {
         "model": "slimeoverhaul:block/water_slime_coat",
         "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "slimeoverhaul:block/water_slime_coat",
+        "uvlock": true,
         "x": 90
       },
       "when": {
         "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "slimeoverhaul:block/water_slime_coat",
+        "uvlock": true,
+        "x": 90
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
       }
     }
   ]

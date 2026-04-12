@@ -3,7 +3,6 @@ package com.ludwici.slimeoverhaul.entity.custom.elementals;
 import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.variants.WaterSlimeVariant;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -19,6 +18,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -40,6 +40,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
@@ -85,17 +87,17 @@ public class WaterSlime extends BaseSlime implements Bucketable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant().getId());
-        compoundTag.putBoolean("FromBucket", this.fromBucket());
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.store("Variant", WaterSlimeVariant.LEGACY_CODEC, getVariant());
+        output.putBoolean("FromBucket", this.fromBucket());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setVariant(WaterSlimeVariant.byId(compoundTag.getInt("Variant")));
-        this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setVariant(input.read("Variant", WaterSlimeVariant.LEGACY_CODEC).orElse(WaterSlimeVariant.DEFAULT));
+        this.setFromBucket(input.getBooleanOr("FromBucket", false));
     }
 
     public WaterSlimeVariant getVariant() {
@@ -128,8 +130,8 @@ public class WaterSlime extends BaseSlime implements Bucketable {
     @Override
     public void loadFromBucketTag(CompoundTag compoundTag) {
         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-        this.setVariant(WaterSlimeVariant.byId(compoundTag.getInt("Variant")));
-        this.setSize(compoundTag.getInt("Size") + 1, false);
+        this.setVariant(WaterSlimeVariant.byId(compoundTag.getInt("Variant").get()));
+        this.setSize(compoundTag.getInt("Size").get() + 1, false);
     }
 
     @Override
@@ -142,14 +144,18 @@ public class WaterSlime extends BaseSlime implements Bucketable {
         return SoundEvents.BUCKET_EMPTY_AXOLOTL;
     }
 
+    private void setVariant(){
+
+    }
+
     @Override
-    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
-        if (mobSpawnType == MobSpawnType.BUCKET) {
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, EntitySpawnReason mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
+        if (mobSpawnType == EntitySpawnReason.BUCKET) {
             return spawnGroupData;
         }
 
-        WaterSlimeVariant variant = Util.getRandom(WaterSlimeVariant.values(), this.random);
-        this.setVariant(variant);
+//        WaterSlimeVariant variant = Util.getRandom(WaterSlimeVariant.values(), this.random);
+//        this.setVariant(variant);
         if (serverLevelAccessor.getBiome(this.blockPosition()).is(BiomeTags.IS_OCEAN)) {
             this.setVariant(WaterSlimeVariant.OCEAN);
         } else {
@@ -200,7 +206,7 @@ public class WaterSlime extends BaseSlime implements Bucketable {
                     for (int m = 0; m <= l; m = m > 0 ? -m : 1 - m) {
                         for (int n = m < l && m > -l ? l : 0; n <= l; n = n > 0 ? -n : 1 - n) {
                             mutableBlockPos.setWithOffset(blockPos, m, k - 1, n);
-                            if (this.slime.isWithinRestriction(mutableBlockPos) && this.slime.level().getBlockState(mutableBlockPos).is(Blocks.FIRE)) {
+                            if (this.slime.isWithinHome(mutableBlockPos) && this.slime.level().getBlockState(mutableBlockPos).is(Blocks.FIRE)) {
                                 return mutableBlockPos;
                             }
                         }
@@ -246,7 +252,7 @@ public class WaterSlime extends BaseSlime implements Bucketable {
         if (itemStack.is(Items.BUCKET) && getSize() == MAX_NATURAL_SIZE) {
             ItemStack itemStack2 = ItemUtils.createFilledResult(itemStack, arg, Items.WATER_BUCKET.getDefaultInstance());
             arg.setItemInHand(arg2, itemStack2);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else if (isTiny()) {
             return Bucketable.bucketMobPickup(arg, arg2, this).orElse(super.mobInteract(arg, arg2));
         } else {
@@ -259,7 +265,7 @@ public class WaterSlime extends BaseSlime implements Bucketable {
         return level.isUnobstructed(this);
     }
 
-    public static boolean checkSpawnRules(EntityType<WaterSlime> type, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+    public static boolean checkSpawnRules(EntityType<WaterSlime> type, LevelAccessor level, EntitySpawnReason mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
         if (Config.SPAWN_WATER_SLIMES.isFalse()) {
             return false;
         }

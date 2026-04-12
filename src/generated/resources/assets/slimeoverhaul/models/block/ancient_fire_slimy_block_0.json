@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "slimeoverhaul:block/ancient_fire_slimy_block_0"
+  }
+}

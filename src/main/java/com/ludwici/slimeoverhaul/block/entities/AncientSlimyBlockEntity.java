@@ -7,8 +7,8 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
@@ -101,7 +101,7 @@ public class AncientSlimyBlockEntity extends BlockEntity {
     }
 
     private ItemStack unpackLootTable(Player player) {
-        ResourceKey<LootTable> lootTableKey = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(MODID, "ancient/" + BuiltInRegistries.BLOCK.getKey(getBlockState().getBlock()).getPath()));
+        ResourceKey<LootTable> lootTableKey = ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(MODID, "ancient/" + BuiltInRegistries.BLOCK.getKey(getBlockState().getBlock()).getPath()));
         LootTable table = level.getServer().reloadableRegistries().getLootTable(lootTableKey);
         if (player instanceof ServerPlayer serverplayer) {
             CriteriaTriggers.GENERATE_LOOT.trigger(serverplayer, lootTableKey);

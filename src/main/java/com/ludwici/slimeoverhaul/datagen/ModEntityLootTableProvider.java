@@ -2,9 +2,9 @@ package com.ludwici.slimeoverhaul.datagen;
 
 import com.ludwici.crumbslib.api.CrumbSupplier;
 import com.ludwici.crumbslib.api.EntityHelper;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.advancements.critereon.SlimePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.advancements.criterion.SlimePredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.Entity;

@@ -21,7 +21,7 @@ public class SlimyBlockBehaviour {
         @Override
         public void applyEffect(Player player, AncientSlimyBlockEntity blockEntity) {
             Level level = blockEntity.getLevel();
-            int behaviour = level.random.nextIntBetweenInclusive(1, 2);
+            int behaviour = level.getRandom().nextIntBetweenInclusive(1, 2);
             if (behaviour == 1) {
                 double velocity = 1.2;
                 Vec3 lookVec = player.getLookAngle();
@@ -41,7 +41,7 @@ public class SlimyBlockBehaviour {
         @Override
         public void applyEffect(Player player, AncientSlimyBlockEntity blockEntity) {
             Level level = blockEntity.getLevel();
-            int behaviour = level.random.nextIntBetweenInclusive(1, 1);
+            int behaviour = level.getRandom().nextIntBetweenInclusive(1, 1);
             if (behaviour == 1) {
                 player.addEffect(new MobEffectInstance(SLIPPERY_EFFECT.getHolder(), 1200));
             }
@@ -59,7 +59,7 @@ public class SlimyBlockBehaviour {
         @Override
         public void applyEffect(Player player, AncientSlimyBlockEntity blockEntity) {
             Level level = blockEntity.getLevel();
-            int behaviour = level.random.nextIntBetweenInclusive(1, 3);
+            int behaviour = level.getRandom().nextIntBetweenInclusive(1, 3);
             if (behaviour == 1) {
                 var effect = player.getEffect(HAND_BURN_EFFECT.getHolder());
                 int duration = 1200;
@@ -77,11 +77,11 @@ public class SlimyBlockBehaviour {
                     level.setBlock(playerPos, Blocks.FIRE.defaultBlockState(), 3);
                 }
             } else if (behaviour == 3) {
-                int posX = level.random.nextIntBetweenInclusive(-2, 3);
-                int posZ = level.random.nextIntBetweenInclusive(-2, 3);
+                int posX = level.getRandom().nextIntBetweenInclusive(-2, 3);
+                int posZ = level.getRandom().nextIntBetweenInclusive(-2, 3);
 
                 BlockPos groundPos = blockEntity.getBlockPos().offset(posX, 0, posZ);
-                while (level.getBlockState(groundPos).isAir() && groundPos.getY() > level.getMinBuildHeight()) {
+                while (level.getBlockState(groundPos).isAir() && groundPos.getY() > level.getMinY()) {
                     groundPos = groundPos.below();
                 }
 

@@ -1,3 +1,6 @@
 {
-  "parent": "slimeoverhaul:block/air_slime_block"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "slimeoverhaul:block/air_slime_block"
+  }
 }

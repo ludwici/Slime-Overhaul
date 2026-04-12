@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "slimeoverhaul:block/air_crystallized_slime_block"
+  }
+}

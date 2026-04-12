@@ -1,8 +1,0 @@
-{
-  "parent": "slimeoverhaul:block/slime_coat_base",
-  "render_type": "minecraft:translucent",
-  "textures": {
-    "particle": "slimeoverhaul:block/earth_slime_coat",
-    "texture": "slimeoverhaul:block/earth_slime_coat"
-  }
-}
