@@ -16,7 +16,7 @@
   "parent": "slimeoverhaul:slimeoverhaul/root",
   "criteria": {
     "bounce_shield": {
-      "trigger": "minecraft:impossible"
+      "trigger": "slimeoverhaul:anvil_trigger"
     }
   }
 }

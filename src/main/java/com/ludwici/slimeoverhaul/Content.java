@@ -2,6 +2,7 @@ package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
 import com.ludwici.crumbslib.api.world.feature.FeatureHelper;
+import com.ludwici.slimeoverhaul.advancement.AnvilCriterionTrigger;
 import com.ludwici.slimeoverhaul.block.*;
 import com.ludwici.slimeoverhaul.block.crystallized.*;
 import com.ludwici.slimeoverhaul.block.entities.*;
@@ -156,6 +157,8 @@ public class Content {
 
     public static final CrumbSupplier<StructureType<FireShrineStructure>> FIRE_SHRINE = StructureHelper.registerStructure("fire_shrine", () -> () -> FireShrineStructure.CODEC);
     public static final CrumbSupplier<StructurePieceType> FIRE_SHRINE_PIECE = StructureHelper.registerPiece("fire_shrine", () -> FireShrineStructure.FireShrinePiece::new);
+
+    public static final Supplier<AnvilCriterionTrigger> ANVIL_TRIGGER = AdvancementHelper.TRIGGER_TYPES.register("anvil_trigger", AnvilCriterionTrigger::new);
 
     public static void registerPotions(RegisterBrewingRecipesEvent event) {
         var builder = event.getBuilder();
