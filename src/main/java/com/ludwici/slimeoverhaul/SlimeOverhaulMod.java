@@ -76,7 +76,6 @@ public class SlimeOverhaulMod {
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onKnock);
 //        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTooltip);
-        modEventBus.addListener(SlimeOverhaulMod::addEntityTypes);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onShieldBlock);
 //        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
 
@@ -93,11 +92,6 @@ public class SlimeOverhaulMod {
 //            ));
 //        }
 //    }
-
-    private static void addEntityTypes(BlockEntityTypeAddBlocksEvent event) {
-        event.modify(BlockEntityType.BANNER, SLIME_BANNER.get());
-        event.modify(BlockEntityType.BANNER, SLIME_BANNER_WALL.get());
-    }
 
     private static void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();

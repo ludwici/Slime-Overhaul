@@ -12,7 +12,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -70,6 +69,12 @@ public class ModModelProvider extends ModelProvider {
         flatItem(FLAME_SLIME_EGG);
 //        flatItem(CLEANSING_BRUSH);
 
+        itemModelGenerators.generateFlatItem(PATTERN_SLIME.get(), ModelTemplates.FLAT_ITEM);
+        createBlankBannerPattern(PATTERN_AIR_SLIME_SIGN);
+        createBlankBannerPattern(PATTERN_WATER_SLIME_SIGN);
+        createBlankBannerPattern(PATTERN_EARTH_SLIME_SIGN);
+        createBlankBannerPattern(PATTERN_FIRE_SLIME_SIGN);
+
         blockModels.createBrushableBlock(ANCIENT_AIR_SLIMY_BLOCK.get());
         blockModels.createBrushableBlock(ANCIENT_WATER_SLIMY_BLOCK.get());
         blockModels.createBrushableBlock(ANCIENT_EARTH_SLIMY_BLOCK.get());
@@ -84,8 +89,6 @@ public class ModModelProvider extends ModelProvider {
         crystallizedSlime(WATER_CRYSTALLIZED_SLIME_BLOCK);
         crystallizedSlime(EARTH_CRYSTALLIZED_SLIME_BLOCK);
         crystallizedSlime(FIRE_CRYSTALLIZED_SLIME_BLOCK);
-
-        blockModels.createBanner(SLIME_BANNER.get(), SLIME_BANNER_WALL.get(), DyeColor.WHITE);
     }
 
     private void flatItem(Item item) {
@@ -131,6 +134,15 @@ public class ModModelProvider extends ModelProvider {
         crystallizedSlime(block.get());
     }
 
+
+    private void  createBlankBannerPattern(CrumbSupplier<Item> item) {
+        Identifier id = ModelTemplates.FLAT_ITEM.create(
+                item.get(), new TextureMapping().put(TextureSlot.LAYER0, TextureMapping.getItemTexture(PATTERN_SLIME.get())),
+                itemModelGenerators.modelOutput
+        );
+
+        itemModelGenerators.itemModelOutput.accept(item.get(), ItemModelUtils.plainModel(id));
+    }
 
     private void slimeBlockWithItem(Block block) {
         Identifier id = SLIME_BLOCK_TEMPLATE.create(

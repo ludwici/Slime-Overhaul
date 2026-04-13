@@ -2,12 +2,9 @@ package com.ludwici.slimeoverhaul.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-//import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.tags.ItemTags;
 import net.neoforged.neoforge.common.Tags;
-//import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -69,5 +66,14 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(EARTH_SLIME_COAT.get().asItem())
                 .add(FIRE_SLIME_COAT.get().asItem())
         ;
+
+        tag(ItemTags.LOOM_PATTERNS)
+                .add(PATTERN_SLIME.get())
+                .add(PATTERN_AIR_SLIME_SIGN.get())
+                .add(PATTERN_WATER_SLIME_SIGN.get())
+                .add(PATTERN_EARTH_SLIME_SIGN.get())
+                .add(PATTERN_FIRE_SLIME_SIGN.get())
+        ;
+
     }
 }

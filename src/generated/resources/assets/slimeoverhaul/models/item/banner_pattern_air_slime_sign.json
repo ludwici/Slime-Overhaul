@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "slimeoverhaul:item/banner_pattern_slime"
+  }
+}

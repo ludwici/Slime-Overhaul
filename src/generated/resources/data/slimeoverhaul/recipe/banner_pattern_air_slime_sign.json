@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "slimeoverhaul:air_slime_block",
+    "minecraft:paper"
+  ],
+  "result": {
+    "id": "slimeoverhaul:banner_pattern_air_slime_sign"
+  }
+}

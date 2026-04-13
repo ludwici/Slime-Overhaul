@@ -47,10 +47,10 @@ public class ModRecipeProvider extends RecipeProvider {
         slimeBallRecipe(EARTH_SLIME_BALL, EARTH_SLIME_BLOCK);
         slimeBallRecipe(FIRE_SLIME_BALL, FIRE_SLIME_BLOCK);
 
-//        bannerPatternRecipe(PATTERN_AIR_SLIME_SIGN, AIR_SLIME_BLOCK, arg);
-//        bannerPatternRecipe(PATTERN_WATER_SLIME_SIGN, WATER_SLIME_BLOCK, arg);
-//        bannerPatternRecipe(PATTERN_EARTH_SLIME_SIGN, EARTH_SLIME_BLOCK, arg);
-//        bannerPatternRecipe(PATTERN_FIRE_SLIME_SIGN, FIRE_SLIME_BLOCK, arg);
+        bannerPatternRecipe(PATTERN_AIR_SLIME_SIGN, AIR_SLIME_BLOCK);
+        bannerPatternRecipe(PATTERN_WATER_SLIME_SIGN, WATER_SLIME_BLOCK);
+        bannerPatternRecipe(PATTERN_EARTH_SLIME_SIGN, EARTH_SLIME_BLOCK);
+        bannerPatternRecipe(PATTERN_FIRE_SLIME_SIGN, FIRE_SLIME_BLOCK);
 
 //        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, CLEANSING_BRUSH.get(), 1)
 //                .pattern("   ")
@@ -81,13 +81,13 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(output);
     }
 
-//    private void bannerPatternRecipe(CrumbSupplier<BannerPatternItem> bannerPattern, CrumbSupplier<Block> from, RecipeOutput arg) {
-//        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, bannerPattern.get(), 1)
-//                .requires(from.get())
-//                .requires(Items.PAPER)
-//                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(from.get()).getPath(), has(from.get()))
-//                .save(arg);
-//    }
+    private void bannerPatternRecipe(CrumbSupplier<Item> bannerPattern, CrumbSupplier<Block> from) {
+        shapeless(RecipeCategory.MISC, bannerPattern.get(), 1)
+                .requires(from.get())
+                .requires(Items.PAPER)
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(from.get()).getPath(), has(from.get()))
+                .save(output);
+    }
 
     public static class Runner extends RecipeProvider.Runner {
         protected Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
