@@ -6,35 +6,25 @@ import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
-import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
-//import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.trading.ItemCost;
-import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
-import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
-//import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-//import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.List;
 import java.util.Optional;
@@ -77,21 +67,9 @@ public class SlimeOverhaulMod {
 //        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTooltip);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onShieldBlock);
-//        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
 
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onSlimyBlockExecute);
     }
-
-//    private static void onTrade(VillagerTradesEvent event) {
-//        if (event.getType() == VillagerProfession.CARTOGRAPHER) {
-//            var trades = event.getTrades();
-//            trades.get(2).add((trader, random) -> new MerchantOffer(
-//                    new ItemCost(Items.EMERALD, 8),
-//                    new ItemStack(PATTERN_SLIME.get(), 1),
-//                    12, 3, 0.05f
-//            ));
-//        }
-//    }
 
     private static void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();

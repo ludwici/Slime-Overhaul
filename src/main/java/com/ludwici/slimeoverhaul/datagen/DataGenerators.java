@@ -1,5 +1,8 @@
 package com.ludwici.slimeoverhaul.datagen;
 
+import com.ludwici.slimeoverhaul.world.item.ModTrades;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,8 +16,15 @@ import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
 @EventBusSubscriber(modid = MODID)
 public class DataGenerators {
+    
+    private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
+            .add(Registries.VILLAGER_TRADE, ModTrades::bootstrap)
+            ;
+
     @SubscribeEvent
     public static void gatherClientData(GatherDataEvent.Client event) {
+        event.createDatapackRegistryObjects(BUILDER);
+
         event.createProvider(ModModelProvider::new);
         event.createProvider(((output, lookupProvider) -> new LootTableProvider(
             output, Set.of(), List.of(
@@ -29,6 +39,7 @@ public class DataGenerators {
         event.createProvider(ModItemTagProvider::new);
         event.createProvider(ModEntityTagProvider::new);
         event.createProvider(ModBiomeTagProvider::new);
+        event.createProvider(ModVillageTradesTagProvider::new);
     }
 
 //    @SubscribeEvent
