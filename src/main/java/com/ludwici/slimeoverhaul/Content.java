@@ -134,10 +134,10 @@ public class Content {
     public static final TagKey<Item> SLIME_COAT_ITEMS_TAG = TagHelper.item("slime_coat_items");
 
     public static final CrumbSupplier<MobEffect> DOUBLE_JUMP_EFFECT = MobEffectHelper.register("double_jump", MobEffectCategory.BENEFICIAL, 9699327);
-    public static final CrumbSupplier<MobEffect> WATER_ANTI_DEPTH_EFFECT = MobEffectHelper.register("water_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, FluidTags.WATER, 2140116));
+    public static final CrumbSupplier<MobEffect> WATER_ANTI_DEPTH_EFFECT = MobEffectHelper.register("water_anti_depth", MobEffectCategory.BENEFICIAL, 2140116);
     public static final CrumbSupplier<MobEffect> KNOCK_BACK_EFFECT = MobEffectHelper.register("knockback", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 7222827)
             .addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE, Identifier.fromNamespaceAndPath(MODID, "knockback"), 1.0f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-    public static final CrumbSupplier<MobEffect> LAVA_ANTI_DEPTH_EFFECT = MobEffectHelper.register("lava_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, FluidTags.LAVA, 14376750));
+    public static final CrumbSupplier<MobEffect> LAVA_ANTI_DEPTH_EFFECT = MobEffectHelper.register("lava_anti_depth", MobEffectCategory.BENEFICIAL, 14376750);
     public static final CrumbSupplier<MobEffect> HAND_BURN_EFFECT = MobEffectHelper.register("hand_burn_effect", () -> new HandBurnEffect(MobEffectCategory.HARMFUL, 14376750));
     public static final CrumbSupplier<MobEffect> SLIPPERY_EFFECT = MobEffectHelper.register("slippery_effect", MobEffectCategory.NEUTRAL, 2140116);
 
