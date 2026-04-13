@@ -9,7 +9,7 @@
     "description": {
       "translate": "advancements.slimeoverhaul.root.description"
     },
-    "background": "slimeoverhaul:textures/block/water_slime_block.png",
+    "background": "slimeoverhaul:block/water_slime_block",
     "show_toast": false,
     "announce_to_chat": false,
     "hidden": false

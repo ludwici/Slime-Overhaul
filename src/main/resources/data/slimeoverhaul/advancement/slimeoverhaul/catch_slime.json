@@ -18,7 +18,7 @@
     "water_slime_bucket": {
       "conditions": {
         "item": {
-          "items": "minecraft:water_slime_bucket"
+          "items": "slimeoverhaul:water_slime_bucket"
         }
       },
       "trigger": "minecraft:filled_bucket"
@@ -26,7 +26,7 @@
     "fire_slime_bucket": {
       "conditions": {
         "item": {
-          "items": "minecraft:fire_slime_bucket"
+          "items": "slimeoverhaul:fire_slime_bucket"
         }
       },
       "trigger": "minecraft:filled_bucket"
