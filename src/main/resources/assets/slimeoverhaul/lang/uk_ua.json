@@ -5,6 +5,7 @@
   "slimeoverhaul.configuration.allowFlameSlimes": "Спавн вогняного слимака",
   "slimeoverhaul.configuration.waterSlimeFindFireTick": "Пошук вогню",
   "slimeoverhaul.configuration.waterSlimeFindFireTick.tooltip": "Визначає, як часто водяні слизи будуть шукати вогняні блоки, щоб загасити їх. Часті виклики можуть призвести до втрати продуктивності; чим вище значення, тим рідше відбувається пошук і тим вища продуктивність.",
+  "slimeoverhaul.configuration.water_slime_can_transform_sand": "Водяні слимаки можуть перетворювати пісок на багно",
 
   "entity.slimeoverhaul.air_slime": "Повітряний слимак",
   "entity.slimeoverhaul.water_slime": "Водяний слимак",
@@ -139,10 +140,10 @@
   "item.minecraft.lingering_potion.effect.lava_anti_depth_potion": "Осідальне зілля лавової антиглибини",
   "item.minecraft.tipped_arrow.effect.lava_anti_depth_potion": "Стріла лавової антиглибини",
 
-  "block.slimeoverhaul.air_slime_block": "Повітряний слизовий блок",
-  "block.slimeoverhaul.water_slime_block": "Водяний слизовий блок",
-  "block.slimeoverhaul.earth_slime_block": "Земляний слизовий блок",
-  "block.slimeoverhaul.fire_slime_block": "Вогняний слизовий блок",
+  "item.slimeoverhaul.air_slime_block": "Повітряний слизовий блок",
+  "item.slimeoverhaul.water_slime_block": "Водяний слизовий блок",
+  "item.slimeoverhaul.earth_slime_block": "Земляний слизовий блок",
+  "item.slimeoverhaul.fire_slime_block": "Вогняний слизовий блок",
 
   "effect.slimeoverhaul.double_jump": "Подвійний стрибок",
   "effect.slimeoverhaul.water_anti_depth": "Водна антиглибина",

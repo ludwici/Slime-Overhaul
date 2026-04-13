@@ -132,10 +132,10 @@
   "item.minecraft.lingering_potion.effect.lava_anti_depth_potion": "滞留型抗沉岩浆药水",
   "item.minecraft.tipped_arrow.effect.lava_anti_depth_potion": "抗沉岩浆之箭",
 
-  "block.slimeoverhaul.air_slime_block": "风粘液块",
-  "block.slimeoverhaul.water_slime_block": "水粘液块",
-  "block.slimeoverhaul.earth_slime_block": "土粘液块",
-  "block.slimeoverhaul.flame_slime_block": "火粘液块",
+  "item.slimeoverhaul.air_slime_block": "风粘液块",
+  "item.slimeoverhaul.water_slime_block": "水粘液块",
+  "item.slimeoverhaul.earth_slime_block": "土粘液块",
+  "item.slimeoverhaul.fire_slime_block": "火粘液块",
 
   "effect.slimeoverhaul.double_jump": "二段跳",
   "effect.slimeoverhaul.water_anti_depth": "浮出水面",

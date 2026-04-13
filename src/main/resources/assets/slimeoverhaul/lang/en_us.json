@@ -5,6 +5,7 @@
   "slimeoverhaul.configuration.allowFlameSlimes": "Fire Slime spawn",
   "slimeoverhaul.configuration.waterSlimeFindFireTick": "Fire search",
   "slimeoverhaul.configuration.waterSlimeFindFireTick.tooltip": "Determines how often water slimes will search for fire blocks to extinguish them. Frequent calls can lead to performance loss; the higher the value, the less frequent the search and the higher the performance.",
+  "slimeoverhaul.configuration.water_slime_can_transform_sand": "Water slimes can turn sand into mud.",
 
   "entity.slimeoverhaul.air_slime": "Air Slime",
   "entity.slimeoverhaul.water_slime": "Water Slime",
@@ -139,10 +140,10 @@
   "item.minecraft.lingering_potion.effect.lava_anti_depth_potion": "Lingering Potion of Lava Anti-Depth",
   "item.minecraft.tipped_arrow.effect.lava_anti_depth_potion": "Arrow of Lava Anti-Depth",
 
-  "block.slimeoverhaul.air_slime_block": "Air Slime Block",
-  "block.slimeoverhaul.water_slime_block": "Water Slime Block",
-  "block.slimeoverhaul.earth_slime_block": "Earth Slime Block",
-  "block.slimeoverhaul.fire_slime_block": "Fire Slime Block",
+  "item.slimeoverhaul.air_slime_block": "Air Slime Block",
+  "item.slimeoverhaul.water_slime_block": "Water Slime Block",
+  "item.slimeoverhaul.earth_slime_block": "Earth Slime Block",
+  "item.slimeoverhaul.fire_slime_block": "Fire Slime Block",
 
   "effect.slimeoverhaul.double_jump": "Double Jump",
   "effect.slimeoverhaul.water_anti_depth": "Water Anti-Depth",
