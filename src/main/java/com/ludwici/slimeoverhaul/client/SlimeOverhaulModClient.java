@@ -4,7 +4,9 @@ import com.ludwici.slimeoverhaul.SlimeOverhaulMod;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 //import net.minecraft.client.renderer.item.ItemProperties;
 //import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -14,6 +16,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 
 import static com.ludwici.slimeoverhaul.Content.*;
 import static com.ludwici.slimeoverhaul.Content.EARTH_SLIME;
@@ -43,5 +46,6 @@ public class SlimeOverhaulModClient {
         event.registerEntityRenderer(WATER_SLIME.get(), BaseSlimeRenderer::new);
         event.registerEntityRenderer(EARTH_SLIME.get(), BaseSlimeRenderer::new);
         event.registerEntityRenderer(FLAME_SLIME.get(), BaseSlimeRenderer::new);
+//        event.registerBlockEntityRenderer(SLIME_BANNERS.get(), BannerRenderer::new);
     }
 }

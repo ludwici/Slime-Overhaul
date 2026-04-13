@@ -3,23 +3,18 @@ package com.ludwici.slimeoverhaul.datagen;
 import com.ludwici.crumbslib.api.BlockHelper;
 import com.ludwici.crumbslib.api.CrumbSupplier;
 import com.ludwici.crumbslib.api.ItemHelper;
-import com.ludwici.slimeoverhaul.block.crystallized.CrystallizedSlimeBlock;
-import com.ludwici.slimeoverhaul.block.slimy.AncientSlimyBlock;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -28,7 +23,7 @@ import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 import static com.ludwici.slimeoverhaul.Content.*;
 
 
-public class ModBlockModelProvider extends ModelProvider {
+public class ModModelProvider extends ModelProvider {
     protected BlockModelGenerators blockModelGenerators;
     protected ItemModelGenerators itemModelGenerators;
     private static final ModelTemplate SLIME_BLOCK_TEMPLATE = new ModelTemplate(
@@ -37,7 +32,7 @@ public class ModBlockModelProvider extends ModelProvider {
             TextureSlot.TEXTURE, TextureSlot.PARTICLE
     ).extend().build();
 
-    public ModBlockModelProvider(PackOutput output) {
+    public ModModelProvider(PackOutput output) {
         super(output, MODID);
     }
 
@@ -68,6 +63,11 @@ public class ModBlockModelProvider extends ModelProvider {
         flatItem(WATER_CRYSTALLIZED_DUST);
         flatItem(EARTH_CRYSTALLIZED_DUST);
         flatItem(FIRE_CRYSTALLIZED_DUST);
+
+        flatItem(AIR_SLIME_EGG);
+        flatItem(WATER_SLIME_EGG);
+        flatItem(EARTH_SLIME_EGG);
+        flatItem(FLAME_SLIME_EGG);
 //        flatItem(CLEANSING_BRUSH);
 
         blockModels.createBrushableBlock(ANCIENT_AIR_SLIMY_BLOCK.get());
@@ -84,6 +84,8 @@ public class ModBlockModelProvider extends ModelProvider {
         crystallizedSlime(WATER_CRYSTALLIZED_SLIME_BLOCK);
         crystallizedSlime(EARTH_CRYSTALLIZED_SLIME_BLOCK);
         crystallizedSlime(FIRE_CRYSTALLIZED_SLIME_BLOCK);
+
+        blockModels.createBanner(SLIME_BANNER.get(), SLIME_BANNER_WALL.get(), DyeColor.WHITE);
     }
 
     private void flatItem(Item item) {

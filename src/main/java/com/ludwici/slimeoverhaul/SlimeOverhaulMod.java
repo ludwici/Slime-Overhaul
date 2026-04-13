@@ -22,12 +22,14 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
 //import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
@@ -74,6 +76,7 @@ public class SlimeOverhaulMod {
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onKnock);
 //        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTooltip);
+        modEventBus.addListener(SlimeOverhaulMod::addEntityTypes);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onShieldBlock);
 //        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
 
@@ -90,6 +93,11 @@ public class SlimeOverhaulMod {
 //            ));
 //        }
 //    }
+
+    private static void addEntityTypes(BlockEntityTypeAddBlocksEvent event) {
+        event.modify(BlockEntityType.BANNER, SLIME_BANNER.get());
+        event.modify(BlockEntityType.BANNER, SLIME_BANNER_WALL.get());
+    }
 
     private static void onTooltip(ItemTooltipEvent event) {
         ItemStack item = event.getItemStack();

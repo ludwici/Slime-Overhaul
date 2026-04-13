@@ -35,8 +35,10 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,10 +69,10 @@ public class Content {
     public static final CrumbSupplier<EntityType<EarthSlime>> EARTH_SLIME = EntityHelper.register("earth_slime", getSlimeFactory(EarthSlime::new));
     public static final CrumbSupplier<EntityType<FlameSlime>> FLAME_SLIME = EntityHelper.register("flame_slime", getSlimeFactory(FlameSlime::new).fireImmune());
 
-//    public static final CrumbSupplier<Item> AIR_SLIME_EGG   = ItemHelper.registerSpawnEgg(AIR_SLIME,   0x93ffff, 0x32adb7);
-//    public static final CrumbSupplier<Item> WATER_SLIME_EGG = ItemHelper.registerSpawnEgg(WATER_SLIME, 0x20a7d4, 0x004799);
-//    public static final CrumbSupplier<Item> EARTH_SLIME_EGG = ItemHelper.registerSpawnEgg(EARTH_SLIME, 0x6e362b, 0x24100b);
-//    public static final CrumbSupplier<Item> FLAME_SLIME_EGG = ItemHelper.registerSpawnEgg(FLAME_SLIME, 0xdb5f2e, 0xb83209);
+    public static final CrumbSupplier<Item> AIR_SLIME_EGG   = ItemHelper.registerSpawnEgg(AIR_SLIME);
+    public static final CrumbSupplier<Item> WATER_SLIME_EGG = ItemHelper.registerSpawnEgg(WATER_SLIME);
+    public static final CrumbSupplier<Item> EARTH_SLIME_EGG = ItemHelper.registerSpawnEgg(EARTH_SLIME);
+    public static final CrumbSupplier<Item> FLAME_SLIME_EGG = ItemHelper.registerSpawnEgg(FLAME_SLIME);
 
     // Set id to all items/blocks
 
@@ -147,6 +149,13 @@ public class Content {
 
     public static final CrumbSupplier<Potion> MIDDLE_FIRE_RESISTANCE = PotionHelper.register("middle_fire_resistance", () -> new Potion("fire_resistance", new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 6000)));
     public static final CrumbSupplier<Potion> MIDDLE_WATER_BREATHING = PotionHelper.register("middle_water_breathing", () -> new Potion("water_breathing", new MobEffectInstance(MobEffects.WATER_BREATHING, 6000)));
+
+    public static final CrumbSupplier<Block> SLIME_BANNER = BlockHelper.registerBanner("slime_banner");
+    public static final CrumbSupplier<Block> SLIME_BANNER_WALL = BlockHelper.registerBannerWall("slime_wall_banner", SLIME_BANNER);
+//    public static final CrumbSupplier<Item> SLIME_BANNER_ITEM = ItemHelper.registerBanner("slime_banner", SLIME_BANNER, SLIME_BANNER_WALL);
+
+//    public static final CrumbSupplier<BlockEntityType<BannerBlockEntity>> SLIME_BANNERS = BlockEntityHelper.register("slime_banner", BannerBlockEntity::new, SLIME_BANNER, SLIME_BANNER_WALL);
+
 
 //    public static final CrumbSupplier<BannerPatternItem> PATTERN_SLIME = ItemHelper.registerBanner("slime");
 //    public static final CrumbSupplier<BannerPatternItem> PATTERN_AIR_SLIME_SIGN = ItemHelper.registerBanner("air_slime_sign");
@@ -277,7 +286,7 @@ public class Content {
 
                 output.accept(WATER_SLIME_BUCKET.get());
                 output.accept(FIRE_SLIME_BUCKET.get());
-                
+
 //                output.accept(CLEANSING_BRUSH.get());
 
 //                output.accept(AIR_SLIME_EGG.get());
@@ -285,11 +294,18 @@ public class Content {
 //                output.accept(EARTH_SLIME_EGG.get());
 //                output.accept(FLAME_SLIME_EGG.get());
 //
+                output.accept(SLIME_BANNER.get());
+
 //                output.accept(PATTERN_SLIME.get());
 //                output.accept(PATTERN_AIR_SLIME_SIGN.get());
 //                output.accept(PATTERN_WATER_SLIME_SIGN.get());
 //                output.accept(PATTERN_EARTH_SLIME_SIGN.get());
 //                output.accept(PATTERN_FIRE_SLIME_SIGN.get());
+
+                output.accept(AIR_SLIME_EGG.get());
+                output.accept(WATER_SLIME_EGG.get());
+                output.accept(EARTH_SLIME_EGG.get());
+                output.accept(FLAME_SLIME_EGG.get());
             }))
     );
 

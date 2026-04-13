@@ -1,18 +1,13 @@
 package com.ludwici.slimeoverhaul.datagen;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
@@ -20,7 +15,7 @@ import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 public class DataGenerators {
     @SubscribeEvent
     public static void gatherClientData(GatherDataEvent.Client event) {
-        event.createProvider(ModBlockModelProvider::new);
+        event.createProvider(ModModelProvider::new);
         event.createProvider(((output, lookupProvider) -> new LootTableProvider(
             output, Set.of(), List.of(
                     new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK),

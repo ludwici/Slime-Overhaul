@@ -39,5 +39,10 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(EARTH_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(FIRE_CRYSTALLIZED_SLIME_BLOCK.get())
         ;
+
+        tag(BlockTags.BANNERS)
+                .add(SLIME_BANNER.get())
+                .add(SLIME_BANNER_WALL.get())
+        ;
     }
 }
