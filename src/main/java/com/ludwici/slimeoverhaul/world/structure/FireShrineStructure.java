@@ -26,17 +26,18 @@ public class FireShrineStructure extends SinglePieceStructure {
 
     @Override
     public StructureType<?> type() {
-        return FIRE_SHRINE.get();
+//        return FIRE_SHRINE.get();
+        return null;
     }
 
     public static class FireShrinePiece extends ScatteredFeaturePiece {
 
         public FireShrinePiece(RandomSource random, int x, int z) {
-            super(FIRE_SHRINE_PIECE.get(), x, 64, z, 12, 10, 12, getRandomHorizontalDirection(random));
+            super(null, x, 64, z, 12, 10, 12, getRandomHorizontalDirection(random));
         }
 
         public FireShrinePiece(StructurePieceSerializationContext structurePieceSerializationContext, CompoundTag compoundTag) {
-            super(FIRE_SHRINE_PIECE.get(), compoundTag);
+            super(null, compoundTag);
         }
 
         BlockPos[] netherrackPositions = {

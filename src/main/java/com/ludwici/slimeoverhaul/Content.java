@@ -155,8 +155,8 @@ public class Content {
     public static final CrumbSupplier<Item> PATTERN_EARTH_SLIME_SIGN = ItemHelper.registerBannerPattern("earth_slime_sign");
     public static final CrumbSupplier<Item> PATTERN_FIRE_SLIME_SIGN = ItemHelper.registerBannerPattern("fire_slime_sign");
 
-    public static final CrumbSupplier<StructureType<FireShrineStructure>> FIRE_SHRINE = StructureHelper.registerStructure("fire_shrine", () -> () -> FireShrineStructure.CODEC);
-    public static final CrumbSupplier<StructurePieceType> FIRE_SHRINE_PIECE = StructureHelper.registerPiece("fire_shrine", () -> FireShrineStructure.FireShrinePiece::new);
+//    public static final CrumbSupplier<StructureType<FireShrineStructure>> FIRE_SHRINE = StructureHelper.registerStructure("fire_shrine", () -> () -> FireShrineStructure.CODEC);
+//    public static final CrumbSupplier<StructurePieceType> FIRE_SHRINE_PIECE = StructureHelper.registerPiece("fire_shrine", () -> FireShrineStructure.FireShrinePiece::new);
 
     public static final Supplier<AnvilCriterionTrigger> ANVIL_TRIGGER = AdvancementHelper.TRIGGER_TYPES.register("anvil_trigger", AnvilCriterionTrigger::new);
 
@@ -237,7 +237,7 @@ public class Content {
 
     public static final CrumbSupplier<CreativeModeTab> MAIN_TAB = CreativeTabHelper.register("main", (tab) -> tab
             .title(Component.literal("Slime Overhaul"))
-            .icon(() -> FIRE_SLIME_BALL.get().getDefaultInstance())
+            .icon(() -> FLAME_SLIME_EGG.get().getDefaultInstance())
             .displayItems(((itemDisplayParameters, output) -> {
                 output.accept(AIR_SLIME_BALL.get());
                 output.accept(WATER_SLIME_BALL.get());
