@@ -121,7 +121,7 @@ public class FireShrineStructure extends SinglePieceStructure {
             @Override
             public void next(RandomSource randomSource, int i, int i1, int i2, boolean b) {
                 float chance = randomSource.nextFloat();
-                if (chance < 0.25F) {
+                if (chance < 0.2F) {
                     this.next = ANCIENT_FIRE_SLIMY_BLOCK.get().defaultBlockState();
                 } else if (randomSource.nextFloat() < 0.4F) {
                     this.next = Blocks.DEEPSLATE_BRICKS.defaultBlockState();

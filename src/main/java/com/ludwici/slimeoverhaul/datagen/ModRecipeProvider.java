@@ -58,7 +58,28 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('Y', Items.BRUSH)
                 .define('Z', Items.AMETHYST_SHARD)
                 .unlockedBy(getHasName(Items.BRUSH), has(Items.BRUSH))
-                .save(arg);
+                .save(arg)
+        ;
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BLANK_FIRE_TEMPLATE.get(), 1)
+                .pattern("FSF")
+                .pattern("FSF")
+                .pattern("FFF")
+                .define('F', ANCIENT_FIRE_FRAGMENTS.get())
+                .define('S', FIRE_SLIME_BALL.get())
+                .unlockedBy(getHasName(ANCIENT_FIRE_FRAGMENTS.get()), has(ANCIENT_FIRE_FRAGMENTS.get()))
+                .save(arg)
+        ;
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FIRE_TEMPLATE.get(), 1)
+                .pattern("DDD")
+                .pattern("SDS")
+                .pattern(" T ")
+                .define('T', BLANK_FIRE_TEMPLATE.get())
+                .define('S', FIRE_SLIME_BALL.get())
+                .define('D', PYROCIDE_DUST.get())
+                .unlockedBy(getHasName(BLANK_FIRE_TEMPLATE.get()), has(BLANK_FIRE_TEMPLATE.get()))
+                .save(arg)
         ;
     }
 

@@ -3,6 +3,8 @@
     "slimeoverhaul:fire_slime_ball",
     "slimeoverhaul:fire_slime_block",
     "slimeoverhaul:fire_slime_coat",
-    "slimeoverhaul:pyrocide_dust"
+    "slimeoverhaul:pyrocide_dust",
+    "slimeoverhaul:blank_fire_template",
+    "slimeoverhaul:fire_template"
   ]
 }

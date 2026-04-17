@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "slimeoverhaul:ancient_fire_fragments"
+    },
+    "S": {
+      "item": "slimeoverhaul:fire_slime_ball"
+    }
+  },
+  "pattern": [
+    "FSF",
+    "FSF",
+    "FFF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "slimeoverhaul:blank_fire_template"
+  }
+}

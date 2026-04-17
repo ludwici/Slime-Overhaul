@@ -66,22 +66,25 @@ public class Content {
     public static final CrumbSupplier<Item> WATER_SLIME_BUCKET = ItemHelper.register("water_slime_bucket", () -> new MobBucketItem(WATER_SLIME.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_AXOLOTL, (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
     public static final CrumbSupplier<Item> FIRE_SLIME_BUCKET  = ItemHelper.register("fire_slime_bucket",  () -> new MobBucketItem(FLAME_SLIME.get(), Fluids.LAVA, SoundEvents.BUCKET_EMPTY_AXOLOTL, (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
 
-    public static final CrumbSupplier<Item> AIR_SLIME_BALL   = ItemHelper.register("air_slime_ball",   () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> WATER_SLIME_BALL = ItemHelper.register("water_slime_ball", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> EARTH_SLIME_BALL = ItemHelper.register("earth_slime_ball", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> FIRE_SLIME_BALL  = ItemHelper.register("fire_slime_ball",  () -> new Item(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> AIR_SLIME_BALL   = ItemHelper.registerSimpleItem("air_slime_ball");
+    public static final CrumbSupplier<Item> WATER_SLIME_BALL = ItemHelper.registerSimpleItem("water_slime_ball", new Item.Properties().fireResistant());
+    public static final CrumbSupplier<Item> EARTH_SLIME_BALL = ItemHelper.registerSimpleItem("earth_slime_ball");
+    public static final CrumbSupplier<Item> FIRE_SLIME_BALL  = ItemHelper.registerSimpleItem("fire_slime_ball",  new Item.Properties().fireResistant());
 
     public static final CrumbSupplier<Item> CLEANSING_BRUSH = ItemHelper.register("cleansing_brush", () -> new CleansingBrushItem(new Item.Properties().durability(64)));
 
-    public static final CrumbSupplier<Item> ANCIENT_AIR_FRAGMENTS = ItemHelper.register("ancient_air_fragments", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> ANCIENT_WATER_FRAGMENTS = ItemHelper.register("ancient_water_fragments", () -> new Item(new Item.Properties().fireResistant()));
-    public static final CrumbSupplier<Item> ANCIENT_EARTH_FRAGMENTS = ItemHelper.register("ancient_earth_fragments", () -> new Item(new Item.Properties()));
-    public static final CrumbSupplier<Item> ANCIENT_FIRE_FRAGMENTS = ItemHelper.register("ancient_fire_fragments", () -> new Item(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> ANCIENT_AIR_FRAGMENTS = ItemHelper.registerSimpleItem("ancient_air_fragments");
+    public static final CrumbSupplier<Item> ANCIENT_WATER_FRAGMENTS = ItemHelper.registerSimpleItem("ancient_water_fragments", new Item.Properties().fireResistant());
+    public static final CrumbSupplier<Item> ANCIENT_EARTH_FRAGMENTS = ItemHelper.registerSimpleItem("ancient_earth_fragments");
+    public static final CrumbSupplier<Item> ANCIENT_FIRE_FRAGMENTS = ItemHelper.registerSimpleItem("ancient_fire_fragments", new Item.Properties().fireResistant());
 
     public static final CrumbSupplier<Item> AIR_CRYSTALLIZED_DUST = ItemHelper.register("air_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties()));
     public static final CrumbSupplier<Item> WATER_CRYSTALLIZED_DUST = ItemHelper.register("water_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
     public static final CrumbSupplier<Item> EARTH_CRYSTALLIZED_DUST = ItemHelper.register("earth_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties()));
     public static final CrumbSupplier<Item> PYROCIDE_DUST = ItemHelper.register("pyrocide_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
+
+    public static final CrumbSupplier<Item> BLANK_FIRE_TEMPLATE = ItemHelper.registerSimpleItem("blank_fire_template", new Item.Properties().fireResistant());
+    public static final CrumbSupplier<Item> FIRE_TEMPLATE = ItemHelper.registerSimpleItem("fire_template", new Item.Properties().fireResistant());
 
     public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
     public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block");
@@ -98,12 +101,12 @@ public class Content {
     public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
     public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
 
-    public static final CrumbSupplier<Block> AIR_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("air_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> WATER_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("water_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> EARTH_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("earth_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> SMALL_PYROCIDE_BLOCK = BlockHelper.registerWithItem("small_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> MEDIUM_PYROCIDE_BLOCK = BlockHelper.registerWithItem("medium_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> LARGE_PYROCIDE_BLOCK = BlockHelper.registerWithItem("large_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
+    public static final CrumbSupplier<Block> AIR_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("air_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(0)));
+    public static final CrumbSupplier<Block> WATER_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("water_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(0)));
+    public static final CrumbSupplier<Block> EARTH_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("earth_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(0)));
+    public static final CrumbSupplier<Block> SMALL_PYROCIDE_BLOCK = BlockHelper.registerWithItem("small_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(2)));
+    public static final CrumbSupplier<Block> MEDIUM_PYROCIDE_BLOCK = BlockHelper.registerWithItem("medium_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(4)));
+    public static final CrumbSupplier<Block> LARGE_PYROCIDE_BLOCK = BlockHelper.registerWithItem("large_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(8)));
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
@@ -119,6 +122,8 @@ public class Content {
     public static final TagKey<Item> ANCIENT_EARTH_FRAGMENTS_TAG = TagHelper.item("ancient_earth_fragments");
     public static final TagKey<Item> ANCIENT_FIRE_FRAGMENTS_TAG = TagHelper.item("ancient_fire_fragments");
     public static final TagKey<Item> ANCIENT_ALL_FRAGMENTS_TAG = TagHelper.item("ancient_all_fragments");
+    public static final TagKey<Item> AIR_ITEMS_TAG = TagHelper.item("air_items");
+    public static final TagKey<Item> WATER_ITEMS_TAG = TagHelper.item("water_items");
     public static final TagKey<Item> EARTH_ITEMS_TAG = TagHelper.item("earth_items");
     public static final TagKey<Item> FIRE_ITEMS_TAG = TagHelper.item("fire_items");
     public static final TagKey<Item> SLIME_COAT_ITEMS_TAG = TagHelper.item("slime_coat_items");
@@ -205,14 +210,24 @@ public class Content {
         return state -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
     }
 
-    private static BlockBehaviour.Properties getCrystallizedSlimeProperties() {
-        return BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(3.0f, 3.0f).lightLevel(state -> {
-            return 0;
-        });
+    private static BlockBehaviour.Properties getCrystallizedSlimeProperties(int lightLevel) {
+        return BlockBehaviour.Properties.of()
+                .noOcclusion()
+                .requiresCorrectToolForDrops()
+                .strength(2.0f, 3.0f)
+                .pushReaction(PushReaction.DESTROY)
+                .sound(SoundType.AMETHYST)
+                .mapColor(MapColor.COLOR_ORANGE)
+                .lightLevel(state -> lightLevel);
     }
 
     private static BlockBehaviour.Properties getSlimeBlockProperties() {
-        return BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().lightLevel(litBlockEmission(8));
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.GRASS)
+                .friction(0.8F)
+                .sound(SoundType.SLIME_BLOCK)
+                .noOcclusion()
+                .lightLevel(litBlockEmission(8));
     }
 
     private static <T extends Entity> EntityType.Builder<T> getSlimeFactory(EntityType.EntityFactory<T> factory) {
@@ -256,6 +271,9 @@ public class Content {
 //                output.accept(ANCIENT_WATER_FRAGMENTS.get());
 //                output.accept(ANCIENT_EARTH_FRAGMENTS.get());
                 output.accept(ANCIENT_FIRE_FRAGMENTS.get());
+
+                output.accept(BLANK_FIRE_TEMPLATE.get());
+                output.accept(FIRE_TEMPLATE.get());
 
 //                output.accept(AIR_CRYSTALLIZED_SLIME_BLOCK.get());
 //                output.accept(WATER_CRYSTALLIZED_SLIME_BLOCK.get());

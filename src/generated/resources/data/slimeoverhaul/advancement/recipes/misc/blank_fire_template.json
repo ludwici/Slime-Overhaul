@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ancient_fire_fragments": {
+      "conditions": {
+        "items": [
+          {
+            "items": "slimeoverhaul:ancient_fire_fragments"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "slimeoverhaul:blank_fire_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ancient_fire_fragments"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "slimeoverhaul:blank_fire_template"
+    ]
+  }
+}

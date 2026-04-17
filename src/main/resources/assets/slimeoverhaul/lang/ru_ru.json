@@ -42,6 +42,9 @@
   "item.slimeoverhaul.earth_crystallized_dust.lore": "§7Кристалл, покрытый грязью, но в этой грязи всё естество первозданной жизни - отголосок дыхания самой природы, память всего живого.§r",
   "item.slimeoverhaul.pyrocide_dust.lore": "§cСгусток воли огня. Пламя само по себе неукротимо, и сердце его неугастно. Оно так и норовит вырваться, чтобы поглотить всё сущее.§r",
 
+  "item.slimeoverhaul.blank_fire_template": "Заготовка огнецидового шаблона",
+  "item.slimeoverhaul.fire_template": "Огнецидовый шаблон",
+
   "item.slimeoverhaul.banner_pattern_slime": "Узор флага",
   "item.slimeoverhaul.banner_pattern_slime.desc": "Слизень",
   "item.slimeoverhaul.banner_pattern_slime.desc.black": "Чёрная Слизь",

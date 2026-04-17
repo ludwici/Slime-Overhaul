@@ -48,25 +48,41 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .addTag(ANCIENT_FIRE_FRAGMENTS_TAG)
         ;
 
+        tag(AIR_ITEMS_TAG)
+                .add(AIR_SLIME_BALL.get())
+                .add(AIR_SLIME_BLOCK.get().asItem())
+//                .add(AIR_SLIME_COAT.get().asItem())
+                .add(AIR_CRYSTALLIZED_DUST.get())
+        ;
+
+        tag(WATER_ITEMS_TAG)
+                .add(WATER_SLIME_BALL.get())
+                .add(WATER_SLIME_BLOCK.get().asItem())
+//                .add(WATER_SLIME_COAT.get().asItem())
+                .add(WATER_CRYSTALLIZED_DUST.get())
+        ;
+
         tag(EARTH_ITEMS_TAG)
                 .add(EARTH_SLIME_BALL.get())
                 .add(EARTH_SLIME_BLOCK.get().asItem())
-                .add(EARTH_SLIME_COAT.get().asItem())
+//                .add(EARTH_SLIME_COAT.get().asItem())
                 .add(EARTH_CRYSTALLIZED_DUST.get())
         ;
 
         tag(FIRE_ITEMS_TAG)
                 .add(FIRE_SLIME_BALL.get())
                 .add(FIRE_SLIME_BLOCK.get().asItem())
-                .add(FIRE_SLIME_COAT.get().asItem())
+//                .add(FIRE_SLIME_COAT.get().asItem())
                 .add(PYROCIDE_DUST.get())
+                .add(BLANK_FIRE_TEMPLATE.get())
+                .add(FIRE_TEMPLATE.get())
         ;
 
-        tag(SLIME_COAT_ITEMS_TAG)
-                .add(AIR_SLIME_COAT.get().asItem())
-                .add(WATER_SLIME_COAT.get().asItem())
-                .add(EARTH_SLIME_COAT.get().asItem())
-                .add(FIRE_SLIME_COAT.get().asItem())
-        ;
+//        tag(SLIME_COAT_ITEMS_TAG)
+//                .add(AIR_SLIME_COAT.get().asItem())
+//                .add(WATER_SLIME_COAT.get().asItem())
+//                .add(EARTH_SLIME_COAT.get().asItem())
+//                .add(FIRE_SLIME_COAT.get().asItem())
+//        ;
     }
 }

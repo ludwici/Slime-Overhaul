@@ -54,6 +54,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(WATER_CRYSTALLIZED_DUST);
         basicItem(EARTH_CRYSTALLIZED_DUST);
         basicItem(PYROCIDE_DUST);
+
+        basicItem(BLANK_FIRE_TEMPLATE);
+        basicItem(FIRE_TEMPLATE);
     }
 
     private <T extends Item> void bannerPatternItem(CrumbSupplier<T> item) {
