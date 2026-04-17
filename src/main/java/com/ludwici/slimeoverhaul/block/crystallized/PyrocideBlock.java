@@ -8,19 +8,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class FireCrystallizedSlimeBlock extends CrystallizedSlimeBlock{
+public class PyrocideBlock extends CrystallizedSlimeBlock {
     private static final VoxelShape STAGE_1_NORTH = Block.box(3, 0, 4, 12, 13, 12);
     private static final VoxelShape STAGE_2_NORTH = Block.box(3, 0, 4, 12, 13, 12);
     private static final VoxelShape STAGE_3_NORTH = Block.box(3, 0, 4, 12, 13, 12);
 
-    // Кэшированные повернутые формы для каждого направления и стадии
-    private static final VoxelShape[] STAGE_1_SHAPES = createRotatedShapes(STAGE_1_NORTH);
-    private static final VoxelShape[] STAGE_2_SHAPES = createRotatedShapes(STAGE_2_NORTH);
-    private static final VoxelShape[] STAGE_3_SHAPES = createRotatedShapes(STAGE_3_NORTH);
+//    private static final VoxelShape[] STAGE_1_SHAPES = createRotatedShapes(STAGE_1_NORTH);
+//    private static final VoxelShape[] STAGE_2_SHAPES = createRotatedShapes(STAGE_2_NORTH);
+//    private static final VoxelShape[] STAGE_3_SHAPES = createRotatedShapes(STAGE_3_NORTH);
 
 
-    public FireCrystallizedSlimeBlock(Properties p_52591_) {
-        super(p_52591_);
+    public PyrocideBlock(Properties properties) {
+        super(properties);
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {

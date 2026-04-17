@@ -1,6 +1,7 @@
 package com.ludwici.slimeoverhaul.world;
 
-import com.ludwici.crumbslib.api.world.feature.PacedFeaturesHelper;
+import com.ludwici.crumbslib.api.world.feature.PlacedFeaturesHelper;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -12,18 +13,21 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;
 
 public class ModPacedFeatures {
-    public static final ResourceKey<PlacedFeature> FIRE_CRYSTALLIZED_SLIME_PLACED_KEY = PacedFeaturesHelper.registerKey("fire_crystallized_slime_placed");
+    public static final ResourceKey<PlacedFeature> PYROCIDE_GEODE_PLACED_KEY = PlacedFeaturesHelper.registerKey("pyrocide_geode_placed");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
+        Holder<ConfiguredFeature<?, ?>> geodeFuture = configuredFeature.getOrThrow(ModConfiguredFeatures.PYROCIDE_GEODE_KEY);
 
-        PacedFeaturesHelper.register(context, FIRE_CRYSTALLIZED_SLIME_PLACED_KEY, configuredFeature.getOrThrow(
-                        ModConfiguredFeatures.OVERWORLD_FIRE_CRYSTALLIZED_SLIME_KEY),
+        PlacedFeaturesHelper.register(
+                context,
+                PYROCIDE_GEODE_PLACED_KEY,
+                geodeFuture,
                 List.of(
-                        HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(320)),
+                        RarityFilter.onAverageOnceEvery(53),
                         InSquarePlacement.spread(),
-                        BiomeFilter.biome(),
-                        CountPlacement.of(10)
+                        HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(30)),
+                        BiomeFilter.biome()
                 )
         );
     }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "slimeoverhaul:item/fire_crystallized_dust"
+    "layer0": "slimeoverhaul:item/pyrocide_dust"
   }
 }

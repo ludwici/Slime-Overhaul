@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -46,14 +47,13 @@ public class ModBlockModelProvider extends BlockStateProvider {
         crystallizedSlime(AIR_CRYSTALLIZED_SLIME_BLOCK);
         crystallizedSlime(WATER_CRYSTALLIZED_SLIME_BLOCK);
         crystallizedSlime(EARTH_CRYSTALLIZED_SLIME_BLOCK);
-        crystallizedSlime(FIRE_CRYSTALLIZED_SLIME_BLOCK);
+        crystallizedSlime(PYROCIDE_BLOCK);
     }
 
     private void crystallizedSlime(Block block) {
-        getVariantBuilder(block).forAllStates(state -> {
-            Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-            int stage = state.getValue(CrystallizedSlimeBlock.STAGE);
-            int yRot = getRotationForDirection(facing);
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            Direction facing = state.getValue(CrystallizedSlimeBlock.FACING);
+            int stage = 1;
             ModelFile model = new ConfiguredModel(
                     models().withExistingParent(
                                     name(block) + stage,
@@ -63,21 +63,26 @@ public class ModBlockModelProvider extends BlockStateProvider {
                             .texture("particle", ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(block)))
             ).model;
             ConfiguredModel.Builder<?> builder = ConfiguredModel.builder().modelFile(model);
-
-            builder.rotationY(yRot);
-
+            var rot = getRotByDir(facing);
+            builder.rotationX(rot.getA());
+            builder.rotationY(rot.getB());
             return builder.build();
-        });
+        }, BlockStateProperties.WATERLOGGED);
     }
-
-    private int getRotationForDirection(Direction direction) {
+    private static <A, B> Tuple<A, B> of(A a, B b) {
+        return new Tuple<>(a, b);
+    }
+    private Tuple<Integer, Integer> getRotByDir(Direction direction) {
         return switch (direction) {
-            case EAST -> 90;
-            case SOUTH -> 180;
-            case WEST -> 270;
-            default -> 0;
+            case DOWN -> of(180, 0);
+            case UP -> of(0, 0);
+            case NORTH -> of(90, 0);
+            case SOUTH -> of(90, 180);
+            case WEST -> of(90, 270);
+            case EAST -> of(90, 90);
         };
     }
+
 
     private void crystallizedSlime(CrumbSupplier<Block> block) {
         crystallizedSlime(block.get());

@@ -1,7 +1,6 @@
 package com.ludwici.slimeoverhaul.datagen;
 
 import com.ludwici.crumbslib.api.CrumbSupplier;
-import com.ludwici.slimeoverhaul.Content;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -54,7 +53,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(AIR_CRYSTALLIZED_DUST);
         basicItem(WATER_CRYSTALLIZED_DUST);
         basicItem(EARTH_CRYSTALLIZED_DUST);
-        basicItem(FIRE_CRYSTALLIZED_DUST);
+        basicItem(PYROCIDE_DUST);
     }
 
     private <T extends Item> void bannerPatternItem(CrumbSupplier<T> item) {

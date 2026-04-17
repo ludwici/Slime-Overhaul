@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "slimeoverhaul:air_crystallized_dust"
+          "name": "slimeoverhaul:pyrocide_dust"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "slimeoverhaul:blocks/air_crystallized_slime_block"
+  "random_sequence": "slimeoverhaul:blocks/pyrocide_block"
 }

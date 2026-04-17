@@ -1,7 +1,6 @@
 package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
-import com.ludwici.crumbslib.api.world.feature.FeatureHelper;
 import com.ludwici.slimeoverhaul.block.*;
 import com.ludwici.slimeoverhaul.block.crystallized.*;
 import com.ludwici.slimeoverhaul.block.entities.*;
@@ -9,7 +8,6 @@ import com.ludwici.slimeoverhaul.block.slimy.*;
 import com.ludwici.slimeoverhaul.effect.*;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.*;
 import com.ludwici.slimeoverhaul.item.*;
-import com.ludwici.slimeoverhaul.world.feature.FireCrystallizedSlimeFeature;
 import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -39,7 +37,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.material.Fluids;
@@ -56,8 +53,6 @@ import java.util.function.ToIntFunction;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
 
 public class Content {
-    public static final CrumbSupplier<FireCrystallizedSlimeFeature> FIRE_CRYSTALLIZED_SLIME_FEATURE = FeatureHelper.register("fire_crystallized_slime_feature", () -> new FireCrystallizedSlimeFeature(NoneFeatureConfiguration.CODEC));
-
     public static final CrumbSupplier<EntityType<AirSlime>>   AIR_SLIME   = EntityHelper.register("air_slime",   getSlimeFactory(AirSlime::new));
     public static final CrumbSupplier<EntityType<WaterSlime>> WATER_SLIME = EntityHelper.register("water_slime", getSlimeFactory(WaterSlime::new).fireImmune());
     public static final CrumbSupplier<EntityType<EarthSlime>> EARTH_SLIME = EntityHelper.register("earth_slime", getSlimeFactory(EarthSlime::new));
@@ -86,7 +81,7 @@ public class Content {
     public static final CrumbSupplier<Item> AIR_CRYSTALLIZED_DUST = ItemHelper.register("air_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties()));
     public static final CrumbSupplier<Item> WATER_CRYSTALLIZED_DUST = ItemHelper.register("water_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
     public static final CrumbSupplier<Item> EARTH_CRYSTALLIZED_DUST = ItemHelper.register("earth_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties()));
-    public static final CrumbSupplier<Item> FIRE_CRYSTALLIZED_DUST = ItemHelper.register("fire_crystallized_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
+    public static final CrumbSupplier<Item> PYROCIDE_DUST = ItemHelper.register("pyrocide_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
 
     public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
     public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block");
@@ -103,10 +98,10 @@ public class Content {
     public static final CrumbSupplier<Block> EARTH_SLIME_COAT = BlockHelper.registerWithItem("earth_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
     public static final CrumbSupplier<Block> FIRE_SLIME_COAT = BlockHelper.registerWithItem("fire_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
 
-    public static final CrumbSupplier<Block> AIR_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("air_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> WATER_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("water_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> EARTH_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("earth_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
-    public static final CrumbSupplier<Block> FIRE_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("fire_crystallized_slime_block", () -> new FireCrystallizedSlimeBlock(getCrystallizedSlimeProperties()));
+    public static final CrumbSupplier<Block> AIR_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("air_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
+    public static final CrumbSupplier<Block> WATER_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("water_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
+    public static final CrumbSupplier<Block> EARTH_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("earth_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
+    public static final CrumbSupplier<Block> PYROCIDE_BLOCK = BlockHelper.registerWithItem("pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties()));
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
@@ -210,7 +205,7 @@ public class Content {
 
     private static BlockBehaviour.Properties getCrystallizedSlimeProperties() {
         return BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(3.0f, 3.0f).lightLevel(state -> {
-            if (state.getValue(CrystallizedSlimeBlock.STAGE) == 3) return 6; return 0;
+            return 0;
         });
     }
 
@@ -248,7 +243,7 @@ public class Content {
                 output.accept(AIR_CRYSTALLIZED_DUST.get());
                 output.accept(WATER_CRYSTALLIZED_DUST.get());
                 output.accept(EARTH_CRYSTALLIZED_DUST.get());
-                output.accept(FIRE_CRYSTALLIZED_DUST.get());
+                output.accept(PYROCIDE_DUST.get());
 
                 output.accept(AIR_SLIME_COAT.get());
                 output.accept(WATER_SLIME_COAT.get());
@@ -263,7 +258,7 @@ public class Content {
                 output.accept(AIR_CRYSTALLIZED_SLIME_BLOCK.get());
                 output.accept(WATER_CRYSTALLIZED_SLIME_BLOCK.get());
                 output.accept(EARTH_CRYSTALLIZED_SLIME_BLOCK.get());
-                output.accept(FIRE_CRYSTALLIZED_SLIME_BLOCK.get());
+                output.accept(PYROCIDE_BLOCK.get());
 
                 output.accept(WATER_SLIME_BUCKET.get());
                 output.accept(FIRE_SLIME_BUCKET.get());

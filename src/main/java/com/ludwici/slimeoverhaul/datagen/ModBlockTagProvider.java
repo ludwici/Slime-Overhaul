@@ -3,7 +3,6 @@ package com.ludwici.slimeoverhaul.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -31,14 +30,14 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(AIR_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(WATER_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(EARTH_CRYSTALLIZED_SLIME_BLOCK.get())
-                .add(FIRE_CRYSTALLIZED_SLIME_BLOCK.get())
+                .add(PYROCIDE_BLOCK.get())
         ;
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(AIR_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(WATER_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(EARTH_CRYSTALLIZED_SLIME_BLOCK.get())
-                .add(FIRE_CRYSTALLIZED_SLIME_BLOCK.get())
+                .add(PYROCIDE_BLOCK.get())
         ;
     }
 }

@@ -59,7 +59,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(FIRE_SLIME_BALL.get())
                 .add(FIRE_SLIME_BLOCK.get().asItem())
                 .add(FIRE_SLIME_COAT.get().asItem())
-                .add(FIRE_CRYSTALLIZED_DUST.get())
+                .add(PYROCIDE_DUST.get())
         ;
 
         tag(SLIME_COAT_ITEMS_TAG)
