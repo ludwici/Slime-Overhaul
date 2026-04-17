@@ -47,6 +47,7 @@ import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
@@ -86,15 +87,15 @@ public class Content {
     public static final CrumbSupplier<Item> BLANK_FIRE_TEMPLATE = ItemHelper.registerSimpleItem("blank_fire_template", new Item.Properties().fireResistant());
     public static final CrumbSupplier<Item> FIRE_TEMPLATE = ItemHelper.registerSimpleItem("fire_template", new Item.Properties().fireResistant());
 
-    public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block");
-    public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block");
-    public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block");
-    public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK  = registerFireResistanceBlock("fire_slime_block", () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
+    public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block", MapColor.COLOR_CYAN);
+    public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block", MapColor.WATER);
+    public static final CrumbSupplier<Block> EARTH_SLIME_BLOCK = registerSlimeBlock("earth_slime_block", MapColor.DIRT);
+    public static final CrumbSupplier<Block> FIRE_SLIME_BLOCK  = registerFireResistanceBlock("fire_slime_block", () -> new GlowingSlimeBlock(getSlimeBlockProperties().mapColor(MapColor.COLOR_ORANGE)));
 
-    public static final CrumbSupplier<Block> ANCIENT_AIR_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_air_slimy_block", () -> new AncientAirSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
-    public static final CrumbSupplier<Block> ANCIENT_WATER_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_water_slimy_block", () -> new AncientWaterSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
-    public static final CrumbSupplier<Block> ANCIENT_EARTH_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_earth_slimy_block", () -> new AncientEarthSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
-    public static final CrumbSupplier<Block> ANCIENT_FIRE_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_fire_slimy_block", () -> new AncientFireSlimyBlock(BlockBehaviour.Properties.of().strength(-1, 3600000.0F)));
+    public static final CrumbSupplier<Block> ANCIENT_AIR_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_air_slimy_block", () -> new AncientAirSlimyBlock(getAncientBlockProperties(Optional.empty())));
+    public static final CrumbSupplier<Block> ANCIENT_WATER_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_water_slimy_block", () -> new AncientWaterSlimyBlock(getAncientBlockProperties(Optional.empty())));
+    public static final CrumbSupplier<Block> ANCIENT_EARTH_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_earth_slimy_block", () -> new AncientEarthSlimyBlock(getAncientBlockProperties(Optional.empty())));
+    public static final CrumbSupplier<Block> ANCIENT_FIRE_SLIMY_BLOCK = BlockHelper.registerWithItem("ancient_fire_slimy_block", () -> new AncientFireSlimyBlock(getAncientBlockProperties(Optional.of(MapColor.DEEPSLATE))));
 
     public static final CrumbSupplier<Block> AIR_SLIME_COAT = BlockHelper.registerWithItem("air_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
     public static final CrumbSupplier<Block> WATER_SLIME_COAT = BlockHelper.registerWithItem("water_slime_coat", () -> new SlimeCoatBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).noOcclusion()));
@@ -196,8 +197,8 @@ public class Content {
         event.register(FLAME_SLIME.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.WORLD_SURFACE_WG, FlameSlime::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
     }
 
-    private static CrumbSupplier<Block> registerSlimeBlock(String name) {
-        return BlockHelper.registerWithItem(name, () -> new GlowingSlimeBlock(getSlimeBlockProperties()));
+    private static CrumbSupplier<Block> registerSlimeBlock(String name, MapColor color) {
+        return BlockHelper.registerWithItem(name, () -> new GlowingSlimeBlock(getSlimeBlockProperties().mapColor(color)));
     }
 
     private static <T extends Block> CrumbSupplier<Block> registerFireResistanceBlock(String name, Supplier<T> supplier) {
@@ -228,6 +229,13 @@ public class Content {
                 .sound(SoundType.SLIME_BLOCK)
                 .noOcclusion()
                 .lightLevel(litBlockEmission(8));
+    }
+
+    private static BlockBehaviour.Properties getAncientBlockProperties(Optional<MapColor> mapColor) {
+        return BlockBehaviour.Properties.of()
+                .strength(-1, 3600000.0F)
+                .mapColor(mapColor.orElse(MapColor.NONE))
+                ;
     }
 
     private static <T extends Entity> EntityType.Builder<T> getSlimeFactory(EntityType.EntityFactory<T> factory) {
