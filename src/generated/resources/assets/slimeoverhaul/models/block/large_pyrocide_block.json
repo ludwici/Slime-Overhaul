@@ -1,5 +1,5 @@
 {
-  "parent": "slimeoverhaul:block/crystallized_slime1",
+  "parent": "slimeoverhaul:block/large_crystallized_slime",
   "textures": {
     "0": "slimeoverhaul:block/pyrocide_block",
     "particle": "slimeoverhaul:block/pyrocide_block"

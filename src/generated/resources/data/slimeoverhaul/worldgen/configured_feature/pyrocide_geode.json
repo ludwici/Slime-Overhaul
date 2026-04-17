@@ -23,21 +23,21 @@
       },
       "inner_placements": [
         {
-          "Name": "slimeoverhaul:pyrocide_block",
+          "Name": "slimeoverhaul:small_pyrocide_block",
           "Properties": {
             "facing": "up",
             "waterlogged": "false"
           }
         },
         {
-          "Name": "slimeoverhaul:pyrocide_block",
+          "Name": "slimeoverhaul:medium_pyrocide_block",
           "Properties": {
             "facing": "up",
             "waterlogged": "false"
           }
         },
         {
-          "Name": "slimeoverhaul:pyrocide_block",
+          "Name": "slimeoverhaul:large_pyrocide_block",
           "Properties": {
             "facing": "up",
             "waterlogged": "false"

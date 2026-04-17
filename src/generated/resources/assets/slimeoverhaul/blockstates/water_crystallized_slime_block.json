@@ -1,28 +1,28 @@
 {
   "variants": {
     "facing=down": {
-      "model": "slimeoverhaul:block/water_crystallized_slime_block1",
+      "model": "slimeoverhaul:block/water_crystallized_slime_block",
       "x": 180
     },
     "facing=east": {
-      "model": "slimeoverhaul:block/water_crystallized_slime_block1",
+      "model": "slimeoverhaul:block/water_crystallized_slime_block",
       "x": 90,
       "y": 90
     },
     "facing=north": {
-      "model": "slimeoverhaul:block/water_crystallized_slime_block1",
+      "model": "slimeoverhaul:block/water_crystallized_slime_block",
       "x": 90
     },
     "facing=south": {
-      "model": "slimeoverhaul:block/water_crystallized_slime_block1",
+      "model": "slimeoverhaul:block/water_crystallized_slime_block",
       "x": 90,
       "y": 180
     },
     "facing=up": {
-      "model": "slimeoverhaul:block/water_crystallized_slime_block1"
+      "model": "slimeoverhaul:block/water_crystallized_slime_block"
     },
     "facing=west": {
-      "model": "slimeoverhaul:block/water_crystallized_slime_block1",
+      "model": "slimeoverhaul:block/water_crystallized_slime_block",
       "x": 90,
       "y": 270
     }

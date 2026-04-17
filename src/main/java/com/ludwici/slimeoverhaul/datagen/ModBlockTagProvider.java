@@ -30,14 +30,18 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(AIR_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(WATER_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(EARTH_CRYSTALLIZED_SLIME_BLOCK.get())
-                .add(PYROCIDE_BLOCK.get())
+                .add(SMALL_PYROCIDE_BLOCK.get())
+                .add(MEDIUM_PYROCIDE_BLOCK.get())
+                .add(LARGE_PYROCIDE_BLOCK.get())
         ;
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(AIR_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(WATER_CRYSTALLIZED_SLIME_BLOCK.get())
                 .add(EARTH_CRYSTALLIZED_SLIME_BLOCK.get())
-                .add(PYROCIDE_BLOCK.get())
+                .add(SMALL_PYROCIDE_BLOCK.get())
+                .add(MEDIUM_PYROCIDE_BLOCK.get())
+                .add(LARGE_PYROCIDE_BLOCK.get())
         ;
     }
 }

@@ -44,23 +44,26 @@ public class ModBlockModelProvider extends BlockStateProvider {
         createSlimeCoat(EARTH_SLIME_COAT);
         createSlimeCoat(FIRE_SLIME_COAT);
 
-        crystallizedSlime(AIR_CRYSTALLIZED_SLIME_BLOCK);
-        crystallizedSlime(WATER_CRYSTALLIZED_SLIME_BLOCK);
-        crystallizedSlime(EARTH_CRYSTALLIZED_SLIME_BLOCK);
-        crystallizedSlime(PYROCIDE_BLOCK);
+        crystallizedSlime(AIR_CRYSTALLIZED_SLIME_BLOCK, "small");
+        crystallizedSlime(WATER_CRYSTALLIZED_SLIME_BLOCK, "small");
+        crystallizedSlime(EARTH_CRYSTALLIZED_SLIME_BLOCK, "small");
+
+        crystallizedSlime(SMALL_PYROCIDE_BLOCK, "small");
+        crystallizedSlime(MEDIUM_PYROCIDE_BLOCK, "medium");
+        crystallizedSlime(LARGE_PYROCIDE_BLOCK, "large");
     }
 
-    private void crystallizedSlime(Block block) {
+    private void crystallizedSlime(Block block, String size) {
         getVariantBuilder(block).forAllStatesExcept(state -> {
             Direction facing = state.getValue(CrystallizedSlimeBlock.FACING);
-            int stage = 1;
+            ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(block).replace(size + "_", ""));
             ModelFile model = new ConfiguredModel(
                     models().withExistingParent(
-                                    name(block) + stage,
-                                    ResourceLocation.fromNamespaceAndPath(MODID, "crystallized_slime" + stage)
+                                    name(block),
+                                    ResourceLocation.fromNamespaceAndPath(MODID, size + "_crystallized_slime")
                             )
-                            .texture("0", ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(block)))
-                            .texture("particle", ResourceLocation.fromNamespaceAndPath(MODID, "block/" + name(block)))
+                            .texture("0", texture)
+                            .texture("particle", texture)
             ).model;
             ConfiguredModel.Builder<?> builder = ConfiguredModel.builder().modelFile(model);
             var rot = getRotByDir(facing);
@@ -69,23 +72,9 @@ public class ModBlockModelProvider extends BlockStateProvider {
             return builder.build();
         }, BlockStateProperties.WATERLOGGED);
     }
-    private static <A, B> Tuple<A, B> of(A a, B b) {
-        return new Tuple<>(a, b);
-    }
-    private Tuple<Integer, Integer> getRotByDir(Direction direction) {
-        return switch (direction) {
-            case DOWN -> of(180, 0);
-            case UP -> of(0, 0);
-            case NORTH -> of(90, 0);
-            case SOUTH -> of(90, 180);
-            case WEST -> of(90, 270);
-            case EAST -> of(90, 90);
-        };
-    }
 
-
-    private void crystallizedSlime(CrumbSupplier<Block> block) {
-        crystallizedSlime(block.get());
+    private void crystallizedSlime(CrumbSupplier<Block> block, String size) {
+        crystallizedSlime(block.get(), size);
     }
 
     private void ancientSlimyBlock(CrumbSupplier<Block> block) {
@@ -151,5 +140,20 @@ public class ModBlockModelProvider extends BlockStateProvider {
 
     public ModelFile createSlimeCoat(CrumbSupplier<Block> block) {
         return createSlimeCoat(block.get());
+    }
+
+    private static <A, B> Tuple<A, B> of(A a, B b) {
+        return new Tuple<>(a, b);
+    }
+
+    private Tuple<Integer, Integer> getRotByDir(Direction direction) {
+        return switch (direction) {
+            case DOWN -> of(180, 0);
+            case UP -> of(0, 0);
+            case NORTH -> of(90, 0);
+            case SOUTH -> of(90, 180);
+            case WEST -> of(90, 270);
+            case EAST -> of(90, 90);
+        };
     }
 }

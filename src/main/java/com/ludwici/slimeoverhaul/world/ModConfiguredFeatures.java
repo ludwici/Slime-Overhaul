@@ -1,7 +1,6 @@
 package com.ludwici.slimeoverhaul.world;
 
 import com.ludwici.crumbslib.api.world.feature.ConfiguredFeaturesHelper;
-import com.ludwici.slimeoverhaul.block.crystallized.CrystallizedSlimeBlock;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -35,9 +34,9 @@ public class ModConfiguredFeatures {
                                 BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
                                 BlockStateProvider.simple(Blocks.SMOOTH_BASALT),
                                 List.of(
-                                        PYROCIDE_BLOCK.get().defaultBlockState(),
-                                        PYROCIDE_BLOCK.get().defaultBlockState(),
-                                        PYROCIDE_BLOCK.get().defaultBlockState()
+                                        SMALL_PYROCIDE_BLOCK.get().defaultBlockState(),
+                                        MEDIUM_PYROCIDE_BLOCK.get().defaultBlockState(),
+                                        LARGE_PYROCIDE_BLOCK.get().defaultBlockState()
                                 ),
                                 BlockTags.FEATURES_CANNOT_REPLACE,
                                 BlockTags.GEODE_INVALID_BLOCKS

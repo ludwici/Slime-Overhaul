@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "slimeoverhaul:block/medium_pyrocide_block",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "slimeoverhaul:block/medium_pyrocide_block",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "slimeoverhaul:block/medium_pyrocide_block",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "slimeoverhaul:block/medium_pyrocide_block",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "slimeoverhaul:block/medium_pyrocide_block"
+    },
+    "facing=west": {
+      "model": "slimeoverhaul:block/medium_pyrocide_block",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

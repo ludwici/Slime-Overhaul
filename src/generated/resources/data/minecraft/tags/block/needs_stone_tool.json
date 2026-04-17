@@ -3,6 +3,8 @@
     "slimeoverhaul:air_crystallized_slime_block",
     "slimeoverhaul:water_crystallized_slime_block",
     "slimeoverhaul:earth_crystallized_slime_block",
-    "slimeoverhaul:pyrocide_block"
+    "slimeoverhaul:small_pyrocide_block",
+    "slimeoverhaul:medium_pyrocide_block",
+    "slimeoverhaul:large_pyrocide_block"
   ]
 }

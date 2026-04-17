@@ -1,5 +1,5 @@
 {
-  "parent": "slimeoverhaul:block/crystallized_slime1",
+  "parent": "slimeoverhaul:block/small_crystallized_slime",
   "textures": {
     "0": "slimeoverhaul:block/earth_crystallized_slime_block",
     "particle": "slimeoverhaul:block/earth_crystallized_slime_block"

@@ -175,7 +175,9 @@
   "block.slimeoverhaul.air_crystallized_slime_block": "Кристаллизованная воздушная слизь",
   "block.slimeoverhaul.water_crystallized_slime_block": "Кристаллизованная водная слизь",
   "block.slimeoverhaul.earth_crystallized_slime_block": "Кристаллизованная земляная слизь",
-  "block.slimeoverhaul.pyrocide_block": "Огнецид",
+  "block.slimeoverhaul.small_pyrocide_block": "Огнецид",
+  "block.slimeoverhaul.medium_pyrocide_block": "Огнецид",
+  "block.slimeoverhaul.large_pyrocide_block": "Огнецид",
 
   "effect.slimeoverhaul.double_jump": "Двойной прыжок",
   "effect.slimeoverhaul.water_anti_depth": "Водная антиглубина",

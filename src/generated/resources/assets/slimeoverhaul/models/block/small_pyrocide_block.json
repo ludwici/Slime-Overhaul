@@ -1,0 +1,7 @@
+{
+  "parent": "slimeoverhaul:block/small_crystallized_slime",
+  "textures": {
+    "0": "slimeoverhaul:block/pyrocide_block",
+    "particle": "slimeoverhaul:block/pyrocide_block"
+  }
+}
