@@ -21,7 +21,7 @@ public class FireShrineStructure extends SinglePieceStructure {
     public static final MapCodec<FireShrineStructure> CODEC = simpleCodec(FireShrineStructure::new);
 
     protected FireShrineStructure(Structure.StructureSettings settings) {
-        super(FireShrinePiece::new, 12, 12, settings);
+        super(FireShrinePiece::new, 8, 3, settings);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class FireShrineStructure extends SinglePieceStructure {
     public static class FireShrinePiece extends ScatteredFeaturePiece {
 
         public FireShrinePiece(RandomSource random, int x, int z) {
-            super(FIRE_SHRINE_PIECE.get(), x, 64, z, 12, 10, 12, getRandomHorizontalDirection(random));
+            super(FIRE_SHRINE_PIECE.get(), x, 64, z, 8, 8, 3, getRandomHorizontalDirection(random));
         }
 
         public FireShrinePiece(StructurePieceSerializationContext structurePieceSerializationContext, CompoundTag compoundTag) {
@@ -93,19 +93,19 @@ public class FireShrineStructure extends SinglePieceStructure {
                 placeBlock(worldGenLevel, Blocks.FIRE.defaultBlockState(), pos.getX(), pos.getY() + 1, pos.getZ(), boundingBox);
             }
 
-            int count = randomSource.nextIntBetweenInclusive(0, 3);
-
-            for (int i = 0; i < count; i++) {
-                int randomX = randomSource.nextIntBetweenInclusive(3, 6);
-                int randomZ = randomSource.nextIntBetweenInclusive(5, 9);
-                int randomHeight = randomSource.nextIntBetweenInclusive(1, 3);
-
-                for (int j = 0; j < randomHeight; j++) {
-                    placeBlock(worldGenLevel, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState(), randomX, j, randomZ, boundingBox);
-                }
-
-                placeBlock(worldGenLevel, ANCIENT_FIRE_SLIMY_BLOCK.get().defaultBlockState(), randomX, -1, randomZ, boundingBox);
-            }
+//            int count = randomSource.nextIntBetweenInclusive(1, 3);
+//
+//            for (int i = 0; i < count; i++) {
+//                int randomX = randomSource.nextIntBetweenInclusive(3, 6);
+//                int randomZ = randomSource.nextIntBetweenInclusive(5, 9);
+//                int randomHeight = randomSource.nextIntBetweenInclusive(1, 3);
+//
+//                for (int j = 0; j < randomHeight; j++) {
+//                    placeBlock(worldGenLevel, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState(), randomX, j, randomZ, boundingBox);
+//                }
+//
+//                placeBlock(worldGenLevel, ANCIENT_FIRE_SLIMY_BLOCK.get().defaultBlockState(), randomX, -1, randomZ, boundingBox);
+//            }
 
         }
 
@@ -120,7 +120,10 @@ public class FireShrineStructure extends SinglePieceStructure {
         static class DeepslateBricksSelector extends StructurePiece.BlockSelector {
             @Override
             public void next(RandomSource randomSource, int i, int i1, int i2, boolean b) {
-                if (randomSource.nextFloat() < 0.4F) {
+                float chance = randomSource.nextFloat();
+                if (chance < 0.25F) {
+                    this.next = ANCIENT_FIRE_SLIMY_BLOCK.get().defaultBlockState();
+                } else if (randomSource.nextFloat() < 0.4F) {
                     this.next = Blocks.DEEPSLATE_BRICKS.defaultBlockState();
                 } else {
                     this.next = Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState();
