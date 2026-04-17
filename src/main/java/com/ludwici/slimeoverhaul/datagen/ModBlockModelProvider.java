@@ -65,6 +65,9 @@ public class ModBlockModelProvider extends BlockStateProvider {
                             .texture("0", texture)
                             .texture("particle", texture)
             ).model;
+
+            simpleBlockItem(block, model);
+
             ConfiguredModel.Builder<?> builder = ConfiguredModel.builder().modelFile(model);
             var rot = getRotByDir(facing);
             builder.rotationX(rot.getA());
