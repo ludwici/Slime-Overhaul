@@ -237,24 +237,24 @@ public class Content {
                 output.accept(EARTH_SLIME_BLOCK.get());
                 output.accept(FIRE_SLIME_BLOCK.get());
 
-                output.accept(ANCIENT_AIR_SLIMY_BLOCK.get());
-                output.accept(ANCIENT_WATER_SLIMY_BLOCK.get());
-                output.accept(ANCIENT_EARTH_SLIMY_BLOCK.get());
+//                output.accept(ANCIENT_AIR_SLIMY_BLOCK.get());
+//                output.accept(ANCIENT_WATER_SLIMY_BLOCK.get());
+//                output.accept(ANCIENT_EARTH_SLIMY_BLOCK.get());
                 output.accept(ANCIENT_FIRE_SLIMY_BLOCK.get());
 
-                output.accept(AIR_CRYSTALLIZED_DUST.get());
-                output.accept(WATER_CRYSTALLIZED_DUST.get());
-                output.accept(EARTH_CRYSTALLIZED_DUST.get());
+//                output.accept(AIR_CRYSTALLIZED_DUST.get());
+//                output.accept(WATER_CRYSTALLIZED_DUST.get());
+//                output.accept(EARTH_CRYSTALLIZED_DUST.get());
                 output.accept(PYROCIDE_DUST.get());
 
-                output.accept(AIR_SLIME_COAT.get());
-                output.accept(WATER_SLIME_COAT.get());
-                output.accept(EARTH_SLIME_COAT.get());
-                output.accept(FIRE_SLIME_COAT.get());
+//                output.accept(AIR_SLIME_COAT.get());
+//                output.accept(WATER_SLIME_COAT.get());
+//                output.accept(EARTH_SLIME_COAT.get());
+//                output.accept(FIRE_SLIME_COAT.get());
 
-                output.accept(ANCIENT_AIR_FRAGMENTS.get());
-                output.accept(ANCIENT_WATER_FRAGMENTS.get());
-                output.accept(ANCIENT_EARTH_FRAGMENTS.get());
+//                output.accept(ANCIENT_AIR_FRAGMENTS.get());
+//                output.accept(ANCIENT_WATER_FRAGMENTS.get());
+//                output.accept(ANCIENT_EARTH_FRAGMENTS.get());
                 output.accept(ANCIENT_FIRE_FRAGMENTS.get());
 
 //                output.accept(AIR_CRYSTALLIZED_SLIME_BLOCK.get());
