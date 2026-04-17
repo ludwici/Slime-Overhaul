@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
@@ -57,6 +58,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         createCrystallizedSlimeDrops(SMALL_PYROCIDE_BLOCK, PYROCIDE_DUST, ConstantValue.exactly(1));
         createCrystallizedSlimeDrops(MEDIUM_PYROCIDE_BLOCK, PYROCIDE_DUST, UniformGenerator.between(2, 3));
         createCrystallizedSlimeDrops(LARGE_PYROCIDE_BLOCK, PYROCIDE_DUST, UniformGenerator.between(3, 5));
+
+        dropOther(FIRE_THICKENER_CAULDRON_BLOCK.get(), Blocks.CAULDRON);
     }
 
     public void dropOther(CrumbSupplier<Block> from, CrumbSupplier<Item> loot) {

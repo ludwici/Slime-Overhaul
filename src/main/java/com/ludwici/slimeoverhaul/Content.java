@@ -31,6 +31,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -108,6 +109,8 @@ public class Content {
     public static final CrumbSupplier<Block> SMALL_PYROCIDE_BLOCK = BlockHelper.registerWithItem("small_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(2)));
     public static final CrumbSupplier<Block> MEDIUM_PYROCIDE_BLOCK = BlockHelper.registerWithItem("medium_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(4)));
     public static final CrumbSupplier<Block> LARGE_PYROCIDE_BLOCK = BlockHelper.registerWithItem("large_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(8)));
+
+    public static final CrumbSupplier<Block> FIRE_THICKENER_CAULDRON_BLOCK = BlockHelper.registerWithItem("fire_thickener_cauldron_block", () -> new FireThickenerCauldronBlock(BlockBehaviour.Properties.ofLegacyCopy(Blocks.CAULDRON)));
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 

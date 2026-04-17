@@ -2,11 +2,13 @@ package com.ludwici.slimeoverhaul;
 
 import com.ludwici.crumbslib.api.*;
 import com.ludwici.crumbslib.api.world.feature.FeatureHelper;
+import com.ludwici.slimeoverhaul.block.FireThickenerCauldronBlock;
 import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -24,6 +26,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
@@ -56,6 +59,7 @@ public class SlimeOverhaulMod {
         FeatureHelper.initBus();
 
         modEventBus.addListener(Content::spawns);
+        modEventBus.addListener(SlimeOverhaulMod::FMLCommonSetup);
 
         EventHelper.addBrewingRecipeEvent(Content::registerPotions);
         EventHelper.addAnvilUpdateEvent(Content::registerAnvilEvent);
@@ -75,6 +79,11 @@ public class SlimeOverhaulMod {
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
 
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onSlimyBlockExecute);
+    }
+
+    private static void FMLCommonSetup(FMLCommonSetupEvent event) {
+        FireThickenerCauldronBlock.THICKENER.map().put(PYROCIDE_DUST.get(), FireThickenerCauldronBlock.FILL_PYDOCIDE_DUST);
+        CauldronInteraction.EMPTY.map().put(FIRE_SLIME_BALL.get(), FireThickenerCauldronBlock.FILL_FIRE_SLIME);
     }
 
     private static void onTrade(VillagerTradesEvent event) {

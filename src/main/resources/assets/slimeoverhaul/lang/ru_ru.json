@@ -182,6 +182,8 @@
   "block.slimeoverhaul.medium_pyrocide_block": "Огнецид",
   "block.slimeoverhaul.large_pyrocide_block": "Огнецид",
 
+  "block.slimeoverhaul.fire_thickener_cauldron_block": "Котёл с огнецидовым загустителем",
+
   "effect.slimeoverhaul.double_jump": "Двойной прыжок",
   "effect.slimeoverhaul.water_anti_depth": "Водная антиглубина",
   "effect.slimeoverhaul.knockback": "Твёрдость",
