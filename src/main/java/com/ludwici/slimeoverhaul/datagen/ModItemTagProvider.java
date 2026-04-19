@@ -84,5 +84,9 @@ public class ModItemTagProvider extends ItemTagsProvider {
 //                .add(EARTH_SLIME_COAT.get().asItem())
 //                .add(FIRE_SLIME_COAT.get().asItem())
 //        ;
+
+        tag(SMITHING_TEMPLATES_TAG)
+                .add(FIRE_TEMPLATE.get())
+        ;
     }
 }

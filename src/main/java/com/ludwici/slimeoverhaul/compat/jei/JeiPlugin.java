@@ -6,6 +6,7 @@ import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -43,5 +44,13 @@ public class JeiPlugin implements IModPlugin {
 
         IJeiAnvilRecipe recipe = vanillaRecipeFactory.createAnvilRecipe(shields, List.of(new ItemStack(EARTH_SLIME_BALL.getHolder())), results, ResourceLocation.fromNamespaceAndPath(MODID, ""));
         registration.addRecipes(RecipeTypes.ANVIL, List.of(recipe));
+    }
+
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+        IModPlugin.super.onRuntimeAvailable(jeiRuntime);
+        var recipeManager = jeiRuntime.getRecipeManager();
+        var r = recipeManager.createRecipeLookup(RecipeTypes.SMITHING).get().filter(smithingRecipeRecipeHolder -> smithingRecipeRecipeHolder.id().getPath().endsWith("_fake_recipe")).toList();
+        recipeManager.hideRecipes(RecipeTypes.SMITHING, r);
     }
 }

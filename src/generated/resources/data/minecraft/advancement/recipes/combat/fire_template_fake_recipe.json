@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fire_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "slimeoverhaul:fire_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:fire_template_fake_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fire_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:fire_template_fake_recipe"
+    ]
+  }
+}

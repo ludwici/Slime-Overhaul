@@ -45,5 +45,7 @@ public class ModEmiPlugin implements EmiPlugin {
 
             registry.addRecipe(recipe);
         });
+
+        registry.removeRecipes(emiRecipe -> emiRecipe.getId().getPath().endsWith("_fake_recipe"));
     }
 }

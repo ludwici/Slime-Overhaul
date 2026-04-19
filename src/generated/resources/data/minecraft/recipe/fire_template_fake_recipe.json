@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "slimeoverhaul:fire_slime_ball"
+  },
+  "base": {
+    "tag": "minecraft:swords"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:wooden_sword"
+  },
+  "template": {
+    "item": "slimeoverhaul:fire_template"
+  }
+}

@@ -6,9 +6,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.BannerPatternItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
@@ -80,6 +82,18 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('D', PYROCIDE_DUST.get())
                 .unlockedBy(getHasName(BLANK_FIRE_TEMPLATE.get()), has(BLANK_FIRE_TEMPLATE.get()))
                 .save(arg)
+        ;
+
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(FIRE_TEMPLATE.get()),
+                        Ingredient.of(ItemTags.SWORDS),
+                        Ingredient.of(FIRE_SLIME_BALL.get()),
+                        RecipeCategory.COMBAT,
+                        Items.WOODEN_SWORD
+                )
+                .unlocks(getHasName(FIRE_TEMPLATE.get()), has(FIRE_TEMPLATE.get()))
+                .save(arg, "fire_template_fake_recipe")
         ;
     }
 

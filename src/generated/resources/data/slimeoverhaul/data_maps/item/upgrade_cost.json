@@ -1,0 +1,10 @@
+{
+  "values": {
+    "slimeoverhaul:fire_template": {
+      "itemStack": {
+        "count": 1,
+        "id": "slimeoverhaul:fire_slime_ball"
+      }
+    }
+  }
+}

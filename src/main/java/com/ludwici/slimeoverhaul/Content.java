@@ -5,11 +5,16 @@ import com.ludwici.slimeoverhaul.block.*;
 import com.ludwici.slimeoverhaul.block.crystallized.*;
 import com.ludwici.slimeoverhaul.block.entities.*;
 import com.ludwici.slimeoverhaul.block.slimy.*;
+import com.ludwici.slimeoverhaul.data.PyrocideLevel;
+import com.ludwici.slimeoverhaul.datamap.UpgradeCost;
 import com.ludwici.slimeoverhaul.effect.*;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.*;
 import com.ludwici.slimeoverhaul.item.*;
+import com.ludwici.slimeoverhaul.item.templates.CustomUpgradeToolTemplate;
 import com.ludwici.slimeoverhaul.world.structure.FireShrineStructure;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -47,7 +52,9 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
@@ -86,7 +93,7 @@ public class Content {
     public static final CrumbSupplier<Item> PYROCIDE_DUST = ItemHelper.register("pyrocide_dust", () -> new CrystallizedDustItem(new Item.Properties().fireResistant()));
 
     public static final CrumbSupplier<Item> BLANK_FIRE_TEMPLATE = ItemHelper.registerSimpleItem("blank_fire_template", new Item.Properties().fireResistant());
-    public static final CrumbSupplier<Item> FIRE_TEMPLATE = ItemHelper.registerSimpleItem("fire_template", new Item.Properties().fireResistant());
+    public static final CrumbSupplier<Item> FIRE_TEMPLATE = ItemHelper.register("fire_template", () -> new CustomUpgradeToolTemplate("fire_template", List.of("sword", "axe")));
 
     public static final CrumbSupplier<Block> AIR_SLIME_BLOCK   = registerSlimeBlock("air_slime_block", MapColor.COLOR_CYAN);
     public static final CrumbSupplier<Block> WATER_SLIME_BLOCK = registerSlimeBlock("water_slime_block", MapColor.WATER);
@@ -114,6 +121,16 @@ public class Content {
 
     public static final CrumbSupplier<BlockEntityType<AncientSlimyBlockEntity>> ANCIENT_SLIMY_BLOCK_ENTITY = BlockEntityHelper.register("slimy_block_entity", AncientSlimyBlockEntity::new, ANCIENT_AIR_SLIMY_BLOCK, ANCIENT_WATER_SLIMY_BLOCK, ANCIENT_EARTH_SLIMY_BLOCK, ANCIENT_FIRE_SLIMY_BLOCK);
 
+    public static final CrumbSupplier<DataComponentType<PyrocideLevel>> PYROCIDE_LEVEL = DataComponentsHelper.register("pyrocide_level", Optional.of(PyrocideLevel.CODEC), Optional.of(PyrocideLevel.STREAM_CODEC));
+
+    public static final DataMapType<Item, UpgradeCost> UPGRADE_COST_DATA = DataMapType.builder(
+                    ResourceLocation.fromNamespaceAndPath(MODID, "upgrade_cost"),
+                    Registries.ITEM,
+                    UpgradeCost.CODEC
+            )
+            .synced(UpgradeCost.CODEC, false)
+            .build();
+
     public static final TagKey<EntityType<?>> SLIMES = TagHelper.entityType("slimes");
     public static final TagKey<EntityType<?>> ELEMENTAL_SLIMES = TagHelper.entityType("elemental_slimes");
     public static final TagKey<Block> SLIME_BLOCK_ITEMS = TagHelper.block("slime_blocks");
@@ -131,6 +148,7 @@ public class Content {
     public static final TagKey<Item> EARTH_ITEMS_TAG = TagHelper.item("earth_items");
     public static final TagKey<Item> FIRE_ITEMS_TAG = TagHelper.item("fire_items");
     public static final TagKey<Item> SLIME_COAT_ITEMS_TAG = TagHelper.item("slime_coat_items");
+    public static final TagKey<Item> SMITHING_TEMPLATES_TAG = TagHelper.item("smithing_templates");
 
     public static final CrumbSupplier<MobEffect> DOUBLE_JUMP_EFFECT = MobEffectHelper.register("double_jump", MobEffectCategory.BENEFICIAL, 9699327);
     public static final CrumbSupplier<MobEffect> WATER_ANTI_DEPTH_EFFECT = MobEffectHelper.register("water_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, Fluids.WATER, 2140116));

@@ -1,9 +1,12 @@
 package com.ludwici.slimeoverhaul.client;
 
 import com.ludwici.slimeoverhaul.SlimeOverhaulMod;
+import com.ludwici.slimeoverhaul.data.PyrocideLevel;
 import com.ludwici.slimeoverhaul.entity.client.BaseSlimeRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -13,6 +16,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import static com.ludwici.slimeoverhaul.Content.*;
 import static com.ludwici.slimeoverhaul.Content.EARTH_SLIME;
@@ -41,5 +45,16 @@ public class SlimeOverhaulModClient {
         event.registerEntityRenderer(WATER_SLIME.get(), BaseSlimeRenderer::new);
         event.registerEntityRenderer(EARTH_SLIME.get(), BaseSlimeRenderer::new);
         event.registerEntityRenderer(FLAME_SLIME.get(), BaseSlimeRenderer::new);
+    }
+    
+    @SubscribeEvent
+    public static void onTooltip(ItemTooltipEvent event) {
+        ItemStack itemStack = event.getItemStack();
+        PyrocideLevel pyrocideLevel = itemStack.get(PYROCIDE_LEVEL.get());
+        if (pyrocideLevel == null) {
+            return;
+        }
+
+        event.getToolTip().add(Component.literal("Pyrocide Level: ").append(String.valueOf(pyrocideLevel.level())));
     }
 }

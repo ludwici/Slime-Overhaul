@@ -34,6 +34,7 @@ import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
 import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class SlimeOverhaulMod {
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
+        DataComponentsHelper.initBus();
         EntityHelper.initBus();
         ItemHelper.initBus();
         BlockHelper.initBus();
@@ -60,6 +62,7 @@ public class SlimeOverhaulMod {
 
         modEventBus.addListener(Content::spawns);
         modEventBus.addListener(SlimeOverhaulMod::FMLCommonSetup);
+        modEventBus.addListener(SlimeOverhaulMod::registerDataMapTypes);
 
         EventHelper.addBrewingRecipeEvent(Content::registerPotions);
         EventHelper.addAnvilUpdateEvent(Content::registerAnvilEvent);
@@ -79,6 +82,10 @@ public class SlimeOverhaulMod {
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
 
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onSlimyBlockExecute);
+    }
+
+    private static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
+        event.register(UPGRADE_COST_DATA);
     }
 
     private static void FMLCommonSetup(FMLCommonSetupEvent event) {

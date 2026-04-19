@@ -43,7 +43,13 @@
   "item.slimeoverhaul.pyrocide_dust.lore": "§cСгусток воли огня. Пламя само по себе неукротимо, и сердце его неугастно. Оно так и норовит вырваться, чтобы поглотить всё сущее.§r",
 
   "item.slimeoverhaul.blank_fire_template": "Заготовка огнецидового шаблона",
-  "item.slimeoverhaul.fire_template": "Огнецидовый шаблон",
+
+  "item.slimeoverhaul.fire_template": "Кузнечный шаблон",
+  "upgrade.slimeoverhaul.fire_template": "Огнецидовое улучшение",
+  "item.slimeoverhaul.fire_template.applies_to": "Мечи, топоры",
+  "item.slimeoverhaul.fire_template.ingredients": "Огнецидовый слиток",
+  "item.slimeoverhaul.fire_template.base_slot_description": "Мечи, топоры",
+  "item.slimeoverhaul.fire_template.additions_slot_description": "Огнецидовый слиток",
 
   "item.slimeoverhaul.banner_pattern_slime": "Узор флага",
   "item.slimeoverhaul.banner_pattern_slime.desc": "Слизень",
