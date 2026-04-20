@@ -17,7 +17,7 @@ public class BaseSlimeRenderer extends MobRenderer<BaseSlime, SlimeModel<BaseSli
 
     public BaseSlimeRenderer(EntityRendererProvider.Context arg) {
         super(arg, new SlimeModel<>(arg.bakeLayer(ModelLayers.SLIME)), 0.25F);
-        this.addLayer(new SlimeOuterLayer(this, arg.getModelSet()));
+        this.addLayer(new SlimeOuterLayer<>(this, arg.getModelSet()));
     }
 
     public void render(BaseSlime arg, float f, float g, PoseStack arg2, MultiBufferSource arg3, int i) {
