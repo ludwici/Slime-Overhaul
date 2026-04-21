@@ -196,6 +196,10 @@
   "effect.slimeoverhaul.lava_anti_depth": "Лавовая антиглубина",
   "effect.slimeoverhaul.hand_burn_effect": "Ожог рук",
   "effect.slimeoverhaul.slippery_effect": "Скольжение",
+  "effect.slimeoverhaul.fiery_fury_i": "Неистовство огня I",
+  "effect.slimeoverhaul.fiery_fury_ii": "Неистовство огня II",
+  "effect.slimeoverhaul.fiery_fury_iii": "Неистовство огня III",
+  "effect.slimeoverhaul.fire_fatigue": "Огненная усталость",
 
   "advancements.slimeoverhaul.root.title": "Мир слизней",
   "advancements.slimeoverhaul.root.description": "Откуда столько слизней?",

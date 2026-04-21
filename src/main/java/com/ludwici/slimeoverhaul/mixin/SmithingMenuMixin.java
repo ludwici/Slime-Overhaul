@@ -51,9 +51,6 @@ public abstract class SmithingMenuMixin extends ItemCombinerMenu {
         }
 
         ItemStack material = inputSlots.getItem(2);
-        if (!material.is(FIRE_SLIME_BALL.get())) {
-            return;
-        }
 
         if (!material.is(data.itemStack().getItem())) {
             return;
@@ -65,10 +62,9 @@ public abstract class SmithingMenuMixin extends ItemCombinerMenu {
             return;
         }
 
-        PyrocideLevel pyrocideLevel = PyrocideLevel.DEFAULT;
+        PyrocideLevel pyrocideLevel = new PyrocideLevel();
         result.set(PYROCIDE_LEVEL.get(), pyrocideLevel);
 
-        result.set(DataComponents.CUSTOM_NAME, Component.literal("Закалённый ").append(Component.translatable(weapon.getDescriptionId())));
         resultSlots.setItem(0, result);
         //TODO: fix dupe if slot template and material non empty
     }

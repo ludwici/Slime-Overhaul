@@ -4,6 +4,8 @@ import com.ludwici.crumbslib.api.*;
 import com.ludwici.crumbslib.api.world.feature.FeatureHelper;
 import com.ludwici.slimeoverhaul.block.FireThickenerCauldronBlock;
 import com.ludwici.slimeoverhaul.config.Config;
+import com.ludwici.slimeoverhaul.data.PyrocideLevel;
+import com.ludwici.slimeoverhaul.effect.FieryFuryEffect;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
@@ -14,6 +16,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +27,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -29,9 +35,11 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
 import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
+import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
@@ -80,8 +88,10 @@ public class SlimeOverhaulMod {
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTooltip);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onShieldBlock);
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
-
         NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onSlimyBlockExecute);
+        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onCrit);
+        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onLivingDamagePre);
+        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onLivingDamagePost);
     }
 
     private static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
@@ -134,6 +144,97 @@ public class SlimeOverhaulMod {
                 }
             }
         }
+    }
+
+    // apply damage
+    private static void onLivingDamagePre(LivingDamageEvent.Pre event) {
+        Entity entity = event.getContainer().getSource().getEntity();
+
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+
+        if (livingEntity.hasEffect(FIRE_FATIGUE.getHolder())) {
+            return;
+        }
+
+        ItemStack weapon = livingEntity.getWeaponItem();
+        PyrocideLevel pyrocideLevel = weapon.get(PYROCIDE_LEVEL.get());
+        if (pyrocideLevel == null) {
+            return;
+        }
+
+        Level level = livingEntity.level();
+
+        CrumbSupplier<MobEffect> effect = FieryFuryEffect.getEffect(livingEntity);
+        float addChance = level.getRandom().nextFloat();
+
+        if (addChance <= 0.5F) {
+            if (effect == null) {
+                livingEntity.addEffect(new MobEffectInstance(FIERY_FURY_EFFECT_I.getHolder(), 1200));
+                pyrocideLevel.resetDamage();
+            } else {
+                CrumbSupplier<MobEffect> next = FieryFuryEffect.getNext(livingEntity);
+                if (next != null) {
+                    livingEntity.removeEffect(effect.getHolder());
+                    livingEntity.addEffect(new MobEffectInstance(next.getHolder(), 1200));
+                }
+            }
+
+            return;
+        }
+
+        if (pyrocideLevel.getDamage() == 0.0F) {
+            return;
+        }
+
+        if (FieryFuryEffect.hasEffect(livingEntity)) {
+            event.setNewDamage(event.getNewDamage() + pyrocideLevel.getDamage());
+            pyrocideLevel = new PyrocideLevel();
+            weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel);
+            FieryFuryEffect.removeEffect(livingEntity);
+            livingEntity.addEffect(new MobEffectInstance(FIRE_FATIGUE.getHolder(), 3600));
+        }
+    }
+
+    // store damage
+    private static void onLivingDamagePost(LivingDamageEvent.Post event) {
+        Entity entity = event.getSource().getEntity();
+
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+
+        if (livingEntity.hasEffect(FIRE_FATIGUE.getHolder()) && !FieryFuryEffect.hasEffect(livingEntity)) {
+            return;
+        }
+
+        ItemStack weapon = livingEntity.getWeaponItem();
+        PyrocideLevel pyrocideLevel = weapon.get(PYROCIDE_LEVEL.get());
+        if (pyrocideLevel == null) {
+            return;
+        }
+
+        pyrocideLevel.addDamage(event.getOriginalDamage() * pyrocideLevel.getDamageModifier());
+    }
+
+    private static void onCrit(CriticalHitEvent event) {
+        if (!event.isCriticalHit()) {
+            return;
+        }
+        Player player = event.getEntity();
+        if (player.hasEffect(FIRE_FATIGUE.getHolder())) {
+            return;
+        }
+        ItemStack weapon = player.getWeaponItem();
+        PyrocideLevel pyrocideLevel = weapon.get(PYROCIDE_LEVEL.get());
+        if (pyrocideLevel == null) {
+            return;
+        } else {
+            pyrocideLevel.levelUp();
+        }
+
+        weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel);
     }
 
     private static void onShieldBlock(LivingShieldBlockEvent event) {

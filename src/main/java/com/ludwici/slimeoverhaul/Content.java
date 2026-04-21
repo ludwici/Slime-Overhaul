@@ -157,6 +157,10 @@ public class Content {
     public static final CrumbSupplier<MobEffect> LAVA_ANTI_DEPTH_EFFECT = MobEffectHelper.register("lava_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, Fluids.LAVA, 14376750));
     public static final CrumbSupplier<MobEffect> HAND_BURN_EFFECT = MobEffectHelper.register("hand_burn_effect", () -> new HandBurnEffect(MobEffectCategory.HARMFUL, 14376750));
     public static final CrumbSupplier<MobEffect> SLIPPERY_EFFECT = MobEffectHelper.register("slippery_effect", MobEffectCategory.NEUTRAL, 2140116);
+    public static final CrumbSupplier<MobEffect> FIERY_FURY_EFFECT_I = MobEffectHelper.register("fiery_fury_i", () -> new FieryFuryEffect(MobEffectCategory.BENEFICIAL, 14376750));
+    public static final CrumbSupplier<MobEffect> FIERY_FURY_EFFECT_II = MobEffectHelper.register("fiery_fury_ii", () -> new FieryFuryEffect(MobEffectCategory.BENEFICIAL, 14376750));
+    public static final CrumbSupplier<MobEffect> FIERY_FURY_EFFECT_III = MobEffectHelper.register("fiery_fury_iii", () -> new FieryFuryEffect(MobEffectCategory.BENEFICIAL, 14376750));
+    public static final CrumbSupplier<MobEffect> FIRE_FATIGUE = MobEffectHelper.register("fire_fatigue", MobEffectCategory.HARMFUL, 14376750);
 
     public static final CrumbSupplier<Potion> DOUBLE_JUMP_POTION = PotionHelper.register("double_jump_potion", () -> new Potion(new MobEffectInstance(DOUBLE_JUMP_EFFECT.getHolder(), 1200, 0)));
     public static final CrumbSupplier<Potion> WATER_ANTI_DEPTH_POTION = PotionHelper.register("water_anti_depth_potion", () -> new Potion(new MobEffectInstance(WATER_ANTI_DEPTH_EFFECT.getHolder(), 1200, 0)));
