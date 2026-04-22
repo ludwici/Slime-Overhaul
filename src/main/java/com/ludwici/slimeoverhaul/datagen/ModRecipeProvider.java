@@ -87,8 +87,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(FIRE_TEMPLATE.get()),
-                        Ingredient.of(ItemTags.SWORDS),
-                        Ingredient.of(FIRE_SLIME_BALL.get()),
+                        Ingredient.of(PYROCIDE_UPGRADABLE_ITEMS_TAG),
+                        Ingredient.of(PYROCIDE_UPGRADE_MATERIALS_TAG),
                         RecipeCategory.COMBAT,
                         Items.WOODEN_SWORD
                 )

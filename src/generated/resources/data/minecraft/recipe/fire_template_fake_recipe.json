@@ -1,10 +1,10 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": {
-    "item": "slimeoverhaul:fire_slime_ball"
+    "tag": "slimeoverhaul:pyrocide_upgrade_materials"
   },
   "base": {
-    "tag": "minecraft:swords"
+    "tag": "slimeoverhaul:pyrocide_upgradable_items"
   },
   "result": {
     "count": 1,

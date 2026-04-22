@@ -149,6 +149,8 @@ public class Content {
     public static final TagKey<Item> FIRE_ITEMS_TAG = TagHelper.item("fire_items");
     public static final TagKey<Item> SLIME_COAT_ITEMS_TAG = TagHelper.item("slime_coat_items");
     public static final TagKey<Item> SMITHING_TEMPLATES_TAG = TagHelper.item("smithing_templates");
+    public static final TagKey<Item> PYROCIDE_UPGRADABLE_ITEMS_TAG = TagHelper.item("pyrocide_upgradable_items");
+    public static final TagKey<Item> PYROCIDE_UPGRADE_MATERIALS_TAG = TagHelper.item("pyrocide_upgrade_materials");
 
     public static final CrumbSupplier<MobEffect> DOUBLE_JUMP_EFFECT = MobEffectHelper.register("double_jump", MobEffectCategory.BENEFICIAL, 9699327);
     public static final CrumbSupplier<MobEffect> WATER_ANTI_DEPTH_EFFECT = MobEffectHelper.register("water_anti_depth", () -> new AntiDepthEffect(MobEffectCategory.BENEFICIAL, Fluids.WATER, 2140116));

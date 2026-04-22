@@ -3,6 +3,7 @@ package com.ludwici.slimeoverhaul.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -87,6 +88,15 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
         tag(SMITHING_TEMPLATES_TAG)
                 .add(FIRE_TEMPLATE.get())
+        ;
+
+        tag(PYROCIDE_UPGRADABLE_ITEMS_TAG)
+                .addTag(ItemTags.SWORDS)
+                .addTag(ItemTags.AXES)
+        ;
+
+        tag(PYROCIDE_UPGRADE_MATERIALS_TAG)
+                .add(FIRE_SLIME_BALL.get())
         ;
     }
 }
