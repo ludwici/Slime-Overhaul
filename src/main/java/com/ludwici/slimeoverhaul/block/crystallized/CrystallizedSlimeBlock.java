@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class CrystallizedSlimeBlock extends Block implements SimpleWaterloggedBlock {
@@ -23,9 +22,6 @@ public class CrystallizedSlimeBlock extends Block implements SimpleWaterloggedBl
 
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
-    private static final VoxelShape DOWN_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 1.0, 16.0);
-
 
     public CrystallizedSlimeBlock(Properties p_52591_) {
         super(p_52591_);
@@ -43,11 +39,6 @@ public class CrystallizedSlimeBlock extends Block implements SimpleWaterloggedBl
     protected MapCodec<CrystallizedSlimeBlock> codec() {
         return CODEC;
     }
-
-//    @Override
-//    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-//        return DOWN_AABB;
-//    }
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -95,12 +86,4 @@ public class CrystallizedSlimeBlock extends Block implements SimpleWaterloggedBl
     protected BlockState mirror(BlockState state, Mirror mirror) {
         return  state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
-
-//    @Override
-//    protected boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
-//        if (!useContext.isSecondaryUseActive() && useContext.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < MAX_STAGE) {
-//            return true;
-//        }
-//        return super.canBeReplaced(state, useContext);
-//    }
 }

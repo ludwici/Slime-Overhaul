@@ -113,8 +113,8 @@ public class Content {
     public static final CrumbSupplier<Block> AIR_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("air_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(0)));
     public static final CrumbSupplier<Block> WATER_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("water_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(0)));
     public static final CrumbSupplier<Block> EARTH_CRYSTALLIZED_SLIME_BLOCK = BlockHelper.registerWithItem("earth_crystallized_slime_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(0)));
-    public static final CrumbSupplier<Block> SMALL_PYROCIDE_BLOCK = BlockHelper.registerWithItem("small_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(2)));
-    public static final CrumbSupplier<Block> MEDIUM_PYROCIDE_BLOCK = BlockHelper.registerWithItem("medium_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(4)));
+    public static final CrumbSupplier<Block> SMALL_PYROCIDE_BLOCK = BlockHelper.registerWithItem("small_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(4)));
+    public static final CrumbSupplier<Block> MEDIUM_PYROCIDE_BLOCK = BlockHelper.registerWithItem("medium_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(6)));
     public static final CrumbSupplier<Block> LARGE_PYROCIDE_BLOCK = BlockHelper.registerWithItem("large_pyrocide_block", () -> new PyrocideBlock(getCrystallizedSlimeProperties(8)));
 
     public static final CrumbSupplier<Block> FIRE_THICKENER_CAULDRON_BLOCK = BlockHelper.registerWithItem("fire_thickener_cauldron_block", () -> new FireThickenerCauldronBlock(BlockBehaviour.Properties.ofLegacyCopy(Blocks.CAULDRON)));
