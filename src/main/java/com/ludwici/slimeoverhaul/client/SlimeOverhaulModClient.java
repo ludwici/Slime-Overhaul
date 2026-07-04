@@ -55,6 +55,7 @@ public class SlimeOverhaulModClient {
             return;
         }
 
-        event.getToolTip().add(Component.literal("Pyrocide Level: ").append(String.valueOf(pyrocideLevel.level())));
+//        event.getToolTip().add(Component.literal("Pyrocide Level: ").append(String.valueOf(pyrocideLevel.getLevel())));
+//        event.getToolTip().add(Component.literal("Damage: ").append(String.valueOf(pyrocideLevel.getDamage())));
     }
 }
