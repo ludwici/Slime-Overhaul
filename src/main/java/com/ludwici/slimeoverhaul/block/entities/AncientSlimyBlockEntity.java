@@ -71,13 +71,17 @@ public class AncientSlimyBlockEntity extends BlockEntity {
             this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockstate));
             Block block;
             if (this.getBlockState().getBlock() instanceof AncientSlimyBlock ancientSlimyBlock) {
-                dropContent(player);
                 var event = new SlimyBlockExecute(player, this);
                 NeoForge.EVENT_BUS.post(event);
                 if (event.isCanceled()) {
                     return;
                 }
 
+                if (this.level.getBlockEntity(this.worldPosition) != this) {
+                    return;
+                }
+
+                dropContent(player);
                 block = ancientSlimyBlock.getTurnsInto();
             } else {
                 block = Blocks.AIR;

@@ -7,24 +7,21 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
 
-import java.util.Objects;
-
-public class PyrocideLevel {
+public final class PyrocideLevel {
     public static final int MIN_LEVEL = 1;
     public static final int MAX_LEVEL = 4;
     public static final PyrocideLevel DEFAULT = new PyrocideLevel(MIN_LEVEL, 0);
 
-    private int level;
-    private float damage;
+    private final int level;
+    private final float damage;
 
     public PyrocideLevel(int level, float damage) {
-        this.level = level;
-        this.damage = damage;
+        this.level = Mth.clamp(level, MIN_LEVEL, MAX_LEVEL);
+        this.damage = Float.isFinite(damage) ? Mth.clamp(damage, 0, Float.MAX_VALUE) : 0;
     }
 
     public PyrocideLevel() {
-        this.level = MIN_LEVEL;
-        this.damage = 0;
+        this(MIN_LEVEL, 0);
     }
 
     public int getLevel() {
@@ -33,11 +30,6 @@ public class PyrocideLevel {
 
     public float getDamage() {
         return damage;
-    }
-
-    public void reset() {
-        level = MIN_LEVEL;
-        resetDamage();
     }
 
     public float getDamageModifier() {
@@ -49,8 +41,24 @@ public class PyrocideLevel {
         };
     }
 
-    public void resetDamage() {
-        damage = 0;
+    public PyrocideLevel reset() {
+        return DEFAULT;
+    }
+
+    public PyrocideLevel resetDamage() {
+        return new PyrocideLevel(level, 0);
+    }
+
+    public PyrocideLevel levelUp() {
+        return new PyrocideLevel(level + 1, damage);
+    }
+
+    public PyrocideLevel addDamage(float value) {
+        if (!Float.isFinite(value)) {
+            return this;
+        }
+
+        return new PyrocideLevel(level, damage + value);
     }
 
     public static final Codec<PyrocideLevel> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -64,21 +72,13 @@ public class PyrocideLevel {
             PyrocideLevel::new
     );
 
-    public void levelUp() {
-        level = Mth.clamp(level + 1, MIN_LEVEL, MAX_LEVEL);
-    }
-
-    public void addDamage(float value) {
-        damage = Mth.clamp(damage + value, 0, Float.MAX_VALUE);
-    }
-
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof PyrocideLevel pyrocideLevel)) return false;
+        if (!(obj instanceof PyrocideLevel other)) {
+            return false;
+        }
 
-        return level == pyrocideLevel.getLevel()
-                && damage == pyrocideLevel.getDamage()
-                ;
+        return level == other.level && Float.compare(damage, other.damage) == 0;
     }
 
     @Override

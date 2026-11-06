@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -172,7 +173,7 @@ public class SlimeOverhaulMod {
         if (addChance <= 0.5F) {
             if (effect == null) {
                 livingEntity.addEffect(new MobEffectInstance(FIERY_FURY_EFFECT_I.getHolder(), 1200));
-                pyrocideLevel.resetDamage();
+                weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel.resetDamage());
             } else {
                 CrumbSupplier<MobEffect> next = FieryFuryEffect.getNext(livingEntity);
                 if (next != null) {
@@ -215,7 +216,7 @@ public class SlimeOverhaulMod {
             return;
         }
 
-        pyrocideLevel.addDamage(event.getOriginalDamage() * pyrocideLevel.getDamageModifier());
+        weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel.addDamage(event.getOriginalDamage() * pyrocideLevel.getDamageModifier()));
     }
 
     private static void onCrit(CriticalHitEvent event) {
@@ -230,11 +231,9 @@ public class SlimeOverhaulMod {
         PyrocideLevel pyrocideLevel = weapon.get(PYROCIDE_LEVEL.get());
         if (pyrocideLevel == null) {
             return;
-        } else {
-            pyrocideLevel.levelUp();
         }
 
-        weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel);
+        weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel.levelUp());
     }
 
     private static void onShieldBlock(LivingShieldBlockEvent event) {
@@ -249,42 +248,43 @@ public class SlimeOverhaulMod {
 
     private static void checkShieldBounce(ItemStack shield, LivingShieldBlockEvent event, LivingEntity entity) {
         CustomData data = shield.get(DataComponents.CUSTOM_DATA);
-        if (data != null) {
-            CompoundTag tag = data.copyTag();
-            if (tag.contains("bounce")) {
-                Player player = (Player) entity;
+        if (data == null) {
+            return;
+        }
 
-                int bounce = tag.getInt("bounce");
-                if (player != null && player.isCreative()) {
-                    return;
-                }
-                bounce--;
-                DamageContainer container = event.getDamageContainer();
+        CompoundTag tag = data.copyTag();
+        if (!tag.contains("bounce")) {
+            return;
+        }
 
-                DamageSource damageSource = container.getSource();
-                if (damageSource.getDirectEntity() instanceof Projectile projectile) {
+        if (entity instanceof Player player && player.isCreative()) {
+            return;
+        }
 
-                } else {
-                    if (damageSource.isDirect()) {
-                        var target = damageSource.getDirectEntity();
+        int bounce = tag.getInt("bounce");
+        if (bounce <= 0) {
+            tag.remove("bounce");
+            shield.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+            return;
+        }
 
-                        DamageSource newDamage = new DamageSource(damageSource.typeHolder(), player, player);
-                        target.hurt(newDamage, container.getOriginalDamage());
-                    }
-                }
+        DamageContainer container = event.getDamageContainer();
+        DamageSource damageSource = container.getSource();
+        if (!damageSource.is(DamageTypes.THORNS) && damageSource.isDirect() && damageSource.getDirectEntity() instanceof LivingEntity attacker && attacker != entity) {
+            attacker.hurt(entity.damageSources().thorns(entity), container.getOriginalDamage());
+        }
 
-                if (bounce > 0) {
-                    tag.putInt("bounce", bounce);
-                } else {
-                    tag.remove("bounce");
-                    if (player != null) {
-                        player.sendSystemMessage(Component.translatable("slimeoverhaul.lost_earth_power"));
-                    }
-                }
-
-                shield.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        bounce--;
+        if (bounce > 0) {
+            tag.putInt("bounce", bounce);
+        } else {
+            tag.remove("bounce");
+            if (entity instanceof Player player) {
+                player.sendSystemMessage(Component.translatable("slimeoverhaul.lost_earth_power"));
             }
         }
+
+        shield.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
 
     private static void onKnock(LivingKnockBackEvent event) {
