@@ -36,8 +36,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ludwici/CrumbsLib
-          ref: 1.21.1
-          path: crumbslib
+          ref: d183e7fd63208c334f769220110ad8ecd6138bc8
+          path: CrumbsLib
           token: ${{ secrets.CRUMBSLIB_READ_TOKEN }}
           persist-credentials: false
 
@@ -48,11 +48,11 @@ jobs:
           java-version: '21'
           cache: gradle
           cache-dependency-path: |
-            crumbslib/**/*.gradle*
+            CrumbsLib/**/*.gradle*
             slimeoverhaul/**/*.gradle*
 
       - name: Publish CrumbsLib to Maven local
-        working-directory: crumbslib
+        working-directory: CrumbsLib
         run: |
           chmod +x gradlew
           ./gradlew --no-daemon publishToMavenLocal
