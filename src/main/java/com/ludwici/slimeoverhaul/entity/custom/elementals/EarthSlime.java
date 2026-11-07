@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.neoforged.neoforge.common.Tags;
+import com.ludwici.slimeoverhaul.compat.Tags;
 
 public class EarthSlime extends BaseSlime {
     public EarthSlime(EntityType<? extends Slime> entityType, Level level) {

@@ -37,7 +37,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.neoforged.neoforge.common.Tags;
+import com.ludwici.slimeoverhaul.compat.Tags;
 
 import static com.ludwici.slimeoverhaul.Content.*;
 

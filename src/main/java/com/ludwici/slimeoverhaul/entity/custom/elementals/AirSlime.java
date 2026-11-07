@@ -19,7 +19,7 @@ import net.minecraft.world.entity.projectile.windcharge.WindCharge;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.Tags;
+import com.ludwici.slimeoverhaul.compat.Tags;
 
 public class AirSlime extends BaseSlime {
     public boolean doubleJumped = false;

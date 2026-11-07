@@ -40,7 +40,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.common.Tags;
+import com.ludwici.slimeoverhaul.compat.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
