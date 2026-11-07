@@ -56,7 +56,7 @@ jobs:
         timeout-minutes: 5
         run: |
           mkdir -p run
-          printf 'eula=true\\n' > run/eula.txt
+          echo 'eula=true' > run/eula.txt
           ./gradlew --no-daemon runServer --console=plain > server-startup.log 2>&1 &
           server_pid=$!
           started=0
