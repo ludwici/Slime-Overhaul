@@ -51,6 +51,32 @@ jobs:
           chmod +x gradlew
           ./gradlew --no-daemon clean build --stacktrace
 
+      - name: Smoke-test Fabric dedicated server
+        working-directory: slimeoverhaul
+        timeout-minutes: 5
+        run: |
+          mkdir -p run
+          printf 'eula=true\\n' > run/eula.txt
+          ./gradlew --no-daemon runServer --console=plain > server-startup.log 2>&1 &
+          server_pid=$!
+          started=0
+          for i in $(seq 1 110); do
+            if grep -q 'Done (' run/logs/latest.log 2>/dev/null; then
+              started=1
+              break
+            fi
+            if ! kill -0 "$server_pid" 2>/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+          tail -n 100 server-startup.log
+          kill "$server_pid" 2>/dev/null || true
+          if [ "$started" -ne 1 ]; then
+            echo '::error::Fabric dedicated server did not finish starting.'
+            exit 1
+          fi
+
       - name: Upload Fabric mod JAR
         if: success()
         uses: actions/upload-artifact@v4
