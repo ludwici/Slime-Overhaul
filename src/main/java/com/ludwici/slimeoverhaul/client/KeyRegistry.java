@@ -1,49 +1,40 @@
 package com.ludwici.slimeoverhaul.client;
 
-import com.ludwici.slimeoverhaul.SlimeOverhaulMod;
-import com.mojang.blaze3d.platform.InputConstants;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ElytraItem;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.InputEvent;
 
 import static com.ludwici.slimeoverhaul.Content.DOUBLE_JUMP_EFFECT;
 
-@EventBusSubscriber(modid = SlimeOverhaulMod.MODID, value = Dist.CLIENT)
-public class KeyRegistry {
+public final class KeyRegistry {
     private static boolean canDoubleJump = true;
+    private static boolean wasJumpDown;
 
-    @SubscribeEvent
-    private static void handleKeyBindings(InputEvent.Key event) {
-//        if (minecraft == null) {
-//            minecraft = Minecraft.getInstance();
-//        }
+    private KeyRegistry() {
+    }
 
-        var minecraft = Minecraft.getInstance();
-
-        if (minecraft.player == null) {
-            return;
-        }
-
-        if (event.getAction() == InputConstants.PRESS) {
-            if (event.getKey() == minecraft.options.keyJump.getKey().getValue()) {
-                if (canDoubleJump) {
-                    var player = minecraft.player;
-                    if (!player.isCreative() && !player.isSpectator() && !player.onGround() && !player.onClimbable() && !player.isInWaterOrBubble() && !ElytraItem.isFlyEnabled(player.getItemBySlot(EquipmentSlot.CHEST)) && !player.isPassenger()) {
-                        if (player.hasEffect(DOUBLE_JUMP_EFFECT.getHolder())) {
-                            minecraft.player.jumpFromGround();
-                            canDoubleJump = false;
-                        }
-                    }
-                }
+    public static void register() {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.player == null) {
+                canDoubleJump = true;
+                wasJumpDown = false;
+                return;
             }
-        }
 
-        if (minecraft.player.onGround()) {
-            canDoubleJump = true;
-        }
+            boolean jumpDown = client.options.keyJump.isDown();
+            var player = client.player;
+            if (player.onGround()) {
+                canDoubleJump = true;
+            }
+            if (jumpDown && !wasJumpDown && canDoubleJump && !player.isCreative() && !player.isSpectator()
+                    && !player.onGround() && !player.onClimbable() && !player.isInWaterOrBubble()
+                    && !ElytraItem.isFlyEnabled(player.getItemBySlot(EquipmentSlot.CHEST)) && !player.isPassenger()
+                    && player.hasEffect(DOUBLE_JUMP_EFFECT.getHolder())) {
+                player.jumpFromGround();
+                canDoubleJump = false;
+            }
+            wasJumpDown = jumpDown;
+        });
     }
 }
