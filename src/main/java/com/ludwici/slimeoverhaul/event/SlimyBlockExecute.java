@@ -3,18 +3,15 @@ package com.ludwici.slimeoverhaul.event;
 import com.ludwici.slimeoverhaul.block.entities.AncientSlimyBlockEntity;
 import com.ludwici.slimeoverhaul.block.slimy.AncientSlimyBlock;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.bus.api.ICancellableEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
 
-public class SlimyBlockExecute extends BlockEvent implements ICancellableEvent {
-
+public final class SlimyBlockExecute {
     private final Player player;
     private final AncientSlimyBlockEntity blockEntity;
+    private boolean canceled;
 
     public SlimyBlockExecute(Player player, AncientSlimyBlockEntity blockEntity) {
-        super(player.level(), blockEntity.getBlockPos(), blockEntity.getBlockState());
-        this.blockEntity = blockEntity;
         this.player = player;
+        this.blockEntity = blockEntity;
     }
 
     public AncientSlimyBlock getBlock() {
@@ -27,5 +24,13 @@ public class SlimyBlockExecute extends BlockEvent implements ICancellableEvent {
 
     public AncientSlimyBlockEntity getBlockEntity() {
         return blockEntity;
+    }
+
+    public boolean isCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(boolean canceled) {
+        this.canceled = canceled;
     }
 }

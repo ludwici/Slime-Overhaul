@@ -24,7 +24,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForge;
+import com.ludwici.slimeoverhaul.SlimeOverhaulMod;
 
 import static com.ludwici.slimeoverhaul.Content.ANCIENT_SLIMY_BLOCK_ENTITY;
 import static com.ludwici.slimeoverhaul.SlimeOverhaulMod.MODID;
@@ -72,7 +72,7 @@ public class AncientSlimyBlockEntity extends BlockEntity {
             Block block;
             if (this.getBlockState().getBlock() instanceof AncientSlimyBlock ancientSlimyBlock) {
                 var event = new SlimyBlockExecute(player, this);
-                NeoForge.EVENT_BUS.post(event);
+                SlimeOverhaulMod.onSlimyBlockExecute(event);
                 if (event.isCanceled()) {
                     return;
                 }

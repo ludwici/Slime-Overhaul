@@ -48,11 +48,10 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.event.AnvilUpdateEvent;
-import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
-import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
-import net.neoforged.neoforge.registries.datamaps.DataMapType;
+import com.ludwici.slimeoverhaul.compat.Tags;
+import com.ludwici.crumbslib.api.AnvilUpdateEvent;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.entity.SpawnPlacements;
 
 import java.util.List;
 import java.util.Optional;
@@ -123,13 +122,6 @@ public class Content {
 
     public static final CrumbSupplier<DataComponentType<PyrocideLevel>> PYROCIDE_LEVEL = DataComponentsHelper.register("pyrocide_level", Optional.of(PyrocideLevel.CODEC), Optional.of(PyrocideLevel.STREAM_CODEC));
 
-    public static final DataMapType<Item, UpgradeCost> UPGRADE_COST_DATA = DataMapType.builder(
-                    ResourceLocation.fromNamespaceAndPath(MODID, "upgrade_cost"),
-                    Registries.ITEM,
-                    UpgradeCost.CODEC
-            )
-            .synced(UpgradeCost.CODEC, false)
-            .build();
 
     public static final TagKey<EntityType<?>> SLIMES = TagHelper.entityType("slimes");
     public static final TagKey<EntityType<?>> ELEMENTAL_SLIMES = TagHelper.entityType("elemental_slimes");
@@ -181,8 +173,7 @@ public class Content {
     public static final CrumbSupplier<StructureType<FireShrineStructure>> FIRE_SHRINE = StructureHelper.registerStructure("fire_shrine", () -> () -> FireShrineStructure.CODEC);
     public static final CrumbSupplier<StructurePieceType> FIRE_SHRINE_PIECE = StructureHelper.registerPiece("fire_shrine", () -> FireShrineStructure.FireShrinePiece::new);
 
-    public static void registerPotions(RegisterBrewingRecipesEvent event) {
-        var builder = event.getBuilder();
+    public static void registerPotions(PotionBrewing.Builder builder) {
         builder.addMix(Potions.AWKWARD, AIR_SLIME_BLOCK.get().asItem(), DOUBLE_JUMP_POTION.getHolder());
         builder.addMix(Potions.AWKWARD, WATER_SLIME_BLOCK.get().asItem(), WATER_ANTI_DEPTH_POTION.getHolder());
         builder.addMix(Potions.AWKWARD, EARTH_SLIME_BLOCK.get().asItem(), KNOCKBACK_POTION.getHolder());
@@ -217,11 +208,11 @@ public class Content {
         }
     }
 
-    public static void spawns(RegisterSpawnPlacementsEvent event) {
-        event.register(AIR_SLIME.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AirSlime::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(WATER_SLIME.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, WaterSlime::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(EARTH_SLIME.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EarthSlime::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(FLAME_SLIME.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.WORLD_SURFACE_WG, FlameSlime::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
+    public static void spawns() {
+        SpawnPlacements.register(AIR_SLIME.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AirSlime::checkSpawnRules);
+        SpawnPlacements.register(WATER_SLIME.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, WaterSlime::checkSpawnRules);
+        SpawnPlacements.register(EARTH_SLIME.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EarthSlime::checkSpawnRules);
+        SpawnPlacements.register(FLAME_SLIME.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.WORLD_SURFACE_WG, FlameSlime::checkSpawnRules);
     }
 
     private static CrumbSupplier<Block> registerSlimeBlock(String name, MapColor color) {

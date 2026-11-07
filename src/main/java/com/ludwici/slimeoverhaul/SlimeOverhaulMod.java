@@ -4,59 +4,31 @@ import com.ludwici.crumbslib.api.*;
 import com.ludwici.crumbslib.api.world.feature.FeatureHelper;
 import com.ludwici.slimeoverhaul.block.FireThickenerCauldronBlock;
 import com.ludwici.slimeoverhaul.config.Config;
-import com.ludwici.slimeoverhaul.data.PyrocideLevel;
-import com.ludwici.slimeoverhaul.effect.FieryFuryEffect;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
-import net.minecraft.ChatFormatting;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.core.cauldron.CauldronInteraction;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.level.Level;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.damagesource.DamageContainer;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
-import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
-import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
-import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
-
-import java.util.List;
+import net.minecraft.world.level.levelgen.GenerationStep;
 
 import static com.ludwici.slimeoverhaul.Content.*;
 
-@Mod(SlimeOverhaulMod.MODID)
-public class SlimeOverhaulMod {
+public final class SlimeOverhaulMod implements ModInitializer {
     public static final String MODID = "slimeoverhaul";
 
-    public SlimeOverhaulMod(IEventBus modEventBus, ModContainer modContainer) {
-        ModHelper.init(modEventBus, NeoForge.EVENT_BUS, MODID);
-
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    @Override
+    public void onInitialize() {
+        ModHelper.init(MODID);
+        Config.load();
 
         DataComponentsHelper.initBus();
         EntityHelper.initBus();
@@ -69,228 +41,25 @@ public class SlimeOverhaulMod {
         BlockEntityHelper.initBus();
         FeatureHelper.initBus();
 
-        modEventBus.addListener(Content::spawns);
-        modEventBus.addListener(SlimeOverhaulMod::FMLCommonSetup);
-        modEventBus.addListener(SlimeOverhaulMod::registerDataMapTypes);
+        Content.init();
+        Content.spawns();
+
+        EventHelper.addAttributeEvent(attributes -> {
+            attributes.put(AIR_SLIME.get(), BaseSlime.createMobAttributes().build());
+            attributes.put(WATER_SLIME.get(), BaseSlime.createMobAttributes().build());
+            attributes.put(EARTH_SLIME.get(), EarthSlime.createMobAttributes().build());
+            attributes.put(FLAME_SLIME.get(), BaseSlime.createMobAttributes().build());
+        });
 
         EventHelper.addBrewingRecipeEvent(Content::registerPotions);
         EventHelper.addAnvilUpdateEvent(Content::registerAnvilEvent);
-        EventHelper.addAttributeEvent(event -> {
-            event.put(AIR_SLIME.get(), BaseSlime.createMobAttributes().build());
-            event.put(WATER_SLIME.get(), BaseSlime.createMobAttributes().build());
-            event.put(EARTH_SLIME.get(), EarthSlime.createMobAttributes().build());
-            event.put(FLAME_SLIME.get(), BaseSlime.createMobAttributes().build());
-        });
 
-        Content.init();
-
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onKnock);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onInv);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTooltip);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onShieldBlock);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onTrade);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onSlimyBlockExecute);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onCrit);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onLivingDamagePre);
-        NeoForge.EVENT_BUS.addListener(SlimeOverhaulMod::onLivingDamagePost);
-    }
-
-    private static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
-        event.register(UPGRADE_COST_DATA);
-    }
-
-    private static void FMLCommonSetup(FMLCommonSetupEvent event) {
         FireThickenerCauldronBlock.THICKENER.map().put(PYROCIDE_DUST.get(), FireThickenerCauldronBlock.FILL_PYDOCIDE_DUST);
         CauldronInteraction.EMPTY.map().put(FIRE_SLIME_BALL.get(), FireThickenerCauldronBlock.FILL_FIRE_SLIME);
-    }
 
-    private static void onTrade(VillagerTradesEvent event) {
-        if (event.getType() == VillagerProfession.CARTOGRAPHER) {
-            var trades = event.getTrades();
-            trades.get(2).add((trader, random) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 8),
-                    new ItemStack(PATTERN_SLIME.get(), 1),
-                    12, 3, 0.05f
-            ));
-        }
-    }
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.CARTOGRAPHER, 3, trades -> trades.add((trader, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 8), new ItemStack(PATTERN_SLIME.get(), 1), 12, 3, 0.05f)));
 
-    private static void onTooltip(ItemTooltipEvent event) {
-        ItemStack item = event.getItemStack();
-        if (isShieldItem(item)) {
-            List<Component> tooltipComponents = event.getToolTip();
-            CustomData data = item.get(DataComponents.CUSTOM_DATA);
-            if (data != null) {
-                CompoundTag tag = data.copyTag();
-                int bounce = tag.getInt("bounce");
-                tooltipComponents.add(Component.translatable("slimeoverhaul.earth_power", bounce).withStyle(ChatFormatting.GRAY));
-            }
-        }
-    }
-
-    private static void onInv(AnvilRepairEvent event) {
-        ItemStack item = event.getOutput();
-        if (isShieldItem(item)) {
-            CustomData data = item.get(DataComponents.CUSTOM_DATA);
-            if (data != null) {
-                CompoundTag tag = data.copyTag();
-                if (tag.contains("bounce")) {
-                    var player = event.getEntity();
-                    if (player instanceof ServerPlayer serverPlayer) {
-                        var advancement = AdvancementHelper.getAdvancement(serverPlayer, "slimeoverhaul/earth_power");
-                        if (advancement != null) {
-                            serverPlayer.getAdvancements().award(advancement, "bounce_shield");
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // apply damage
-    private static void onLivingDamagePre(LivingDamageEvent.Pre event) {
-        Entity entity = event.getContainer().getSource().getEntity();
-
-        if (!(entity instanceof LivingEntity livingEntity)) {
-            return;
-        }
-
-        if (livingEntity.hasEffect(FIRE_FATIGUE.getHolder())) {
-            return;
-        }
-
-        ItemStack weapon = livingEntity.getWeaponItem();
-        PyrocideLevel pyrocideLevel = weapon.get(PYROCIDE_LEVEL.get());
-        if (pyrocideLevel == null) {
-            return;
-        }
-
-        Level level = livingEntity.level();
-
-        CrumbSupplier<MobEffect> effect = FieryFuryEffect.getEffect(livingEntity);
-        float addChance = level.getRandom().nextFloat();
-
-        if (addChance <= 0.5F) {
-            if (effect == null) {
-                livingEntity.addEffect(new MobEffectInstance(FIERY_FURY_EFFECT_I.getHolder(), 1200));
-                weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel.resetDamage());
-            } else {
-                CrumbSupplier<MobEffect> next = FieryFuryEffect.getNext(livingEntity);
-                if (next != null) {
-                    livingEntity.removeEffect(effect.getHolder());
-                    livingEntity.addEffect(new MobEffectInstance(next.getHolder(), 1200));
-                }
-            }
-
-            return;
-        }
-
-        if (pyrocideLevel.getDamage() == 0.0F) {
-            return;
-        }
-
-        if (FieryFuryEffect.hasEffect(livingEntity)) {
-            event.setNewDamage(event.getNewDamage() + pyrocideLevel.getDamage());
-            pyrocideLevel = new PyrocideLevel();
-            weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel);
-            FieryFuryEffect.removeEffect(livingEntity);
-            livingEntity.addEffect(new MobEffectInstance(FIRE_FATIGUE.getHolder(), 3600));
-        }
-    }
-
-    // store damage
-    private static void onLivingDamagePost(LivingDamageEvent.Post event) {
-        Entity entity = event.getSource().getEntity();
-
-        if (!(entity instanceof LivingEntity livingEntity)) {
-            return;
-        }
-
-        if (livingEntity.hasEffect(FIRE_FATIGUE.getHolder()) && !FieryFuryEffect.hasEffect(livingEntity)) {
-            return;
-        }
-
-        ItemStack weapon = livingEntity.getWeaponItem();
-        PyrocideLevel pyrocideLevel = weapon.get(PYROCIDE_LEVEL.get());
-        if (pyrocideLevel == null) {
-            return;
-        }
-
-        weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel.addDamage(event.getOriginalDamage() * pyrocideLevel.getDamageModifier()));
-    }
-
-    private static void onCrit(CriticalHitEvent event) {
-        if (!event.isCriticalHit()) {
-            return;
-        }
-        Player player = event.getEntity();
-        if (player.hasEffect(FIRE_FATIGUE.getHolder())) {
-            return;
-        }
-        ItemStack weapon = player.getWeaponItem();
-        PyrocideLevel pyrocideLevel = weapon.get(PYROCIDE_LEVEL.get());
-        if (pyrocideLevel == null) {
-            return;
-        }
-
-        weapon.set(PYROCIDE_LEVEL.get(), pyrocideLevel.levelUp());
-    }
-
-    private static void onShieldBlock(LivingShieldBlockEvent event) {
-        LivingEntity entity = event.getEntity();
-
-        ItemStack shield = entity.getItemInHand(entity.getUsedItemHand());
-
-        if (isShieldItem(shield)) {
-            checkShieldBounce(shield, event, entity);
-        }
-    }
-
-    private static void checkShieldBounce(ItemStack shield, LivingShieldBlockEvent event, LivingEntity entity) {
-        CustomData data = shield.get(DataComponents.CUSTOM_DATA);
-        if (data == null) {
-            return;
-        }
-
-        CompoundTag tag = data.copyTag();
-        if (!tag.contains("bounce")) {
-            return;
-        }
-
-        if (entity instanceof Player player && player.isCreative()) {
-            return;
-        }
-
-        int bounce = tag.getInt("bounce");
-        if (bounce <= 0) {
-            tag.remove("bounce");
-            shield.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-            return;
-        }
-
-        DamageContainer container = event.getDamageContainer();
-        DamageSource damageSource = container.getSource();
-        if (!damageSource.is(DamageTypes.THORNS) && damageSource.isDirect() && damageSource.getDirectEntity() instanceof LivingEntity attacker && attacker != entity) {
-            attacker.hurt(entity.damageSources().thorns(entity), container.getOriginalDamage());
-        }
-
-        bounce--;
-        if (bounce > 0) {
-            tag.putInt("bounce", bounce);
-        } else {
-            tag.remove("bounce");
-            if (entity instanceof Player player) {
-                player.sendSystemMessage(Component.translatable("slimeoverhaul.lost_earth_power"));
-            }
-        }
-
-        shield.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-    }
-
-    private static void onKnock(LivingKnockBackEvent event) {
-        if (event.getEntity().hasEffect(KNOCK_BACK_EFFECT.getHolder())) {
-            event.setCanceled(true);
-        }
+        BiomeModifications.addFeature(context -> context.hasTag(BiomeTags.IS_OVERWORLD), GenerationStep.Decoration.LOCAL_MODIFICATIONS, com.ludwici.slimeoverhaul.world.ModPacedFeatures.PYROCIDE_GEODE_PLACED_KEY);
     }
 
     public static void onSlimyBlockExecute(SlimyBlockExecute event) {
