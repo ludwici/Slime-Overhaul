@@ -7,6 +7,7 @@ import com.ludwici.slimeoverhaul.config.Config;
 import com.ludwici.slimeoverhaul.entity.custom.BaseSlime;
 import com.ludwici.slimeoverhaul.entity.custom.elementals.EarthSlime;
 import com.ludwici.slimeoverhaul.event.SlimyBlockExecute;
+import com.ludwici.slimeoverhaul.event.GameplayEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -43,6 +44,7 @@ public final class SlimeOverhaulMod implements ModInitializer {
 
         Content.init();
         Content.spawns();
+        GameplayEvents.init();
 
         EventHelper.addAttributeEvent(attributes -> {
             attributes.put(AIR_SLIME.get(), BaseSlime.createMobAttributes().build());

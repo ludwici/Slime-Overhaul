@@ -4,6 +4,7 @@
   "package": "com.ludwici.slimeoverhaul.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AnvilMenuMixin",
     "BaseFireBlockMixin",
     "ColoredFallingBlockMixin",
     "ItemEntityMixin",
