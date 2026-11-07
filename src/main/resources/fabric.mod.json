@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "slimeoverhaul",
+  "version": "${version}",
+  "name": "SlimeOverhaul",
+  "description": "New slimes, potions, blocks, items, advancement etc.",
+  "authors": [
+    "ludwici"
+  ],
+  "license": "All Rights Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.ludwici.slimeoverhaul.SlimeOverhaulMod"
+    ],
+    "client": [
+      "com.ludwici.slimeoverhaul.client.SlimeOverhaulModClient"
+    ]
+  },
+  "mixins": [
+    "slimeoverhaul.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "crumbslib": ">=1.0.76"
+  },
+  "suggests": {
+    "emi": "*",
+    "jei": "*"
+  }
+}

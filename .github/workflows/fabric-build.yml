@@ -1,0 +1,63 @@
+name: Fabric 1.21.1 Build
+
+on:
+  push:
+    branches:
+      - 1.21.1-fabric
+  pull_request:
+    branches:
+      - 1.21.1-fabric
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout SlimeOverhaul
+        uses: actions/checkout@v4
+        with:
+          path: slimeoverhaul
+
+      - name: Checkout Fabric CrumbsLib
+        uses: actions/checkout@v4
+        with:
+          repository: ludwici/CrumbsLib
+          ref: 1.21.1-fabric
+          path: CrumbsLib
+          token: ${{ secrets.CRUMBSLIB_READ_TOKEN }}
+          persist-credentials: false
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Publish Fabric CrumbsLib to Maven local
+        working-directory: CrumbsLib
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon publishToMavenLocal
+
+      - name: Build SlimeOverhaul
+        working-directory: slimeoverhaul
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon clean build --stacktrace
+
+      - name: Upload Fabric mod JAR
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: slimeoverhaul-fabric-1.21.1
+          path: |
+            slimeoverhaul/build/libs/*.jar
+            !slimeoverhaul/build/libs/*-sources.jar
+            !slimeoverhaul/build/libs/*-dev.jar
+          if-no-files-found: error
