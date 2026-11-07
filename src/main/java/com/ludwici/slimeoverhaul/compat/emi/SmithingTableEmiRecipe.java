@@ -2,6 +2,7 @@ package com.ludwici.slimeoverhaul.compat.emi;
 
 import com.ludwici.slimeoverhaul.data.PyrocideLevel;
 import com.ludwici.slimeoverhaul.datamap.UpgradeCost;
+import com.ludwici.slimeoverhaul.datamap.UpgradeCosts;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.render.EmiTexture;
@@ -19,7 +20,6 @@ import java.util.List;
 import java.util.Random;
 
 import static com.ludwici.slimeoverhaul.Content.PYROCIDE_LEVEL;
-import static com.ludwici.slimeoverhaul.Content.UPGRADE_COST_DATA;
 
 public class SmithingTableEmiRecipe extends BasicEmiRecipe {
     private final Random RANDOM = new Random();
@@ -38,8 +38,7 @@ public class SmithingTableEmiRecipe extends BasicEmiRecipe {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 62, 1);
 
         ItemStack template = inputs.getFirst().getEmiStacks().getFirst().getItemStack();
-        Holder<Item> holder = template.getItemHolder();
-        UpgradeCost data = holder.getData(UPGRADE_COST_DATA);
+        UpgradeCost data = UpgradeCosts.get(template);
         if (data == null) {
             return;
         }

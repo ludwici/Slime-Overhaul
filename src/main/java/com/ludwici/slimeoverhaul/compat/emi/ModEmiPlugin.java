@@ -45,7 +45,7 @@ public class ModEmiPlugin implements EmiPlugin {
                     EmiStack.of(s),
                     EmiStack.of(EARTH_SLIME_BALL.get()),
                     EmiStack.of(r),
-                    ResourceLocation.fromNamespaceAndPath(MODID, "/earth_power_shield")
+                    ResourceLocation.fromNamespaceAndPath(MODID, "earth_power_shield")
             );
 
             registry.addRecipe(recipe);
@@ -60,7 +60,7 @@ public class ModEmiPlugin implements EmiPlugin {
                 EmiStack.of(FIRE_TEMPLATE.get()),
                 EmiIngredient.of(PYROCIDE_UPGRADABLE_ITEMS_TAG),
                 EmiIngredient.of(PYROCIDE_UPGRADE_MATERIALS_TAG),
-                ResourceLocation.fromNamespaceAndPath(MODID, "/pyrocide_upgrade")
+                ResourceLocation.fromNamespaceAndPath(MODID, "pyrocide_upgrade")
         );
         registry.addRecipe(recipe);
     }

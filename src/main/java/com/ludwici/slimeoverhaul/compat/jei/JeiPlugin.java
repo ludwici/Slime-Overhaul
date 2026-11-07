@@ -42,7 +42,7 @@ public class JeiPlugin implements IModPlugin {
             results.add(r);
         });
 
-        IJeiAnvilRecipe recipe = vanillaRecipeFactory.createAnvilRecipe(shields, List.of(new ItemStack(EARTH_SLIME_BALL.getHolder())), results, ResourceLocation.fromNamespaceAndPath(MODID, ""));
+        IJeiAnvilRecipe recipe = vanillaRecipeFactory.createAnvilRecipe(shields, List.of(new ItemStack(EARTH_SLIME_BALL.get())), results, ResourceLocation.fromNamespaceAndPath(MODID, "earth_power_shield"));
         registration.addRecipes(RecipeTypes.ANVIL, List.of(recipe));
     }
 
