@@ -5,6 +5,8 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.phys.Vec3;
 
 public class AntiDepthEffect extends MobEffect {
@@ -33,7 +35,7 @@ public class AntiDepthEffect extends MobEffect {
     }
 
     protected boolean checkLiquid(LivingEntity livingEntity) {
-        return livingEntity.getEyeInFluidType() == fluid.getFluidType();
+        return livingEntity.isEyeInFluid(fluid == Fluids.WATER ? FluidTags.WATER : FluidTags.LAVA);
     }
 
     @Override

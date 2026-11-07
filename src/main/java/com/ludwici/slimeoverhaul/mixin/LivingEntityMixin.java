@@ -25,13 +25,13 @@ public abstract class LivingEntityMixin {
     @Unique
     private float slimeoverhaul$blockedDamage;
 
-    @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getFriction(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)F"))
-    private float handleFriction(BlockState instance, LevelReader levelReader, BlockPos blockPos, Entity entity) {
+    @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;getFriction()F"))
+    private float handleFriction(net.minecraft.world.level.block.Block instance) {
         LivingEntity livingEntity = (LivingEntity) (Object) this;
         if (livingEntity.hasEffect(SLIPPERY_EFFECT.getHolder())) {
             return 0.96f;
         }
-        return instance.getFriction(levelReader, blockPos, entity);
+        return instance.getFriction();
     }
 
     @ModifyVariable(method = "hurt", at = @At("HEAD"), argsOnly = true, ordinal = 0)

@@ -71,6 +71,10 @@ public final class Config {
         public boolean isFalse() {
             return !value;
         }
+
+        public boolean isTrue() {
+            return value;
+        }
     }
 
     public static final class IntegerValue {
